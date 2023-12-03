@@ -1,0 +1,14 @@
+import bpy
+
+# Get the active material from the active object
+active_mat = bpy.context.object.active_material
+
+# Loop through selected objects
+for obj in bpy.context.selected_objects:
+    if obj.type == 'MESH':
+        # Clear all material slots
+        for _ in range(len(obj.material_slots)):
+            bpy.context.view_layer.objects.active = obj
+            bpy.ops.object.material_slot_remove()
+        # Add a new material slot
+        obj.data.materials.append(active_mat)

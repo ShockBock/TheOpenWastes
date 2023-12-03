@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj1bptlit2qfs"]
+
+[ext_resource type="Script" path="res://scripts/building_placer.gd" id="1_boya3"]
+
+[node name="building_placer" type="Node3D"]
+script = ExtResource("1_boya3")

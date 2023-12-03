@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://dhiqr6owmwmmw"]
+
+[ext_resource type="Script" path="res://scripts/OpenWastes.gd" id="1_js0kv"]
+[ext_resource type="PackedScene" uid="uid://drynrvigqh8gp" path="res://Scenes/terrain.tscn" id="1_o1u8q"]
+[ext_resource type="PackedScene" uid="uid://ojmhaxt8075x" path="res://Scenes/player.tscn" id="2_motlk"]
+[ext_resource type="AudioStream" uid="uid://d2xt5my6431ni" path="res://Audio/Dark Ambient - Metaobsever.mp3" id="8_cgfvv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_af2t8"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_famkv"]
+sky_material = SubResource("ProceduralSkyMaterial_af2t8")
+
+[sub_resource type="Environment" id="Environment_351cq"]
+background_mode = 2
+sky = SubResource("Sky_famkv")
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.02
+volumetric_fog_albedo = Color(0.945098, 0.556863, 0.160784, 1)
+
+[node name="OpenWastes" type="Node3D"]
+script = ExtResource("1_js0kv")
+
+[node name="Terrain" parent="." instance=ExtResource("1_o1u8q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -250, 0, -250)
+noise_multiplier = 10.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_351cq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+light_color = Color(0.815686, 0.807843, 0.8, 1)
+shadow_enabled = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_cgfvv")
+autoplay = true
+
+[node name="Player" parent="." instance=ExtResource("2_motlk")]
