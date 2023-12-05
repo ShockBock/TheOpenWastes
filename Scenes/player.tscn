@@ -12,6 +12,7 @@ height = 1.8
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.128, 0)
+floor_max_angle = 0.872665
 script = ExtResource("1_6p5hj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
