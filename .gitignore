@@ -3,4 +3,4 @@
 *.blend1
 /addons/
 /Experimental/
-
+*.import

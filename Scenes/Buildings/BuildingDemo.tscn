@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b6xnncm3sxdn5"]
 
-[ext_resource type="PackedScene" uid="uid://bp3w61yint2ca" path="res://Models/BuildingDemo.blend" id="1_ppq5h"]
+[ext_resource type="PackedScene" uid="uid://bp3w61yint2ca" path="res://Experimental/Building_demo/BuildingDemo.blend" id="1_ppq5h"]
 
 [node name="Building001proto" type="Node3D"]
 
