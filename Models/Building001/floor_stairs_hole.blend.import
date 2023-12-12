@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bp3w61yint2ca"
-path="res://.godot/imported/BuildingDemo.blend-5bc9dc1a0c48aaaf49cf7e55ec9568f8.scn"
+uid="uid://dbsqyjbrhgisi"
+path="res://.godot/imported/floor_stairs_hole.blend-8d648901b6c142514043ee066853ccf5.scn"
 
 [deps]
 
-source_file="res://Models/BuildingDemo.blend"
-dest_files=["res://.godot/imported/BuildingDemo.blend-5bc9dc1a0c48aaaf49cf7e55ec9568f8.scn"]
+source_file="res://Models/Building001/floor_stairs_hole.blend"
+dest_files=["res://.godot/imported/floor_stairs_hole.blend-8d648901b6c142514043ee066853ccf5.scn"]
 
 [params]
 
