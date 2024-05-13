@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddutwl2n2yqes"]
+
+[ext_resource type="PackedScene" uid="uid://bu6splvib3oqj" path="res://Models/Building001/rubble_section_001.blend" id="1_fry0e"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="rubble_section_001" parent="." instance=ExtResource("1_fry0e")]

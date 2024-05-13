@@ -1,5 +1,9 @@
 extends Node3D
 @export var wall_section_height_metres : float = 3
+@export var roof_intact_global_probability : float = 0.25
+
+var number_of_storeys = randi_range(1, 7)
+var roof_intact_local : bool = randf() < roof_intact_global_probability
 var right_angle_rotation : float = PI
 
 var wall_section_local_positions : Array[Vector3] = [
@@ -24,13 +28,23 @@ var building_component_types_dictionary = {
 	"floor_top_002" : preload("res://Scenes/Buildings/Building001/001floor_top_002.tscn"),
 	"foundation" : preload("res://Scenes/Buildings/Building001/001foundation.tscn"),
 	"wall_blank" : preload("res://Scenes/Buildings/Building001/001wall_blank.tscn"),
+	"wall_blank_broken" : preload("res://Scenes/Buildings/Building001/001wall_blank_broken.tscn"),
 	"wall_two_doors" : preload("res://Scenes/Buildings/Building001/001wall_two_doors.tscn"),
 	"wall_windows_001" : preload("res://Scenes/Buildings/Building001/001wall_windows_001.tscn"),
+	"wall_windows_001_broken" : preload("res://Scenes/Buildings/Building001/001wall_windows_001_broken.tscn"),
 	"wall_windows_002" : preload("res://Scenes/Buildings/Building001/001wall_windows_002.tscn"),
+	"wall_windows_002_broken" : preload("res://Scenes/Buildings/Building001/001wall_windows_002_broken.tscn"),
 	"wall_windows_003" : preload("res://Scenes/Buildings/Building001/001wall_windows_003.tscn"),
+	"wall_windows_003_broken" : preload("res://Scenes/Buildings/Building001/001wall_windows_003_broken.tscn"),
 	"wall_windows_doors" : preload("res://Scenes/Buildings/Building001/001wall_windows_doors.tscn"),
 	"floor_top_wall_blocker_001" : preload("res://Scenes/Buildings/Building001/001floor_top_wall_blocker_001.tscn"),
+	"floor_top_wall_blocker_001_broken" : preload("res://Scenes/Buildings/Building001/001floor_top_wall_blocker_001_broken.tscn"),
 	"floor_top_wall_blocker_002" : preload("res://Scenes/Buildings/Building001/001floor_top_wall_blocker_002.tscn"),
+	"floor_top_wall_blocker_002_broken" : preload("res://Scenes/Buildings/Building001/001floor_top_wall_blocker_002_broken.tscn"),
+	"rubble_wall_blank" : preload("res://Scenes/Buildings/Building001/001rubble_wall_blank.tscn"),
+	"rubble_windows_001" : preload("res://Scenes/Buildings/Building001/001rubble_windows_001.tscn"),
+	"rubble_windows_002" : preload("res://Scenes/Buildings/Building001/001rubble_windows_002.tscn"),
+	"rubble_windows_003" : preload("res://Scenes/Buildings/Building001/001rubble_windows_003.tscn")
 	}
 # Determine which side of foundation will have outer steps
 var rotate_foundation = randi_range(0, 3)
@@ -38,25 +52,23 @@ var rotate_foundation = randi_range(0, 3)
 func _ready():
 	build_foundation_and_steps()
 	
-	# Put in the first story, with a door aligned to the steps
-	build_street_storey()
+	build_ground_level_external_walls()
 	
-	var number_of_storeys = randi_range(1, 7)
-	build_storeys(number_of_storeys)
+	build_remaining_external_walls()
 	
-	build_floors_and_roof(number_of_storeys)
+	build_floors()
 	
-	build_internal_stairs(number_of_storeys)
+	build_internal_stairs()
 	
-	build_internal_walls(number_of_storeys)
+	build_internal_walls()
 	
-	build_top_floor_stairwell(number_of_storeys)
+	choose_then_build_top_floor_stairwell()
 	
-	build_top_floor(number_of_storeys)
+	build_top_floor()
 	
-	build_roof(number_of_storeys)
+	build_roof()
 	
-	print("local coords: ", position, "; global coords: ", global_position)
+	# print("local coords: ", position, "; global coords: ", global_position)
 	
 func build_foundation_and_steps():
 	var foundation = building_component_types_dictionary["foundation"]
@@ -65,10 +77,10 @@ func build_foundation_and_steps():
 	foundation_instance.rotation.y += deg_to_rad(90 * rotate_foundation)
 	add_child(foundation_instance)
 
-func build_street_storey():
+func build_ground_level_external_walls():
 	for wall_section_count in wall_section_local_positions.size():
 		var wall_type_selection = randi_range(1, 5)
-		var wall_selection = null # …so that wall_selection can be used outside of the if-elif-else block
+		var wall_selection = null
 		if wall_type_selection == 1:
 			wall_selection = building_component_types_dictionary["wall_blank"]
 		elif wall_type_selection == 2:
@@ -111,11 +123,16 @@ func build_street_storey():
 			pass
 			
 		add_child(wall_selectioninstance) # insert in scene tree
-		
-func build_storeys(number_of_storeys):
-	for storey in number_of_storeys:
-		
-		# Calculate height on the y-axis for the current storey
+
+func build_remaining_external_walls():
+		for storey in number_of_storeys:
+			if storey == (number_of_storeys - 1):
+				build_top_storey(storey)
+			else:
+				build_intact_storey(storey)
+
+func build_intact_storey(storey):
+	# Calculate height on the y-axis for the current storey
 		var storey_base_height_metres = (storey + 1) * wall_section_height_metres # + 1 because of array indexing conventions
 
 		# Randomise wall type selection
@@ -156,22 +173,72 @@ func build_storeys(number_of_storeys):
 				pass
 			
 			add_child(wall_selectioninstance) # insert wall section in scene tree
-	
-func build_floors_and_roof(number_of_storeys):
-	for storey in number_of_storeys -1:
-		# Check to see if current storey is last in the stack and we need to place a roof rather than a floor
-		var floor_roof = null		
-		if storey == number_of_storeys:
-			floor_roof = building_component_types_dictionary["floor_roof"]
+
+func build_top_storey(storey):
+	if roof_intact_local == true:
+		build_intact_storey(storey)
+	else:
+		# Calculate height on the y-axis for the current storey
+		var storey_base_height_metres = (storey + 1) * wall_section_height_metres # + 1 because of array indexing conventions
+
+		# Randomise wall type selection
+		var wall_type_selection = randi_range(1, 4)
+		var wall_selection = null # …so that wall_selection can be used outside of the if-elif-else block
+		if wall_type_selection == 1:
+			wall_selection = building_component_types_dictionary["wall_blank_broken"]
+		elif wall_type_selection == 2:
+			wall_selection = building_component_types_dictionary["wall_windows_001_broken"]
+		elif wall_type_selection == 3:
+			wall_selection = building_component_types_dictionary["wall_windows_002_broken"]
 		else:
-			floor_roof = building_component_types_dictionary["floor_stairs_hole"]
+			wall_selection = building_component_types_dictionary["wall_windows_003_broken"]
 		
+		# Instantiate wall section, based on type selected
+		for wall_section_count in wall_section_local_positions.size():
+			var wall_selectioninstance = wall_selection.instantiate()
+			wall_selectioninstance.position = wall_section_local_positions[wall_section_count] # set coordinates based on wall section length and number of sections already placed
+			wall_selectioninstance.position.y = storey_base_height_metres
+			# rotate the two wall sections of the first side (technically redundant, here for readability)
+			if wall_section_count <= 1: # array indeces start at 0, don't forget!
+				wall_selectioninstance.rotation.y = 0
+			
+			# rotate the two wall sections of the second side
+			elif wall_section_count <= 3:
+				wall_selectioninstance.rotation.y += right_angle_rotation * 0.5
+			
+			# rotate the two wall sections of the third side
+			elif wall_section_count <= 5:
+				wall_selectioninstance.rotation.y += right_angle_rotation * 1
+			
+			# rotate the two wall sections of the fourth side
+			elif wall_section_count >= 6:
+				wall_selectioninstance.rotation.y += right_angle_rotation * 1.5
+			
+			# safety measure to catch potential loop bugs
+			else:
+				pass
+			
+			add_child(wall_selectioninstance) # insert wall section in scene tree
+	
+func build_floors():
+	for storey in number_of_storeys -1:
+		var floor_roof = building_component_types_dictionary["floor_stairs_hole"]
 		var floor_roof_instance = floor_roof.instantiate()
 		var floor_height_metres = ((storey + 1) * wall_section_height_metres)
 		floor_roof_instance.position.y = floor_height_metres
 		add_child(floor_roof_instance)
-		
-func build_internal_walls(number_of_storeys):
+
+func build_roof():
+	if roof_intact_local == false:
+		pass
+	else:
+		var floor_roof = building_component_types_dictionary["floor_roof"]
+		var floor_roof_instance = floor_roof.instantiate()
+		var floor_height_metres = ((number_of_storeys + 1) * wall_section_height_metres)
+		floor_roof_instance.position.y = floor_height_metres
+		add_child(floor_roof_instance)
+	
+func build_internal_walls():
 	for storey in number_of_storeys:
 		var wall_interior = building_component_types_dictionary["wall_interior"]
 		var wall_interior_instance = wall_interior.instantiate()
@@ -179,7 +246,7 @@ func build_internal_walls(number_of_storeys):
 		wall_interior_instance.position.y = floor_height_metres
 		add_child(wall_interior_instance)
 
-func build_internal_stairs(number_of_storeys):
+func build_internal_stairs():
 	for storey in number_of_storeys:
 		var internal_stairs = null
 		if storey ==  0:
@@ -195,20 +262,36 @@ func build_internal_stairs(number_of_storeys):
 		var floor_height_metres = storey * wall_section_height_metres
 		internal_stairs_instance.position.y = floor_height_metres
 		add_child(internal_stairs_instance)
-	
-func build_top_floor_stairwell(number_of_storeys):
+
+func choose_then_build_top_floor_stairwell():
+	if roof_intact_local == false:
+		build_top_floor_stairwell_broken()
+	else:
+		build_top_floor_stairwell_intact()
+
+func build_top_floor_stairwell_broken():
 	var top_floor_stairwell = null
 	if number_of_storeys % 2 == 0:
-		top_floor_stairwell = building_component_types_dictionary["floor_top_wall_blocker_001"]
-	
+		top_floor_stairwell = building_component_types_dictionary["floor_top_wall_blocker_001_broken"]
 	else:
-		top_floor_stairwell = building_component_types_dictionary["floor_top_wall_blocker_002"]
+		top_floor_stairwell = building_component_types_dictionary["floor_top_wall_blocker_002_broken"]
 		
 	var top_floor_stairwell_instance = top_floor_stairwell.instantiate()
 	top_floor_stairwell_instance.position.y = number_of_storeys * wall_section_height_metres
 	add_child(top_floor_stairwell_instance)
-	
-func build_top_floor(number_of_storeys):
+
+func build_top_floor_stairwell_intact():
+	var top_floor_stairwell = null
+	if number_of_storeys % 2 == 0:
+		top_floor_stairwell = building_component_types_dictionary["floor_top_wall_blocker_001_broken"]
+	else:
+		top_floor_stairwell = building_component_types_dictionary["floor_top_wall_blocker_002_broken"]
+		
+	var top_floor_stairwell_instance = top_floor_stairwell.instantiate()
+	top_floor_stairwell_instance.position.y = number_of_storeys * wall_section_height_metres
+	add_child(top_floor_stairwell_instance)
+
+func build_top_floor():
 	var top_floor = null
 	if number_of_storeys % 2 == 0:
 		top_floor = building_component_types_dictionary["floor_top_001"]
@@ -218,13 +301,7 @@ func build_top_floor(number_of_storeys):
 	var top_floor_height_metres = number_of_storeys * wall_section_height_metres
 	top_floor_instance.position.y = top_floor_height_metres
 	add_child(top_floor_instance)
-
-func build_roof(number_of_storeys):
-	var floor_roof = building_component_types_dictionary["floor_roof"]
-	var floor_roof_instance = floor_roof.instantiate()
-	var floor_height_metres = ((number_of_storeys + 1) * wall_section_height_metres)
-	floor_roof_instance.position.y = floor_height_metres
-	add_child(floor_roof_instance)
+	
 
 func _process(_delta):
 	pass

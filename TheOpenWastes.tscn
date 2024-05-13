@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/OpenWastes.gd" id="1_js0kv"]
 [ext_resource type="PackedScene" uid="uid://drynrvigqh8gp" path="res://Scenes/terrain.tscn" id="1_o1u8q"]
 [ext_resource type="PackedScene" uid="uid://ojmhaxt8075x" path="res://Scenes/player.tscn" id="2_motlk"]
-[ext_resource type="AudioStream" uid="uid://d2xt5my6431ni" path="res://Audio/Dark Ambient - Metaobsever.mp3" id="8_cgfvv"]
+[ext_resource type="AudioStream" uid="uid://c8v40y43qo2uv" path="res://Audio/Post Apocalyptic Ambient - SPACE DRIFTER.mp3" id="3_g81af"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_af2t8"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -37,7 +37,8 @@ light_color = Color(0.815686, 0.807843, 0.8, 1)
 shadow_enabled = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("8_cgfvv")
+stream = ExtResource("3_g81af")
+volume_db = -20.0
 autoplay = true
 
 [node name="Player" parent="." instance=ExtResource("2_motlk")]
