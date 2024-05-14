@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c8v40y43qo2uv"
+path="res://.godot/imported/Post Apocalyptic Ambient - SPACE DRIFTER.mp3-27fa331bdbddb1650b7d15b2af29ad98.mp3str"
+
+[deps]
+
+source_file="res://Audio/Post Apocalyptic Ambient - SPACE DRIFTER.mp3"
+dest_files=["res://.godot/imported/Post Apocalyptic Ambient - SPACE DRIFTER.mp3-27fa331bdbddb1650b7d15b2af29ad98.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
