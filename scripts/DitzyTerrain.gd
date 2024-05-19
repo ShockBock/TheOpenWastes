@@ -1,15 +1,20 @@
-@tool
+# Retired: used to preview terrain in editor
+# @tool
+
 extends Node3D
 
-@export var generate_mesh_button : bool:
-	set(val):
-		generate_terrain()
+# Check-box boolean to generate/update terrain in editor, enabled by @tool
+#@export var generate_mesh_button : bool:
+	#set(val):
+		#generate_terrain()
 
 @export var size : int = 64
 @export var subdivide : int = 63
 @export var amplitude : int = 5
 
 @export var noise : FastNoiseLite = FastNoiseLite.new()
+
+signal landscape_complete
 
 func _ready():
 	generate_terrain()
@@ -38,8 +43,14 @@ func generate_terrain():
 	surface_tool.create_from(array_mesh,0)
 	surface_tool.generate_normals()
 	
-	$MeshInstance3D.mesh = surface_tool.commit()
-	$CollisionShape3D.shape = array_mesh.create_trimesh_shape()
+	$DitzyTerrain/MeshInstance3D.mesh = surface_tool.commit()
+	$DitzyTerrain/CollisionShape3D.shape = array_mesh.create_trimesh_shape()
 	
-# Updated for Godot 4.x from "Procedural Terrain Generation: Displacement & Collisions"
+	# Give the $DitzyTerrain/CollisionShape3D time to instantiate the collision mesh before placing buildings
+	call_deferred("_emit_landscape_complete")
+
+func _emit_landscape_complete():
+	emit_signal("landscape_complete")
+	
+# Based on "Procedural Terrain Generation: Displacement & Collisions"
 # by DitzyNinja's Godojo, at https://www.youtube.com/watch?v=OUnJEaatl2Q
