@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://scripts/DitzyTerrain.gd" id="2_4jivq"]
 [ext_resource type="Shader" path="res://shaders/terrain.gdshader" id="3_t5d5q"]
 [ext_resource type="Texture2D" uid="uid://cuqmjg1d2ndoj" path="res://images/Textures/Ground051/Ground051_1K-JPG_Color.jpg" id="4_g1s4m"]
+[ext_resource type="Texture2D" uid="uid://8csxd3i4nybc" path="res://images/Textures/Ground051/Ground051_1K-JPG_NormalGL.jpg" id="4_irnmg"]
 [ext_resource type="Texture2D" uid="uid://xkmpqpkom4hy" path="res://images/Textures/Rock033/Rock033_1K-JPG_Color.jpg" id="5_kbmck"]
-[ext_resource type="Texture2D" uid="uid://cvcog4qsw1age" path="res://images/Textures/Ground051/Ground051_1K-JPG_NormalDX.jpg" id="5_l1hv6"]
 [ext_resource type="Texture2D" uid="uid://cohssvbgi3x7g" path="res://images/Textures/Ground051/Ground051_1K-JPG_Roughness.jpg" id="6_bmcmy"]
-[ext_resource type="Texture2D" uid="uid://dj6j6ltvdx85v" path="res://images/Textures/Rock033/Rock033_1K-JPG_NormalDX.jpg" id="8_sdbnv"]
+[ext_resource type="Texture2D" uid="uid://dy4xe1jxnaflt" path="res://images/Textures/Rock033/Rock033_1K-JPG_NormalGL.jpg" id="7_uhg2p"]
 [ext_resource type="Texture2D" uid="uid://dvusb7mw6fga7" path="res://images/Textures/Rock033/Rock033_1K-JPG_Roughness.jpg" id="9_pafr3"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_0xrqh"]
@@ -23,10 +23,10 @@ shader_parameter/max_height = 10.0
 shader_parameter/earth_texture_scale = 3.518
 shader_parameter/rock_texture_scale = 6.7
 shader_parameter/earth_albedo_image = ExtResource("4_g1s4m")
-shader_parameter/earth_normal_image = ExtResource("5_l1hv6")
+shader_parameter/earth_normal_image = ExtResource("4_irnmg")
 shader_parameter/earth_roughness_image = ExtResource("6_bmcmy")
 shader_parameter/rock_albedo_image = ExtResource("5_kbmck")
-shader_parameter/rock_normal_image = ExtResource("8_sdbnv")
+shader_parameter/rock_normal_image = ExtResource("7_uhg2p")
 shader_parameter/rock_roughness_image = ExtResource("9_pafr3")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_1k1wb"]
