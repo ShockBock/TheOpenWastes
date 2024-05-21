@@ -43,8 +43,8 @@ func generate_terrain():
 	surface_tool.create_from(array_mesh,0)
 	surface_tool.generate_normals()
 	
-	$DitzyTerrain/MeshInstance3D.mesh = surface_tool.commit()
-	$DitzyTerrain/CollisionShape3D.shape = array_mesh.create_trimesh_shape()
+	$Terrain/MeshInstance3D.mesh = surface_tool.commit()
+	$Terrain/CollisionShape3D.shape = array_mesh.create_trimesh_shape()
 	
 	# Give the $DitzyTerrain/CollisionShape3D time to instantiate the collision mesh before placing buildings
 	call_deferred("_emit_landscape_complete")

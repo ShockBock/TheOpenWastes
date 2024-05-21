@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://ojmhaxt8075x" path="res://Scenes/player.tscn" id="2_motlk"]
 [ext_resource type="AudioStream" uid="uid://c8v40y43qo2uv" path="res://Audio/Post Apocalyptic Ambient - SPACE DRIFTER.mp3" id="3_g81af"]
 [ext_resource type="Script" path="res://scripts/building_placer.gd" id="3_vj1hu"]
-[ext_resource type="PackedScene" uid="uid://dfciq53er7gmf" path="res://Scenes/DitzyTerrain.tscn" id="4_mlopx"]
+[ext_resource type="PackedScene" uid="uid://dfciq53er7gmf" path="res://Scenes/terrain.tscn" id="4_mlopx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_af2t8"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -23,7 +23,7 @@ volumetric_fog_albedo = Color(0.945098, 0.556863, 0.160784, 1)
 
 [node name="OpenWastes" type="Node3D"]
 
-[node name="DitzyTerrain" parent="." instance=ExtResource("4_mlopx")]
+[node name="Terrain" parent="." instance=ExtResource("4_mlopx")]
 amplitude = 2
 
 [node name="BuildingPlacer" type="Node3D" parent="."]
@@ -47,4 +47,4 @@ autoplay = true
 [node name="Player" parent="." instance=ExtResource("2_motlk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 8, 8)
 
-[connection signal="landscape_complete" from="DitzyTerrain" to="BuildingPlacer" method="_on_ditzy_terrain_landscape_complete"]
+[connection signal="landscape_complete" from="Terrain" to="BuildingPlacer" method="_on_ditzy_terrain_landscape_complete"]
