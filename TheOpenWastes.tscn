@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://dhiqr6owmwmmw"]
 
-[ext_resource type="Script" path="res://scripts/OpenWastes.gd" id="1_js0kv"]
-[ext_resource type="PackedScene" uid="uid://drynrvigqh8gp" path="res://Scenes/terrain.tscn" id="1_o1u8q"]
 [ext_resource type="PackedScene" uid="uid://ojmhaxt8075x" path="res://Scenes/player.tscn" id="2_motlk"]
 [ext_resource type="AudioStream" uid="uid://c8v40y43qo2uv" path="res://Audio/Post Apocalyptic Ambient - SPACE DRIFTER.mp3" id="3_g81af"]
+[ext_resource type="Script" path="res://scripts/building_placer.gd" id="3_vj1hu"]
+[ext_resource type="PackedScene" uid="uid://dfciq53er7gmf" path="res://Scenes/terrain.tscn" id="4_mlopx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_af2t8"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -22,11 +22,14 @@ volumetric_fog_density = 0.02
 volumetric_fog_albedo = Color(0.945098, 0.556863, 0.160784, 1)
 
 [node name="OpenWastes" type="Node3D"]
-script = ExtResource("1_js0kv")
 
-[node name="Terrain" parent="." instance=ExtResource("1_o1u8q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -250, 0, -250)
-noise_multiplier = 10.0
+[node name="Terrain" parent="." instance=ExtResource("4_mlopx")]
+amplitude = 2
+
+[node name="BuildingPlacer" type="Node3D" parent="."]
+script = ExtResource("3_vj1hu")
+max_number_buildings_on_x_axis = 12
+max_number_buildings_on_z_axis = 12
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_351cq")
@@ -42,3 +45,6 @@ volume_db = -20.0
 autoplay = true
 
 [node name="Player" parent="." instance=ExtResource("2_motlk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 8, 8)
+
+[connection signal="landscape_complete" from="Terrain" to="BuildingPlacer" method="_on_ditzy_terrain_landscape_complete"]

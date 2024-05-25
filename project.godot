@@ -16,10 +16,6 @@ run/main_scene="res://TheOpenWastes.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://images/icon.png"
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/zylann.hterrain/plugin.cfg")
-
 [filesystem]
 
 import/blender/enabled.android=true
