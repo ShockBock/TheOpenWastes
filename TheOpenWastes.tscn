@@ -24,7 +24,7 @@ volumetric_fog_albedo = Color(0.945098, 0.556863, 0.160784, 1)
 [node name="OpenWastes" type="Node3D"]
 
 [node name="Terrain" parent="." instance=ExtResource("4_mlopx")]
-amplitude = 2
+amplitude = 20
 
 [node name="BuildingPlacer" type="Node3D" parent="."]
 script = ExtResource("3_vj1hu")
@@ -46,5 +46,6 @@ autoplay = true
 
 [node name="Player" parent="." instance=ExtResource("2_motlk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 8, 8)
+visible = false
 
 [connection signal="landscape_complete" from="Terrain" to="BuildingPlacer" method="_on_ditzy_terrain_landscape_complete"]
