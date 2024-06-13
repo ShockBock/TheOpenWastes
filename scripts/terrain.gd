@@ -1,5 +1,5 @@
 # Retired: used to preview terrain in editor
-# @tool
+#@tool
 
 extends Node3D
 
@@ -13,6 +13,9 @@ extends Node3D
 @export var amplitude : int = 5
 
 @export var noise : FastNoiseLite = FastNoiseLite.new()
+
+@onready var mesh_instance_3d = %MeshInstance3D
+@onready var collision_shape_3d = %CollisionShape3D
 
 signal landscape_complete
 
@@ -43,11 +46,11 @@ func generate_terrain():
 	surface_tool.create_from(array_mesh,0)
 	surface_tool.generate_normals()
 	
-	$Terrain/MeshInstance3D.mesh = surface_tool.commit()
-	$Terrain/CollisionShape3D.shape = array_mesh.create_trimesh_shape()
+	mesh_instance_3d.mesh = surface_tool.commit()
+	collision_shape_3d.shape = array_mesh.create_trimesh_shape()
 	
 	# Give the $DitzyTerrain/CollisionShape3D time to instantiate the collision mesh before placing buildings
-	call_deferred("_emit_landscape_complete")
+	_emit_landscape_complete.call_deferred()
 
 func _emit_landscape_complete():
 	emit_signal("landscape_complete")
