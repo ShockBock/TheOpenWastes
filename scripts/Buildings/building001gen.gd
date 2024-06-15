@@ -1,10 +1,17 @@
+@tool
+
 extends Node3D
-@export var wall_section_height_metres : float = 3
 @export var roof_intact_global_probability : float = 0.25
 
+@export var generate_mesh_button : bool:
+	set(val):
+		_ready()
+
+var wall_section_height_metres : float = 3
 var number_of_storeys = randi_range(1, 7)
 var roof_intact_local : bool = randf() < roof_intact_global_probability
-var right_angle_rotation : float = PI
+var right_angle_rotation : float = PI/2
+var rotate_foundation = randi_range(0, 3) # Determine which side of foundation will have outer steps
 
 var wall_section_local_positions : Array[Vector3] = [
 	Vector3(4, 0, -4),
@@ -17,7 +24,7 @@ var wall_section_local_positions : Array[Vector3] = [
 	Vector3(4, 0, 0),
 	]
 	
-var building_component_types_dictionary = {
+var building_component_dictionary = {
 	"floor_stairs_hole" : preload("res://Scenes/Buildings/Building001/001floor_stairs_hole.tscn"),
 	"wall_interior" : preload("res://Scenes/Buildings/Building001/001wall_interior.tscn"),
 	"stairs_ground_floor" : preload("res://Scenes/Buildings/Building001/001stairs_002_ground_floor.tscn"),
@@ -46,8 +53,16 @@ var building_component_types_dictionary = {
 	"rubble_windows_002" : preload("res://Scenes/Buildings/Building001/001rubble_windows_002.tscn"),
 	"rubble_windows_003" : preload("res://Scenes/Buildings/Building001/001rubble_windows_003.tscn")
 	}
-# Determine which side of foundation will have outer steps
-var rotate_foundation = randi_range(0, 3)
+
+var building_navmesh_dicationary = {
+	"foundation_floor_navmesh" : preload("res://Scenes/Buildings/Building001/001Navmeshes/001foundation_floor_navmesh.tscn"),
+	"foundation_stairs_navmesh" : preload("res://Scenes/Buildings/Building001/001Navmeshes/001foundation_stairs_navmesh.tscn"),
+	"floor_stairs_hole_navmesh" : preload("res://Scenes/Buildings/Building001/001Navmeshes/001floor_stairs_hole_navmesh.tscn"),
+	"stairs_001_navmesh" : preload("res://Scenes/Buildings/Building001/001Navmeshes/001stairs_001_navmesh.tscn"),
+	"stairs_002_navmesh" : preload("res://Scenes/Buildings/Building001/001Navmeshes/001stairs_002_navmesh.tscn"),
+	"floor_top_001_navmesh" : preload("res://Scenes/Buildings/Building001/001Navmeshes/001floor_top_001_navmesh.tscn"),
+	"floor_top_002_navmesh" : preload("res://Scenes/Buildings/Building001/001Navmeshes/001floor_top_002_navmesh.tscn")
+	}
 
 func _ready():
 	build_foundation_and_steps()
@@ -58,49 +73,55 @@ func _ready():
 	
 	build_floors()
 	
-	build_internal_stairs()
+	build_internal_stairwell()
 	
 	build_internal_walls()
 	
-	choose_then_build_top_floor_stairwell()
+	build_broken_or_intact_top_floor_stairwell()
 	
 	build_top_floor()
 	
 	build_roof()
 	
-	# print("local coords: ", position, "; global coords: ", global_position)
-	
 func build_foundation_and_steps():
-	var foundation = building_component_types_dictionary["foundation"]
+	var foundation = building_component_dictionary["foundation"]
 	var foundation_instance = foundation.instantiate()
-	foundation_instance.position.y = -10
-	foundation_instance.rotation.y += deg_to_rad(90 * rotate_foundation)
+	foundation_instance.rotation.y += right_angle_rotation * rotate_foundation
 	add_child(foundation_instance)
+	build_foundation_and_steps_navmeshes()
+
+func build_foundation_and_steps_navmeshes():
+	var foundation_stairs_navmesh = building_navmesh_dicationary["foundation_stairs_navmesh"].instantiate()
+	foundation_stairs_navmesh.rotation.y += right_angle_rotation * rotate_foundation
+	add_child(foundation_stairs_navmesh)
+	
+	var foundation_floor_navmesh = building_navmesh_dicationary["foundation_floor_navmesh"].instantiate()
+	add_child(foundation_floor_navmesh)
 
 func build_ground_level_external_walls():
 	for wall_section_count in wall_section_local_positions.size():
 		var wall_type_selection = randi_range(1, 5)
 		var wall_selection = null
 		if wall_type_selection == 1:
-			wall_selection = building_component_types_dictionary["wall_blank"]
+			wall_selection = building_component_dictionary["wall_blank"]
 		elif wall_type_selection == 2:
-			wall_selection = building_component_types_dictionary["wall_windows_001"]
+			wall_selection = building_component_dictionary["wall_windows_001"]
 		elif wall_type_selection == 3:
-			wall_selection = building_component_types_dictionary["wall_windows_002"]
+			wall_selection = building_component_dictionary["wall_windows_002"]
 		elif wall_type_selection == 4:
-			wall_selection = building_component_types_dictionary["wall_windows_003"]
+			wall_selection = building_component_dictionary["wall_windows_003"]
 		else:
-			wall_selection = building_component_types_dictionary["wall_two_doors"]
+			wall_selection = building_component_dictionary["wall_two_doors"]
 		
 		# Over-ride the choice of wall type if the current section coincides with the external stairs
 		if rotate_foundation == 0 and wall_section_count == 1:
-			wall_selection = building_component_types_dictionary["wall_windows_doors"]
+			wall_selection = building_component_dictionary["wall_windows_doors"]
 		elif rotate_foundation == 1 and wall_section_count == 3:
-			wall_selection = building_component_types_dictionary["wall_windows_doors"]
+			wall_selection = building_component_dictionary["wall_windows_doors"]
 		elif rotate_foundation == 2 and wall_section_count == 5:
-			wall_selection = building_component_types_dictionary["wall_windows_doors"]
+			wall_selection = building_component_dictionary["wall_windows_doors"]
 		elif rotate_foundation == 3 and wall_section_count == 7:
-			wall_selection = building_component_types_dictionary["wall_windows_doors"]
+			wall_selection = building_component_dictionary["wall_windows_doors"]
 		else:
 			pass
 		
@@ -111,13 +132,13 @@ func build_ground_level_external_walls():
 			wall_selectioninstance.rotation.y = 0
 		# rotate the two wall sections of the second side
 		elif wall_section_count <= 3:
-			wall_selectioninstance.rotation.y += right_angle_rotation * 0.5
+			wall_selectioninstance.rotation.y += right_angle_rotation
 		# rotate the two wall sections of the third side
 		elif wall_section_count <= 5:
-			wall_selectioninstance.rotation.y += right_angle_rotation * 1
+			wall_selectioninstance.rotation.y += right_angle_rotation * 2
 		# rotate the two wall sections of the fourth side
 		elif wall_section_count >= 6:
-			wall_selectioninstance.rotation.y += right_angle_rotation * 1.5
+			wall_selectioninstance.rotation.y += right_angle_rotation * 3
 		# safety measure to catch potential loop bugs
 		else:
 			pass
@@ -139,13 +160,13 @@ func build_intact_storey(storey):
 		var wall_type_selection = randi_range(1, 4)
 		var wall_selection = null # …so that wall_selection can be used outside of the if-elif-else block
 		if wall_type_selection == 1:
-			wall_selection = building_component_types_dictionary["wall_blank"]
+			wall_selection = building_component_dictionary["wall_blank"]
 		elif wall_type_selection == 2:
-			wall_selection = building_component_types_dictionary["wall_windows_001"]
+			wall_selection = building_component_dictionary["wall_windows_001"]
 		elif wall_type_selection == 3:
-			wall_selection = building_component_types_dictionary["wall_windows_002"]
+			wall_selection = building_component_dictionary["wall_windows_002"]
 		else:
-			wall_selection = building_component_types_dictionary["wall_windows_003"]
+			wall_selection = building_component_dictionary["wall_windows_003"]
 		
 		# Instantiate wall section, based on type selected
 		for wall_section_count in wall_section_local_positions.size():
@@ -158,15 +179,15 @@ func build_intact_storey(storey):
 			
 			# rotate the two wall sections of the second side
 			elif wall_section_count <= 3:
-				wall_selectioninstance.rotation.y += right_angle_rotation * 0.5
+				wall_selectioninstance.rotation.y += right_angle_rotation
 			
 			# rotate the two wall sections of the third side
 			elif wall_section_count <= 5:
-				wall_selectioninstance.rotation.y += right_angle_rotation * 1
+				wall_selectioninstance.rotation.y += right_angle_rotation * 2
 			
 			# rotate the two wall sections of the fourth side
 			elif wall_section_count >= 6:
-				wall_selectioninstance.rotation.y += right_angle_rotation * 1.5
+				wall_selectioninstance.rotation.y += right_angle_rotation * 3
 			
 			# safety measure to catch potential loop bugs
 			else:
@@ -185,13 +206,13 @@ func build_top_storey(storey):
 		var wall_type_selection = randi_range(1, 4)
 		var wall_selection = null # …so that wall_selection can be used outside of the if-elif-else block
 		if wall_type_selection == 1:
-			wall_selection = building_component_types_dictionary["wall_blank_broken"]
+			wall_selection = building_component_dictionary["wall_blank_broken"]
 		elif wall_type_selection == 2:
-			wall_selection = building_component_types_dictionary["wall_windows_001_broken"]
+			wall_selection = building_component_dictionary["wall_windows_001_broken"]
 		elif wall_type_selection == 3:
-			wall_selection = building_component_types_dictionary["wall_windows_002_broken"]
+			wall_selection = building_component_dictionary["wall_windows_002_broken"]
 		else:
-			wall_selection = building_component_types_dictionary["wall_windows_003_broken"]
+			wall_selection = building_component_dictionary["wall_windows_003_broken"]
 		
 		# Instantiate wall section, based on type selected
 		for wall_section_count in wall_section_local_positions.size():
@@ -204,15 +225,15 @@ func build_top_storey(storey):
 			
 			# rotate the two wall sections of the second side
 			elif wall_section_count <= 3:
-				wall_selectioninstance.rotation.y += right_angle_rotation * 0.5
+				wall_selectioninstance.rotation.y += right_angle_rotation
 			
 			# rotate the two wall sections of the third side
 			elif wall_section_count <= 5:
-				wall_selectioninstance.rotation.y += right_angle_rotation * 1
+				wall_selectioninstance.rotation.y += right_angle_rotation * 2
 			
 			# rotate the two wall sections of the fourth side
 			elif wall_section_count >= 6:
-				wall_selectioninstance.rotation.y += right_angle_rotation * 1.5
+				wall_selectioninstance.rotation.y += right_angle_rotation * 3
 			
 			# safety measure to catch potential loop bugs
 			else:
@@ -222,39 +243,49 @@ func build_top_storey(storey):
 	
 func build_floors():
 	for storey in number_of_storeys -1:
-		var floor_roof = building_component_types_dictionary["floor_stairs_hole"]
+		var floor_roof = building_component_dictionary["floor_stairs_hole"]
 		var floor_roof_instance = floor_roof.instantiate()
 		var floor_height_metres = ((storey + 1) * wall_section_height_metres)
 		floor_roof_instance.position.y = floor_height_metres
 		add_child(floor_roof_instance)
+		build_floors_navmeshes(floor_height_metres)
+
+func build_floors_navmeshes(floor_height_metres):
+	var floor_stairs_hole_navmesh = building_navmesh_dicationary["floor_stairs_hole_navmesh"].instantiate()
+	floor_stairs_hole_navmesh.position.y = floor_height_metres
+	add_child(floor_stairs_hole_navmesh)
+	pass
 
 func build_roof():
 	if roof_intact_local == false:
 		pass
 	else:
-		var floor_roof = building_component_types_dictionary["floor_roof"]
+		var floor_roof = building_component_dictionary["floor_roof"]
 		var floor_roof_instance = floor_roof.instantiate()
 		var floor_height_metres = ((number_of_storeys + 1) * wall_section_height_metres)
 		floor_roof_instance.position.y = floor_height_metres
 		add_child(floor_roof_instance)
-	
+
 func build_internal_walls():
 	for storey in number_of_storeys:
-		var wall_interior = building_component_types_dictionary["wall_interior"]
+		var wall_interior = building_component_dictionary["wall_interior"]
 		var wall_interior_instance = wall_interior.instantiate()
 		var floor_height_metres = storey * wall_section_height_metres
 		wall_interior_instance.position.y = floor_height_metres
 		add_child(wall_interior_instance)
 
-func build_internal_stairs():
+func build_internal_stairwell():
 	for storey in number_of_storeys:
 		var internal_stairs = null
 		if storey ==  0:
-			internal_stairs = building_component_types_dictionary["stairs_ground_floor"]
+			internal_stairs = building_component_dictionary["stairs_ground_floor"]
+			build_internal_stairwell_storey_section_navmesh(storey)
 		if storey > 0 && storey % 2 == 0:
-			internal_stairs = building_component_types_dictionary["stairs_002"]
+			internal_stairs = building_component_dictionary["stairs_002"]
+			build_internal_stairwell_storey_section_navmesh(storey)
 		if storey > 0 && storey % 2 != 0:
-			internal_stairs = building_component_types_dictionary["stairs_001"]
+			internal_stairs = building_component_dictionary["stairs_001"]
+			build_internal_stairwell_storey_section_navmesh(storey)
 		else:
 			pass
 		
@@ -263,7 +294,23 @@ func build_internal_stairs():
 		internal_stairs_instance.position.y = floor_height_metres
 		add_child(internal_stairs_instance)
 
-func choose_then_build_top_floor_stairwell():
+func build_internal_stairwell_storey_section_navmesh(storey):
+	var internal_stairs_navmesh = null
+	if storey ==  0:
+		internal_stairs_navmesh = building_navmesh_dicationary["stairs_002_navmesh"]
+	if storey > 0 && storey % 2 == 0:
+		internal_stairs_navmesh = building_navmesh_dicationary["stairs_002_navmesh"]
+	if storey > 0 && storey % 2 != 0:
+		internal_stairs_navmesh = building_navmesh_dicationary["stairs_001_navmesh"]
+	else:
+		pass
+	
+	var internal_stairs_navmesh_instance = internal_stairs_navmesh.instantiate()
+	var floor_height_metres = storey * wall_section_height_metres
+	internal_stairs_navmesh_instance.position.y = floor_height_metres
+	add_child(internal_stairs_navmesh_instance)
+
+func build_broken_or_intact_top_floor_stairwell():
 	if roof_intact_local == false:
 		build_top_floor_stairwell_broken()
 	else:
@@ -272,10 +319,10 @@ func choose_then_build_top_floor_stairwell():
 func build_top_floor_stairwell_broken():
 	var top_floor_stairwell = null
 	if number_of_storeys % 2 == 0:
-		top_floor_stairwell = building_component_types_dictionary["floor_top_wall_blocker_001_broken"]
+		top_floor_stairwell = building_component_dictionary["floor_top_wall_blocker_001_broken"]
 	else:
-		top_floor_stairwell = building_component_types_dictionary["floor_top_wall_blocker_002_broken"]
-		
+		top_floor_stairwell = building_component_dictionary["floor_top_wall_blocker_002_broken"]
+	
 	var top_floor_stairwell_instance = top_floor_stairwell.instantiate()
 	top_floor_stairwell_instance.position.y = number_of_storeys * wall_section_height_metres
 	add_child(top_floor_stairwell_instance)
@@ -283,10 +330,10 @@ func build_top_floor_stairwell_broken():
 func build_top_floor_stairwell_intact():
 	var top_floor_stairwell = null
 	if number_of_storeys % 2 == 0:
-		top_floor_stairwell = building_component_types_dictionary["floor_top_wall_blocker_001_broken"]
+		top_floor_stairwell = building_component_dictionary["floor_top_wall_blocker_001_broken"]
 	else:
-		top_floor_stairwell = building_component_types_dictionary["floor_top_wall_blocker_002_broken"]
-		
+		top_floor_stairwell = building_component_dictionary["floor_top_wall_blocker_002_broken"]
+	
 	var top_floor_stairwell_instance = top_floor_stairwell.instantiate()
 	top_floor_stairwell_instance.position.y = number_of_storeys * wall_section_height_metres
 	add_child(top_floor_stairwell_instance)
@@ -294,14 +341,27 @@ func build_top_floor_stairwell_intact():
 func build_top_floor():
 	var top_floor = null
 	if number_of_storeys % 2 == 0:
-		top_floor = building_component_types_dictionary["floor_top_001"]
+		top_floor = building_component_dictionary["floor_top_001"]
 	else:
-		top_floor = building_component_types_dictionary["floor_top_002"]
+		top_floor = building_component_dictionary["floor_top_002"]
+	
 	var top_floor_instance = top_floor.instantiate()
 	var top_floor_height_metres = number_of_storeys * wall_section_height_metres
 	top_floor_instance.position.y = top_floor_height_metres
 	add_child(top_floor_instance)
 	
+	build_top_floor_navmesh(top_floor_height_metres)
+
+func build_top_floor_navmesh(top_floor_height_metres):
+	var top_floor_navmesh = null
+	if number_of_storeys % 2 == 0:
+		top_floor_navmesh = building_navmesh_dicationary["floor_top_001_navmesh"]
+	else:
+		top_floor_navmesh = building_navmesh_dicationary["floor_top_002_navmesh"]
+	
+	var top_floor_navmesh_instance = top_floor_navmesh.instantiate()
+	top_floor_navmesh_instance.position.y = top_floor_height_metres
+	add_child(top_floor_navmesh_instance)
 
 func _process(_delta):
 	pass
