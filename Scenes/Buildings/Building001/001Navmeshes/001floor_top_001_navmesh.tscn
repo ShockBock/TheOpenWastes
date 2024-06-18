@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://d6n2t7t07ruc"]
+
+[ext_resource type="PackedScene" uid="uid://dd2mxgnrs2sn2" path="res://Models/Building001/Navmeshes/floor_top_001_navmesh.blend" id="1_exf7v"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="floor_top001_navmesh" parent="." instance=ExtResource("1_exf7v")]
+
+[node name="floor_top_001 " parent="floor_top001_navmesh" index="0"]
+use_edge_connections = false
+
+[editable path="floor_top001_navmesh"]

@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhiqr6owmwmmw"]
+[gd_scene load_steps=9 format=3 uid="uid://dhiqr6owmwmmw"]
 
+[ext_resource type="Script" path="res://scripts/MAIN_SEQUENCE.gd" id="2_hme1r"]
 [ext_resource type="PackedScene" uid="uid://ojmhaxt8075x" path="res://Scenes/player.tscn" id="2_motlk"]
 [ext_resource type="AudioStream" uid="uid://c8v40y43qo2uv" path="res://Audio/Post Apocalyptic Ambient - SPACE DRIFTER.mp3" id="3_g81af"]
 [ext_resource type="Script" path="res://scripts/building_placer.gd" id="3_vj1hu"]
@@ -23,29 +24,33 @@ volumetric_fog_albedo = Color(0.945098, 0.556863, 0.160784, 1)
 
 [node name="OpenWastes" type="Node3D"]
 
-[node name="Terrain" parent="." instance=ExtResource("4_mlopx")]
-amplitude = 20
-
-[node name="BuildingPlacer" type="Node3D" parent="."]
-script = ExtResource("3_vj1hu")
-max_number_buildings_on_x_axis = 12
-max_number_buildings_on_z_axis = 12
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_351cq")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-light_color = Color(0.815686, 0.807843, 0.8, 1)
-shadow_enabled = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_g81af")
 volume_db = -20.0
 autoplay = true
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.75, -0.43301, 0, 0, 0)
+light_color = Color(0.815686, 0.807843, 0.8, 1)
+shadow_enabled = true
+
+[node name="MAIN_SEQUENCE" type="Node3D" parent="."]
+script = ExtResource("2_hme1r")
+
+[node name="Terrain" parent="MAIN_SEQUENCE" instance=ExtResource("4_mlopx")]
+amplitude = 20
+
+[node name="BuildingPlacer" type="Node3D" parent="MAIN_SEQUENCE"]
+script = ExtResource("3_vj1hu")
+
 [node name="Player" parent="." instance=ExtResource("2_motlk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 8, 8)
 visible = false
 
-[connection signal="landscape_complete" from="Terrain" to="BuildingPlacer" method="_on_ditzy_terrain_landscape_complete"]
+[connection signal="generate_terrain_signal" from="MAIN_SEQUENCE" to="MAIN_SEQUENCE/Terrain" method="_on_main_sequence_generate_terrain_signal"]
+[connection signal="place_buildings_signal" from="MAIN_SEQUENCE" to="MAIN_SEQUENCE/BuildingPlacer" method="_on_main_sequence_place_buildings_signal"]
+[connection signal="landscape_complete" from="MAIN_SEQUENCE/Terrain" to="MAIN_SEQUENCE" method="_on_terrain_landscape_complete"]
+[connection signal="buildings_complete" from="MAIN_SEQUENCE/BuildingPlacer" to="MAIN_SEQUENCE" method="_on_building_placer_buildings_complete"]

@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://b357gt42e8meq"]
+
+[ext_resource type="PackedScene" uid="uid://cw6dm0ecnfwd8" path="res://Models/Building001/Navmeshes/stairs_001_navmesh.blend" id="1_hlctq"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="stairs_001_navmesh" parent="." instance=ExtResource("1_hlctq")]
+
+[node name="stairs_001 " parent="stairs_001_navmesh" index="0"]
+use_edge_connections = false
+
+[editable path="stairs_001_navmesh"]
