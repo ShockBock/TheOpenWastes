@@ -1,4 +1,3 @@
-# Retired: used to preview terrain in editor
 #@tool
 
 extends Node3D
@@ -19,7 +18,7 @@ extends Node3D
 
 signal landscape_complete
 
-func _ready():
+func _on_main_sequence_generate_terrain_signal():
 	generate_terrain()
 
 func generate_terrain():
@@ -57,3 +56,6 @@ func _emit_landscape_complete():
 	
 # Based on "Procedural Terrain Generation: Displacement & Collisions"
 # by DitzyNinja's Godojo, at https://www.youtube.com/watch?v=OUnJEaatl2Q
+
+
+

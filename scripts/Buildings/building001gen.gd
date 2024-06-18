@@ -1,11 +1,6 @@
-@tool
-
 extends Node3D
-@export var roof_intact_global_probability : float = 0.25
 
-@export var generate_mesh_button : bool:
-	set(val):
-		_ready()
+@export var roof_intact_global_probability : float = 0.25
 
 var wall_section_height_metres : float = 3
 var number_of_storeys = randi_range(1, 7)
@@ -60,6 +55,7 @@ var building_navmesh_dicationary = {
 	"floor_stairs_hole_navmesh" : preload("res://Scenes/Buildings/Building001/001Navmeshes/001floor_stairs_hole_navmesh.tscn"),
 	"stairs_001_navmesh" : preload("res://Scenes/Buildings/Building001/001Navmeshes/001stairs_001_navmesh.tscn"),
 	"stairs_002_navmesh" : preload("res://Scenes/Buildings/Building001/001Navmeshes/001stairs_002_navmesh.tscn"),
+	"stairs_002_ground_floor_navmesh" : preload("res://Scenes/Buildings/Building001/001Navmeshes/001stairs_002_ground_floor_navmesh.tscn"),
 	"floor_top_001_navmesh" : preload("res://Scenes/Buildings/Building001/001Navmeshes/001floor_top_001_navmesh.tscn"),
 	"floor_top_002_navmesh" : preload("res://Scenes/Buildings/Building001/001Navmeshes/001floor_top_002_navmesh.tscn")
 	}
@@ -73,9 +69,9 @@ func _ready():
 	
 	build_floors()
 	
-	build_internal_stairwell()
-	
 	build_internal_walls()
+	
+	build_internal_stairwell()
 	
 	build_broken_or_intact_top_floor_stairwell()
 	
@@ -297,7 +293,7 @@ func build_internal_stairwell():
 func build_internal_stairwell_storey_section_navmesh(storey):
 	var internal_stairs_navmesh = null
 	if storey ==  0:
-		internal_stairs_navmesh = building_navmesh_dicationary["stairs_002_navmesh"]
+		internal_stairs_navmesh = building_navmesh_dicationary["stairs_002_ground_floor_navmesh"]
 	if storey > 0 && storey % 2 == 0:
 		internal_stairs_navmesh = building_navmesh_dicationary["stairs_002_navmesh"]
 	if storey > 0 && storey % 2 != 0:
@@ -330,9 +326,9 @@ func build_top_floor_stairwell_broken():
 func build_top_floor_stairwell_intact():
 	var top_floor_stairwell = null
 	if number_of_storeys % 2 == 0:
-		top_floor_stairwell = building_component_dictionary["floor_top_wall_blocker_001_broken"]
+		top_floor_stairwell = building_component_dictionary["floor_top_wall_blocker_001"]
 	else:
-		top_floor_stairwell = building_component_dictionary["floor_top_wall_blocker_002_broken"]
+		top_floor_stairwell = building_component_dictionary["floor_top_wall_blocker_002"]
 	
 	var top_floor_stairwell_instance = top_floor_stairwell.instantiate()
 	top_floor_stairwell_instance.position.y = number_of_storeys * wall_section_height_metres

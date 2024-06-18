@@ -5,3 +5,8 @@
 [node name="Node3D" type="Node3D"]
 
 [node name="floor_top002_navmesh" parent="." instance=ExtResource("1_7fo0d")]
+
+[node name="foundation " parent="floor_top002_navmesh" index="0"]
+use_edge_connections = false
+
+[editable path="floor_top002_navmesh"]

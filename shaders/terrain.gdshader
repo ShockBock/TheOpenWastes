@@ -12,8 +12,8 @@ uniform float transition_point : hint_range(0.0, 1.0); // Control the point of t
 uniform float min_height; // Minimum height of the mesh
 uniform float max_height; // Maximum height of the mesh
 
-uniform float earth_texture_scale : hint_range(0.1, 10.0); // Scale for the earth textures
-uniform float rock_texture_scale : hint_range(0.1, 10.0); // Scale for the rock textures
+uniform float earth_texture_scale : hint_range(0.1, 20.0); // Scale for the earth textures
+uniform float rock_texture_scale : hint_range(0.1, 20.0); // Scale for the rock textures
 
 varying float vertex_height;
 

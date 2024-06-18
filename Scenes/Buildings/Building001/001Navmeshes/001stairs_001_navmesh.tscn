@@ -5,3 +5,8 @@
 [node name="Node3D" type="Node3D"]
 
 [node name="stairs_001_navmesh" parent="." instance=ExtResource("1_hlctq")]
+
+[node name="stairs_001 " parent="stairs_001_navmesh" index="0"]
+use_edge_connections = false
+
+[editable path="stairs_001_navmesh"]
