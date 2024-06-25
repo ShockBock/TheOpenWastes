@@ -1,0 +1,117 @@
+[gd_scene load_steps=22 format=3 uid="uid://lvjprgceb8wt"]
+
+[ext_resource type="Texture2D" uid="uid://dp1cyjwluoiy7" path="res://images/Sprites/Shotgun_monk/MARAH0.png" id="1_1hnyd"]
+[ext_resource type="Script" path="res://scripts/Characters/shotgun_monk.gd" id="1_xlxlo"]
+[ext_resource type="Texture2D" uid="uid://dl05tbhkrc04c" path="res://images/Sprites/Shotgun_monk/MARAI0.png" id="2_fe4xf"]
+[ext_resource type="Texture2D" uid="uid://by7niqiiheia6" path="res://images/Sprites/Shotgun_monk/MARAJ0.png" id="3_uht2r"]
+[ext_resource type="Texture2D" uid="uid://wv3cgcyevfe" path="res://images/Sprites/Shotgun_monk/MARAK0.png" id="4_ult1p"]
+[ext_resource type="Texture2D" uid="uid://ciuw24iyshv5a" path="res://images/Sprites/Shotgun_monk/MARAL0.png" id="5_ff3x0"]
+[ext_resource type="Texture2D" uid="uid://bpbdnvocb7e0p" path="res://images/Sprites/Shotgun_monk/MARAM0.png" id="6_aph87"]
+[ext_resource type="Texture2D" uid="uid://buu3t2qqoddyt" path="res://images/Sprites/Shotgun_monk/MARAA1.png" id="7_33eyp"]
+[ext_resource type="Texture2D" uid="uid://xrywi2f2k03q" path="res://images/Sprites/Shotgun_monk/MARAB1.png" id="8_8sb0l"]
+[ext_resource type="Texture2D" uid="uid://fhdnbgggmil4" path="res://images/Sprites/Shotgun_monk/MARAC1.png" id="9_pc5im"]
+[ext_resource type="Texture2D" uid="uid://bf6pmpuxjw7uv" path="res://images/Sprites/Shotgun_monk/MARAD1.png" id="10_8bamu"]
+[ext_resource type="Texture2D" uid="uid://dg4pf6oxovngo" path="res://images/Sprites/Shotgun_monk/MARAE1.png" id="11_ahho0"]
+[ext_resource type="AudioStream" uid="uid://bdl2wfibryv4m" path="res://Audio/SFX/Shotgun_monk_die.wav" id="13_57xx7"]
+[ext_resource type="Script" path="res://scripts/Characters/State_Machines/state_machine.gd" id="13_b8lne"]
+[ext_resource type="Script" path="res://scripts/Characters/State_Machines/shotgun_monk_state_idle.gd" id="14_1ms5i"]
+[ext_resource type="AudioStream" uid="uid://02tp7qnpdxeb" path="res://Audio/SFX/Shotgun_monk_fire.wav" id="14_3m24v"]
+[ext_resource type="Script" path="res://scripts/Characters/State_Machines/shotgun_monk_state_die.gd" id="15_0m8un"]
+[ext_resource type="Script" path="res://scripts/Characters/State_Machines/shotgun_monk_state_fall.gd" id="16_jtf5e"]
+[ext_resource type="Script" path="res://scripts/Characters/State_Machines/shotgun_monk_state_follow.gd" id="17_4qeof"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5m70n"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sw010"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1hnyd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_fe4xf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_uht2r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ult1p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ff3x0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_aph87")
+}],
+"loop": true,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_33eyp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_8sb0l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_pc5im")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_8bamu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ahho0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}]
+
+[node name="Shotgun_monk" type="CharacterBody3D"]
+script = ExtResource("1_xlxlo")
+move_speed = 3.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_5m70n")
+
+[node name="Shotgun_monk_animations" type="AnimatedSprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1.945, 0, 0, 0, 1.945, 0, 0, 0, 1.945, 0, 0, 0)
+centered = false
+offset = Vector2(-30, 0)
+billboard = 2
+alpha_cut = 1
+sprite_frames = SubResource("SpriteFrames_sw010")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Shotgun_monk_die" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("13_57xx7")
+
+[node name="Shotgun_monk_fire" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("14_3m24v")
+
+[node name="Shotgun_monk_shoot_ray" type="RayCast3D" parent="."]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="State_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+unique_name_in_owner = true
+script = ExtResource("13_b8lne")
+starting_state = NodePath("Shotgun_Monk_Follow")
+
+[node name="Shotgun_Monk_Idle" type="Node" parent="State_machine"]
+script = ExtResource("14_1ms5i")
+
+[node name="Shotgun_Monk_Die" type="Node" parent="State_machine"]
+script = ExtResource("15_0m8un")
+
+[node name="Shotgun_Monk_Fall" type="Node" parent="State_machine" node_paths=PackedStringArray("follow_state")]
+script = ExtResource("16_jtf5e")
+follow_state = NodePath("../Shotgun_Monk_Follow")
+
+[node name="Shotgun_Monk_Follow" type="Node" parent="State_machine" node_paths=PackedStringArray("fall_state")]
+script = ExtResource("17_4qeof")
+fall_state = NodePath("../Shotgun_Monk_Fall")

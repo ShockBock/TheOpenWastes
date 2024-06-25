@@ -2,6 +2,7 @@ extends Node3D
 
 signal generate_terrain_signal
 signal place_buildings_signal
+signal spawn_characters_signal
 
 func _ready():
 	main_sequence_begin()
@@ -14,3 +15,6 @@ func _on_terrain_landscape_complete():
 
 func place_buildings():
 	emit_signal("place_buildings_signal")
+
+func _on_building_placer_buildings_complete():
+	emit_signal("spawn_characters_signal")
