@@ -1,3 +1,0 @@
-extends State
-class_name Shotgun_monk_state_idle
-

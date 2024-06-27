@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhh077uq0375s"
-path.s3tc="res://.godot/imported/MARAA7A3.png-b409c17df5ae4a80bac77efed1ab1e00.s3tc.ctex"
+uid="uid://q2r5xerf6dde"
+path.s3tc="res://.godot/imported/MARAG1aim.png-612959758df05bbad29f1d4d3fa53c2c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://images/Sprites/Shotgun_monk/MARAA7A3.png"
-dest_files=["res://.godot/imported/MARAA7A3.png-b409c17df5ae4a80bac77efed1ab1e00.s3tc.ctex"]
+source_file="res://images/Sprites/Shotgun_monk/MARAG1aim.png"
+dest_files=["res://.godot/imported/MARAG1aim.png-612959758df05bbad29f1d4d3fa53c2c.s3tc.ctex"]
 
 [params]
 
