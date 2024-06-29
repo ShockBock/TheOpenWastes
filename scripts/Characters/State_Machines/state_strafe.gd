@@ -21,25 +21,13 @@ var strafing_target_final: Vector3
 
 func enter():
 	super()
-	random_move_time_secs_countdown = parent.random_move_time_secs
+	random_move_time_secs_countdown = parent.strafe_time_secs
 	distance_to_player = parent.global_position.distance_to(player.global_position)
 	calculate_strafing_target()
-	
-	# Choose direction towards which character should wander
-	#random_x_distance_metres = randf_range(-10.0, 10.0)
-	#random_z_distance_metres = randf_range(-10.0, 10.0)
-	#random_move_vector.x += random_x_distance_metres
-	#random_move_vector.z += random_z_distance_metres
-	
-	#direction = parent.global_position + random_move_vector
-	#direction = direction.normalized()
-	#print("direction ", direction)
-	
 
-	
 func calculate_strafing_target():
-	# Works out direction for character to move in perpendicular to a line
-	# between it and the player
+	# Works out direction for character to move
+	# perpendicular to a line between it and the player
 	
 	# Calculate direction vector
 	character_to_player_vector = parent.global_position - player.global_position
@@ -59,17 +47,19 @@ func calculate_strafing_target():
 	strafing_target_b.z = -character_to_player_vector.x
 	
 	# Choose one of the two targets to which to move
-	if randi_range(0,127) % 2 == 0:
+	if randi() % 2 == 0:
 		strafing_target_final = strafing_target_a
 
 	else:
 		strafing_target_final = strafing_target_b
 
 func process_physics(delta: float) -> State:
-	if random_move_time_secs_countdown <= 0 and distance_to_player > parent.firing_range:
+	if random_move_time_secs_countdown <= 0 \
+	and distance_to_player > parent.firing_range:
 		return pursue_state
 	
-	if random_move_time_secs_countdown <= 0 and distance_to_player <= parent.firing_range:
+	if random_move_time_secs_countdown <= 0 \
+	and distance_to_player <= parent.firing_range:
 		return aim_state
 	
 	parent.look_at(player.global_position, Vector3.UP)
@@ -82,4 +72,4 @@ func process_physics(delta: float) -> State:
 	return null
 
 func exit():
-	random_move_time_secs_countdown = parent.random_move_time_secs
+	random_move_time_secs_countdown = parent.strafe_time_secs

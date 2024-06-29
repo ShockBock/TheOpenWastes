@@ -1,4 +1,6 @@
 class_name State
+## Referred to by state machine nodes
+
 extends Node
 
 @export
