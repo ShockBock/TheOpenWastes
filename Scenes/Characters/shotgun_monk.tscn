@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://lvjprgceb8wt"]
+[gd_scene load_steps=48 format=3 uid="uid://lvjprgceb8wt"]
 
 [ext_resource type="Texture2D" uid="uid://dp1cyjwluoiy7" path="res://images/Sprites/Shotgun_monk/MARAH0.png" id="1_1hnyd"]
 [ext_resource type="Script" path="res://scripts/Characters/shotgun_monk.gd" id="1_xlxlo"]
@@ -42,8 +42,9 @@
 [ext_resource type="Texture2D" uid="uid://bwojtyiukf4ds" path="res://images/Sprites/Shotgun_monk/MARAD8D2.png" id="28_xg838"]
 [ext_resource type="Texture2D" uid="uid://ieot747xa3" path="res://images/Sprites/Shotgun_monk/MARAE8E2.png" id="29_bu2tl"]
 [ext_resource type="Texture2D" uid="uid://bxeb4oi5vwcbb" path="res://images/Sprites/Shotgun_monk/MARAE7E3.png" id="29_n4vrt"]
-[ext_resource type="Script" path="res://scripts/Characters/State_Machines/state_idle_old.gd" id="38_n3rns"]
+[ext_resource type="Script" path="res://scripts/Characters/State_Machines/state_idle.gd" id="38_dd7hf"]
 [ext_resource type="Script" path="res://scripts/Characters/State_Machines/state_strafe.gd" id="42_2rtbq"]
+[ext_resource type="Script" path="res://scripts/Characters/shotgun_monk_projectile_spawner.gd" id="45_uyqrh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5m70n"]
 
@@ -192,8 +193,10 @@ animations = [{
 [node name="Shotgun_monk" type="CharacterBody3D"]
 script = ExtResource("1_xlxlo")
 move_speed = 3.061
+projectile_speed = 40.0
+projectile_spawn_y_offset = 1.1
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="Shotgun_monk_collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_5m70n")
 
@@ -216,6 +219,7 @@ stream = ExtResource("14_3m24v")
 volume_db = -5.0
 
 [node name="Shotgun_monk_shoot_ray" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
@@ -225,7 +229,7 @@ script = ExtResource("13_b8lne")
 starting_state = NodePath("Shotgun_Monk_Pursue")
 
 [node name="Shotgun_Monk_Idle" type="Node" parent="State_machine"]
-script = ExtResource("38_n3rns")
+script = ExtResource("38_dd7hf")
 
 [node name="Shotgun_Monk_Die" type="Node" parent="State_machine"]
 script = ExtResource("17_kuhr3")
@@ -260,3 +264,9 @@ random_move_state = NodePath("../Shotgun_Monk_Strafe")
 aim_state = NodePath("../Shotgun_Monk_Aim")
 fire_sound = NodePath("../../Shotgun_monk_fire")
 animation_name = "fire"
+
+[node name="Projectile_spawner" type="Node" parent="." node_paths=PackedStringArray("character_collision")]
+script = ExtResource("45_uyqrh")
+character_collision = NodePath("../Shotgun_monk_collision")
+
+[connection signal="spawn_projectiles" from="State_machine/Shotgun_Monk_Fire" to="Projectile_spawner" method="_on_shotgun_monk_fire_spawn_projectiles"]

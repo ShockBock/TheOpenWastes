@@ -1,5 +1,7 @@
 extends State
 
+signal spawn_projectiles
+
 @export var random_move_state: State
 @export var aim_state: State
 
@@ -9,11 +11,12 @@ extends State
 
 var firing_time_countdown : float
 
-
 func enter():
 	super()
 	fire_sound.play()
+	emit_signal("spawn_projectiles")
 	firing_time_countdown = parent.firing_time_secs
+
 
 func process_physics(delta: float) -> State:
 	if firing_time_countdown <= 0:
@@ -21,6 +24,7 @@ func process_physics(delta: float) -> State:
 	
 	firing_time_countdown -= delta
 	return null
+
 
 func exit():
 	firing_time_countdown = parent.firing_time_secs
