@@ -30,15 +30,19 @@ var state_machine : Node = %State_machine
 @export var minimum_idle_range : float = 40
 
 @export_group("Firing")
+## Max damage per projectile. Ideally should attenuate with range
+@export_range(0, 20) var projectile_max_damage: float = 20
 ## How inaccurate the character is when firing at a target
 @export_range(0, 1) var inaccuracy : float = 0.5
-## How many pellets the shotgun fires
+## How many pellets the shotgun fires, per cartridge
 @export var projectiles : int = 6
+## Vertical offset on target to improve aim
+@export_range(-2, 2) var target_y_offset_metres : float = 1
 ## How much buckshot from shotgun spreads
 @export_range(0, 1) var projectile_spread : float = 0.5
 ## Speed of each projectile
 @export var projectile_speed : float = 1.0
-## Time until projectile deletes itself, if not having collided with anything
+## Time (secs) until projectile deletes itself, if not having collided with anything
 @export_range(0, 5) var projectile_life_secs : float = 2
 ## x-offset of projectile spawn point, local to firing character
 @export_range(-1, 1) var projectile_spawn_x_offset : float = 0.0

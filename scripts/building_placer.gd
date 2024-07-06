@@ -41,7 +41,6 @@ func locate_building_ground_elevation(building_foundation_x, building_foundation
 	
 	# Fire the ray!
 	var terrain_intersection = space_state.intersect_ray(params)
-	
 	var building_foundation_y = terrain_intersection.position.y + y_offset_metres
 	
 	instantiate_building(building_foundation_x, building_foundation_y, building_foundation_z)

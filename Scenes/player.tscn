@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://ojmhaxt8075x"]
+[gd_scene load_steps=12 format=3 uid="uid://ojmhaxt8075x"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_6p5hj"]
 [ext_resource type="Texture2D" uid="uid://d2yfu80a2wsag" path="res://images/Sprites/gun_sprites.png" id="2_ful5m"]
-[ext_resource type="Texture2D" uid="uid://d2vr7w16huywj" path="res://images/You died.jpg" id="2_u515j"]
 [ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://Fonts/KomikaDisplay-RoV.ttf" id="4_dj6t1"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_be4rj"]
@@ -61,8 +60,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="Theme" id="Theme_jyisf"]
-
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 floor_max_angle = 0.872665
@@ -95,7 +92,6 @@ offset_right = 110.0
 offset_bottom = 648.0
 theme_override_fonts/font = ExtResource("4_dj6t1")
 theme_override_font_sizes/font_size = 70
-text = "100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -127,45 +123,3 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 1, 1, 0.27451)
-
-[node name="DeathScreen" type="Control" parent="CanvasLayer"]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 312.0
-offset_bottom = 328.0
-
-[node name="SkeletonImage" type="TextureRect" parent="CanvasLayer/DeathScreen"]
-layout_mode = 0
-offset_right = 1151.0
-offset_bottom = 648.0
-texture = ExtResource("2_u515j")
-expand_mode = 1
-
-[node name="YouDiedPanel" type="Panel" parent="CanvasLayer/DeathScreen"]
-layout_mode = 0
-offset_left = 590.0
-offset_top = 337.0
-offset_right = 1130.0
-offset_bottom = 636.0
-theme = SubResource("Theme_jyisf")
-
-[node name="YouDiedText" type="Label" parent="CanvasLayer/DeathScreen/YouDiedPanel"]
-layout_mode = 0
-offset_right = 531.46
-offset_bottom = 217.0
-theme_override_fonts/font = ExtResource("4_dj6t1")
-theme_override_font_sizes/font_size = 90
-text = "You died,
-sorry chief"
-horizontal_alignment = 1
-
-[node name="RestartButton" type="Button" parent="CanvasLayer/DeathScreen/YouDiedPanel"]
-layout_mode = 0
-offset_left = 174.0
-offset_top = 228.0
-offset_right = 333.0
-offset_bottom = 284.0
-theme_override_fonts/font = ExtResource("4_dj6t1")
-theme_override_font_sizes/font_size = 40
-text = "Restart"

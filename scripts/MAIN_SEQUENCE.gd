@@ -1,20 +1,36 @@
 extends Node3D
 
+signal start_screen_signal
 signal generate_terrain_signal
 signal place_buildings_signal
 signal spawn_characters_signal
 
+@onready var StartScreen := preload("res://Scenes/Miscellaneous/start_screen.tscn")
+@onready var DeathScreen := preload("res://Scenes/Miscellaneous/death_screen.tscn")
+
 func _ready():
 	main_sequence_begin()
 
-func main_sequence_begin():
+
+func main_sequence_begin() -> void:
+	generate_terrain()
+
+
+func generate_terrain() -> void:
 	emit_signal("generate_terrain_signal")
 
-func _on_terrain_landscape_complete():
+
+func _on_terrain_landscape_complete() -> void:
 	place_buildings()
 
-func place_buildings():
+
+func place_buildings() -> void:
 	emit_signal("place_buildings_signal")
 
-func _on_building_placer_buildings_complete():
+
+func _on_building_placer_buildings_complete() -> void:
 	emit_signal("spawn_characters_signal")
+
+
+func end_game() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Miscellaneous/death_screen.tscn")

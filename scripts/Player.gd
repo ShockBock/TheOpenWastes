@@ -21,19 +21,25 @@ const FOV_CHANGE = 1.5 # Reactivity to speed changes.
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 9.8
+var health : int = 100
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
+@onready var health_counter = $CanvasLayer/HUD/HealthCounter
+
 
 func _ready():
 	# Use mouse as movement for camera, rather than pointer
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
+	health_counter.text = str(health)
+
+
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
+
 
 func _physics_process(delta) -> void:
 	# Add the gravity.
@@ -51,12 +57,12 @@ func _physics_process(delta) -> void:
 		speed = SPRINT_SPEED
 	else:
 		speed = WALK_SPEED
-
+		
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
 	var direction : Vector3 = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-
+		
 	if is_on_floor():
 		if direction:
 			velocity.x = direction.x * speed
@@ -69,7 +75,7 @@ func _physics_process(delta) -> void:
 		# Maintains direction once jumped until ground reached.
 		velocity.x = lerp(velocity.x, direction.x * speed, delta * 2.0)
 		velocity.z = lerp(velocity.z, direction.x * speed, delta * 2.0)
-
+		
 	# Head bob
 	t_bob += delta * velocity.length() * float(is_on_floor())
 	camera.transform.origin = _headbob(t_bob)
@@ -78,11 +84,21 @@ func _physics_process(delta) -> void:
 	var velocity_clamped = clamp(velocity.length(), 0.5, SPRINT_SPEED * 2)
 	var target_fov = BASE_FOV + FOV_CHANGE * velocity_clamped
 	camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
-
+	
 	move_and_slide()
+
 
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
+
+
+func health_tracker(max_damage) -> void:
+	health -= max_damage
+	health_counter.text = str(health)
+	if health <= 0:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		var player_died = get_node("/root/OpenWastes/MAIN_SEQUENCE")
+		player_died.end_game()

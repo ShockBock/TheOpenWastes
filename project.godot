@@ -12,7 +12,7 @@ config_version=5
 
 config/name="TheOpenWastes"
 config/tags=PackedStringArray("open_wastes")
-run/main_scene="res://TheOpenWastes.tscn"
+run/main_scene="res://Scenes/Miscellaneous/start_screen.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://images/icon.png"
 

@@ -193,7 +193,9 @@ animations = [{
 [node name="Shotgun_monk" type="CharacterBody3D"]
 script = ExtResource("1_xlxlo")
 move_speed = 3.061
-projectile_speed = 40.0
+target_y_offset_metres = 0.5
+projectile_spread = 0.02
+projectile_speed = 50.0
 projectile_spawn_y_offset = 1.1
 
 [node name="Shotgun_monk_collision" type="CollisionShape3D" parent="."]

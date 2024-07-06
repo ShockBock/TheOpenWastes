@@ -3,23 +3,25 @@ extends Node3D
 var normalised_direction_vector : Vector3
 var speed : float
 var life_secs : float
+var max_damage : float
 var shooter_collision : CollisionShape3D
+
 @onready var projectile_tracer_ray_cast_3d = %Projectile_tracer_RayCast3D
 @onready var player : CharacterBody3D = get_tree().get_first_node_in_group("player")
-#@onready var player_collision = player.get_node("Player_CollisionShape3D")
+
 
 func _ready() -> void:
 	look_at(global_position + normalised_direction_vector, Vector3.UP)
 
 
 func set_up_variables(direction, projectile_speed,
-		projectile_life_secs, character_collision):
-	# Inherits a direction for the pellet to travel,
-	# and its speed, from, e.g. shotgun_monk_buckshot_spawner.gd
+		projectile_life_secs, projectile_max_damage, character_collision):
+	# Inherits key variables from node with spawned the projectile
 	normalised_direction_vector -= direction
 	speed = projectile_speed
-	shooter_collision = character_collision
 	life_secs = projectile_life_secs
+	max_damage = projectile_max_damage
+	shooter_collision = character_collision
 
 
 func _physics_process(delta):
@@ -38,10 +40,12 @@ func collision_detection() -> void:
 		print(collision)
 	if collision == shooter_collision:
 		print("I done shot myself lol")
+		pass
 	elif collision == player:
-		print("I done shot the player lol")
+		player.health_tracker(max_damage)
+		queue_free()
 	elif collision != null:
-		print("I done hit summat!")
+		queue_free()
 
 
 func lifetime_and_self_termination(delta) -> void:
