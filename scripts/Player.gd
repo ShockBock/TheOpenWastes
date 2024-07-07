@@ -4,6 +4,22 @@
 
 extends CharacterBody3D
 
+signal weapon_fired
+
+@export_group("Weapons")
+## Max damage per projectile. Ideally should attenuate with range
+@export_range(0, 20) var pistol_projectile_max_damage: float = 20
+## Time (secs) until projectile deletes itself, if not having collided with anything
+@export_range(0, 5) var pistol_projectile_life_secs : float = 2
+## Speed of each projectile
+@export var pistol_projectile_speed : float = 1.0
+## x-offset of projectile spawn point, local to firing character
+@export_range(-1, 1) var pistol_projectile_spawn_x_offset : float = 0.0
+## y-offset of projectile spawn point, local to firing character
+@export_range(0, 2) var pistol_projectile_spawn_y_offset : float = 1.0
+## z-offset of projectile spawn point, local to firing character
+@export_range(-1, 1) var pistol_projectile_spawn_z_offset : float = 0.0
+
 var speed
 const WALK_SPEED = 5.0
 const SPRINT_SPEED = 8.0
@@ -26,6 +42,7 @@ var health : int = 100
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var health_counter = $CanvasLayer/HUD/HealthCounter
+@onready var pistol_shot : AudioStreamPlayer = $PistolShot
 
 
 func _ready():
@@ -57,7 +74,12 @@ func _physics_process(delta) -> void:
 		speed = SPRINT_SPEED
 	else:
 		speed = WALK_SPEED
+	
+	if Input.is_action_just_pressed("shoot"):
+		pistol_shot.play()
+		emit_signal("weapon_fired")
 		
+	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")

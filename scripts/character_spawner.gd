@@ -18,7 +18,7 @@ func _on_main_sequence_spawn_characters_signal():
 	character = shotgun_monk
 	character_x_offset = 8.5
 	character_y_offset = 0.0
-	character_z_offset = 0.0
+	character_z_offset = -8.5
 	spawn_character_instance(character, character_x_offset, character_y_offset, character_z_offset)
 
 func spawn_character_instance(character, character_x_offset, character_y_offset, character_z_offset):

@@ -218,7 +218,7 @@ stream = ExtResource("13_57xx7")
 
 [node name="Shotgun_monk_fire" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("14_3m24v")
-volume_db = -5.0
+volume_db = -15.0
 
 [node name="Shotgun_monk_shoot_ray" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)

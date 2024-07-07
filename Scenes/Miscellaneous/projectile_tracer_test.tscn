@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://dartgwoiew5qw"]
+
+[ext_resource type="Shader" path="res://shaders/bullet_tracer.gdshader" id="2_urvqp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2l1lq"]
+render_priority = 0
+shader = ExtResource("2_urvqp")
+shader_parameter/bullet_tracer = Color(1, 1, 0, 1)
+shader_parameter/bullet_emission = 20.0
+shader_parameter/fade_attenuation = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0qs8e"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ajsww"]
+_surfaces = [{
+"aabb": AABB(-0.00300002, -0.003, -0.5, 0.00601002, 0.006, 0.50001),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray(0, 0, 3, 0, 2, 0, 0, 0, 1, 0, 3, 0, 6, 0, 4, 0, 5, 0, 6, 0, 7, 0, 4, 0, 3, 0, 7, 0, 2, 0, 3, 0, 4, 0, 7, 0, 0, 0, 5, 0, 1, 0, 0, 0, 6, 0, 5, 0, 1, 0, 4, 0, 3, 0, 1, 0, 5, 0, 4, 0, 2, 0, 6, 0, 0, 0, 2, 0, 7, 0, 6, 0),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray(145, 255, 0, 0, 253, 255, 0, 0, 145, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 253, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 145, 255, 255, 255, 0, 0, 0, 0, 145, 255, 255, 255, 253, 255, 0, 0, 0, 0, 255, 255, 253, 255, 0, 0)
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_bboqp"]
+resource_name = "Bullet_tracer_Plane"
+_surfaces = [{
+"aabb": AABB(-0.00300002, -0.003, -0.5, 0.00601002, 0.006, 0.50001),
+"attribute_data": PackedByteArray(1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 253, 255, 1, 0, 253, 255, 1, 0, 253, 255, 32, 5, 1, 0, 32, 5, 1, 0, 32, 5, 1, 0, 32, 5, 253, 255, 32, 5, 253, 255, 32, 5, 253, 255, 32, 5, 253, 255, 32, 5, 253, 255, 32, 5, 253, 255, 1, 0, 253, 255, 1, 0, 253, 255, 1, 0, 253, 255, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 32, 5, 1, 0, 32, 5, 1, 0, 32, 5, 1, 0),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray(1, 0, 10, 0, 7, 0, 1, 0, 4, 0, 10, 0, 19, 0, 13, 0, 16, 0, 19, 0, 22, 0, 13, 0, 11, 0, 23, 0, 8, 0, 11, 0, 14, 0, 23, 0, 2, 0, 17, 0, 5, 0, 2, 0, 20, 0, 17, 0, 3, 0, 12, 0, 9, 0, 3, 0, 15, 0, 12, 0, 6, 0, 18, 0, 0, 0, 6, 0, 21, 0, 18, 0),
+"material": SubResource("StandardMaterial3D_0qs8e"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray(145, 255, 0, 0, 253, 255, 255, 127, 145, 255, 0, 0, 253, 255, 255, 255, 145, 255, 0, 0, 253, 255, 255, 191, 145, 255, 0, 0, 0, 0, 255, 255, 145, 255, 0, 0, 0, 0, 255, 255, 145, 255, 0, 0, 0, 0, 255, 191, 0, 0, 0, 0, 253, 255, 255, 127, 0, 0, 0, 0, 253, 255, 255, 255, 0, 0, 0, 0, 253, 255, 255, 191, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 255, 191, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 191, 145, 255, 255, 255, 0, 0, 255, 255, 145, 255, 255, 255, 0, 0, 255, 255, 145, 255, 255, 255, 0, 0, 255, 191, 145, 255, 255, 255, 253, 255, 255, 127, 145, 255, 255, 255, 253, 255, 255, 255, 145, 255, 255, 255, 253, 255, 255, 191, 0, 0, 255, 255, 253, 255, 255, 127, 0, 0, 255, 255, 253, 255, 255, 255, 0, 0, 255, 255, 253, 255, 255, 191, 255, 127, 255, 255, 255, 127, 255, 63, 255, 127, 0, 0, 255, 255, 255, 127, 255, 127, 255, 63, 255, 127, 0, 0, 255, 127, 255, 255, 255, 127, 255, 63, 255, 127, 255, 255, 255, 255, 255, 127, 255, 127, 255, 63, 255, 127, 255, 255, 255, 255, 255, 127, 255, 127, 255, 191, 255, 127, 255, 255, 255, 255, 255, 127, 255, 127, 255, 191, 255, 127, 0, 0, 255, 127, 255, 255, 255, 127, 255, 191, 255, 127, 0, 0, 255, 127, 255, 255, 255, 127, 255, 191, 255, 127, 255, 255)
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ajsww")
+
+[node name="Projectile_tracer" type="Node3D"]
+
+[node name="Projectile_tracer_mesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_2l1lq")
+cast_shadow = 0
+mesh = SubResource("ArrayMesh_bboqp")
+skeleton = NodePath("")
+
+[node name="Projectile_tracer_RayCast3D" type="RayCast3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0, 0)

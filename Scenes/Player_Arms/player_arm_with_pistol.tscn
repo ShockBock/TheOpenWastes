@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsyh2g0iqygo2"]
+
+[ext_resource type="PackedScene" uid="uid://b015v86x1q8c6" path="res://Models/Player_hands_and_weapons/player_arm_with_pistol.blend" id="1_cudn8"]
+
+[node name="PlayerArmWithPistolRoot" type="Node3D"]
+
+[node name="PlayerArmWithPistol" parent="." instance=ExtResource("1_cudn8")]

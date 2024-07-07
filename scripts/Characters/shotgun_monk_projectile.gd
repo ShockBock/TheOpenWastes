@@ -37,9 +37,8 @@ func collision_detection() -> void:
 	var collision : Node3D
 	if projectile_tracer_ray_cast_3d.is_colliding():
 		collision = projectile_tracer_ray_cast_3d.get_collider()
-		print(collision)
 	if collision == shooter_collision:
-		print("I done shot myself lol")
+		print(shooter_collision, "just shot themselves")
 		pass
 	elif collision == player:
 		player.health_tracker(max_damage)
