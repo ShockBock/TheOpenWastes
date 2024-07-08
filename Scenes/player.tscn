@@ -19,7 +19,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 floor_max_angle = 0.872665
 script = ExtResource("1_6p5hj")
 pistol_projectile_speed = 40.0
-pistol_projectile_spawn_y_offset = 0.7
+pistol_projectile_spawn_x_offset = 0.11
+pistol_projectile_spawn_y_offset = -0.1
+pistol_projectile_spawn_distance_offset = -0.35
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_be4rj")

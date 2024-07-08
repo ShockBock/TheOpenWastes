@@ -13,12 +13,13 @@ signal weapon_fired
 @export_range(0, 5) var pistol_projectile_life_secs : float = 2
 ## Speed of each projectile
 @export var pistol_projectile_speed : float = 1.0
-## x-offset of projectile spawn point, local to firing character
+@export_subgroup("Projectile offsets")
+## player-perspective x-offset of projectile spawn point
 @export_range(-1, 1) var pistol_projectile_spawn_x_offset : float = 0.0
-## y-offset of projectile spawn point, local to firing character
-@export_range(0, 2) var pistol_projectile_spawn_y_offset : float = 1.0
-## z-offset of projectile spawn point, local to firing character
-@export_range(-1, 1) var pistol_projectile_spawn_z_offset : float = 0.0
+## player-perspective y-offset of projectile spawn point
+@export_range(-1, 1) var pistol_projectile_spawn_y_offset : float = 1.0
+## Offset of projectile spawn point, in direction of fire
+@export_range(-1, 1) var pistol_projectile_spawn_distance_offset : float = 0.0
 
 var speed
 const WALK_SPEED = 5.0
@@ -59,7 +60,7 @@ func _unhandled_input(event):
 
 
 func _physics_process(delta) -> void:
-	# Add the gravity.
+	# Add gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	else:
