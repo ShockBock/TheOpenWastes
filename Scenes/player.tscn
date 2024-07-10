@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://ojmhaxt8075x"]
+[gd_scene load_steps=9 format=3 uid="uid://ojmhaxt8075x"]
 
-[ext_resource type="Script" path="res://scripts/Player.gd" id="1_6p5hj"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_pm0ck"]
 [ext_resource type="PackedScene" uid="uid://bsyh2g0iqygo2" path="res://Scenes/Player_Arms/player_arm_with_pistol.tscn" id="2_3wq03"]
 [ext_resource type="Script" path="res://scripts/Player/player_projectile_spawner.gd" id="4_6fwc6"]
 [ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://Fonts/KomikaDisplay-RoV.ttf" id="4_dj6t1"]
 [ext_resource type="AudioStream" uid="uid://v0jeoi3bcfd5" path="res://Audio/SFX/player_pistol_shot.wav" id="5_7mtge"]
+[ext_resource type="Script" path="res://scripts/Miscellaneous/audio_node.gd" id="5_iyd2t"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_be4rj"]
 radius = 0.4
@@ -17,7 +18,7 @@ height = 1.8
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 floor_max_angle = 0.872665
-script = ExtResource("1_6p5hj")
+script = ExtResource("1_pm0ck")
 pistol_projectile_speed = 40.0
 pistol_projectile_spawn_x_offset = 0.11
 pistol_projectile_spawn_y_offset = -0.1
@@ -71,13 +72,16 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 1, 1, 0.27451)
 
-[node name="Projectile_spawner" type="Node" parent="." node_paths=PackedStringArray("character_collision")]
+[node name="ProjectileSpawner" type="Node" parent="." node_paths=PackedStringArray("character_collision")]
 script = ExtResource("4_6fwc6")
 character_collision = NodePath("../Player_CollisionShape3D")
 
-[node name="PistolShot" type="AudioStreamPlayer" parent="."]
+[node name="Audio" type="Node" parent="."]
+script = ExtResource("5_iyd2t")
+
+[node name="PistolShot" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("5_7mtge")
-volume_db = -15.0
+volume_db = -25.0
 pitch_scale = 0.8
 
-[connection signal="weapon_fired" from="." to="Projectile_spawner" method="_on_player_weapon_fired"]
+[connection signal="weapon_fired" from="." to="ProjectileSpawner" method="_on_player_weapon_fired"]

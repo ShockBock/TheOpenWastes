@@ -1,7 +1,6 @@
 extends State
 
-@export
-var pursue_state: State
+@export var pursue_state: State
 
 func process_physics(delta: float) -> State:
 	fall(delta)

@@ -1,3 +1,5 @@
+@icon("res://images/Icons/state_machine_icon.png")
+
 class_name State
 ## Referred to by state machine nodes
 

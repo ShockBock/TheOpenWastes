@@ -1,3 +1,5 @@
+@icon("res://images/Icons/pistol_icon.png")
+
 extends Node
 
 const PROJECTILE_PATH : String = "res://Scenes/Miscellaneous/projectile_tracer.tscn"

@@ -1,7 +1,13 @@
+@icon("res://images/Icons/state_machine_icon.png")
+
 extends Node
 
-@export
-var starting_state: State
+## Adapted from Advanced state machine techniques in Godot 4
+## by The Shaggy Dev, 2023
+## www.youtube.com/watch?v=bNdFXooM1MQ
+
+@export var starting_state : State
+@export var hit_state : State
 
 var current_state: State
 
@@ -22,7 +28,8 @@ func change_state(new_state: State) -> void:
 
 	current_state = new_state
 	current_state.enter()
-	
+
+
 # Pass through functions for the Player to call,
 # handling state changes as needed.
 func process_physics(delta: float) -> void:
@@ -30,16 +37,19 @@ func process_physics(delta: float) -> void:
 	if new_state:
 		change_state(new_state)
 
+
 func process_input(event: InputEvent) -> void:
 	var new_state = current_state.process_input(event)
 	if new_state:
 		change_state(new_state)
+
 
 func process_frame(delta: float) -> void:
 	var new_state = current_state.process_frame(delta)
 	if new_state:
 		change_state(new_state)
 
-# Adapted from Advanced state machine techniques in Godot 4
-# by The Shaggy Dev, 2023
-# www.youtube.com/watch?v=bNdFXooM1MQ
+
+func taken_hit() -> void:
+		change_state(hit_state)
+	

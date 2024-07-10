@@ -1,6 +1,6 @@
 extends State
 
-@onready var animation : AnimatedSprite3D = %Shotgun_monk_animations
+@onready var animation : AnimatedSprite3D = %ShotgunMonkAnimations
 
 @onready var player : CharacterBody3D = \
 get_tree().get_first_node_in_group("player")
@@ -18,7 +18,7 @@ func enter() -> void:
 	set_idle_target_position()
 	
 func process_physics(delta: float):
-	choose_animation_facing()
+	#choose_animation_facing()
 	if idle_behaviour_time_secs <= 0:
 		set_idle_target_position()
 		idle_behaviour_time_secs = parent.idle_behaviour_time_secs
@@ -52,8 +52,12 @@ func move_to_idle_target_position(delta) -> void:
 	
 	parent.velocity = direction_to_idle_target * parent.move_speed
 	parent.move_and_slide()
-	
-	
+
+
+
+#region Experimental
+## Unfinished attempt to get monk animation to correspond with the direction
+## it is moving during idle
 func choose_animation_facing():
 	var angle_between_player_and_character_facing : float
 	angle_between_player_and_character_facing = \
@@ -72,48 +76,48 @@ func choose_animation_facing():
 		animation_name = "move_back"
 		animations.flip_h = false
 		animations.play(animation_name)
-		print ("PC-NPC angle = ", angle_between_player_and_character_facing, " ", animation_name)
+		#print ("PC-NPC angle = ", angle_between_player_and_character_facing, " ", animation_name)
 		return
 	elif angle_between_player_and_character_facing < 67.5:
 		animation_name = "move_back_side"
 		animations.flip_h = false
 		animations.play(animation_name)
-		print ("PC-NPC angle = ", angle_between_player_and_character_facing, " ", animation_name)
+		#print ("PC-NPC angle = ", angle_between_player_and_character_facing, " ", animation_name)
 		return
 	elif angle_between_player_and_character_facing < 112.5:
 		animation_name = "move_side"
 		animations.flip_h = false
 		animations.play(animation_name)
-		print ("PC-NPC angle = ", angle_between_player_and_character_facing, " ", animation_name)
+		#print ("PC-NPC angle = ", angle_between_player_and_character_facing, " ", animation_name)
 		return
 	elif angle_between_player_and_character_facing < 157.5:
 		animation_name = "move_forward_side"
 		animations.flip_h = false
 		animations.play(animation_name)
-		print ("PC-NPC angle = ", angle_between_player_and_character_facing, " ", animation_name)
+		#print ("PC-NPC angle = ", angle_between_player_and_character_facing, " ", animation_name)
 		return
 	elif angle_between_player_and_character_facing < 202.5:
 		animation_name = "move_forward"
 		animations.flip_h = false
 		animations.play(animation_name)
-		print ("PC-NPC angle = ", angle_between_player_and_character_facing, " ", animation_name)
+		#print ("PC-NPC angle = ", angle_between_player_and_character_facing, " ", animation_name)
 		return
 	elif angle_between_player_and_character_facing < 247.5:
 		animation_name = "move_forward_side"
 		animations.flip_h = true
 		animations.play(animation_name)
-		print ("PC-NPC angle = ", angle_between_player_and_character_facing, " ", animation_name, " flipped")
-
+		#print ("PC-NPC angle = ", angle_between_player_and_character_facing, " ", animation_name, " flipped")
 		return
 	elif angle_between_player_and_character_facing < 292.5:
 		animation_name = "move_side"
 		animations.flip_h = true
 		animations.play(animation_name)
-		print ("PC-NPC angle = ", angle_between_player_and_character_facing, " ", animation_name, " flipped")
+		#print ("PC-NPC angle = ", angle_between_player_and_character_facing, " ", animation_name, " flipped")
 		return
 	else:
 		animation_name = "move_back_side"
 		animations.flip_h = true
 		animations.play(animation_name)
-		print ("PC-NPC angle = ", angle_between_player_and_character_facing, " ", animation_name, " flipped")
+		#print ("PC-NPC angle = ", angle_between_player_and_character_facing, " ", animation_name, " flipped")
 		return
+#endregion

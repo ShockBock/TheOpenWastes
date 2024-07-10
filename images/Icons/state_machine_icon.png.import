@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2vr7w16huywj"
-path="res://.godot/imported/You died.jpg-41700fa8a50e34a3e6af5c24ed8e9241.ctex"
+uid="uid://tw46ttnntf3l"
+path="res://.godot/imported/state_machine_icon.png-78f141df2edb27c8e000947da79431c1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/You died.jpg"
-dest_files=["res://.godot/imported/You died.jpg-41700fa8a50e34a3e6af5c24ed8e9241.ctex"]
+source_file="res://images/Icons/state_machine_icon.png"
+dest_files=["res://.godot/imported/state_machine_icon.png-78f141df2edb27c8e000947da79431c1.ctex"]
 
 [params]
 

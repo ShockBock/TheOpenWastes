@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c34lbj8nerp3v"
-path="res://.godot/imported/Open_Wastes_title_screen.jpg-4baf6e824807999f2aa622898be746eb.ctex"
+uid="uid://cot65gwrjnesj"
+path="res://.godot/imported/pistol_icon.png-0596cc16b02c98e6a73f9dacfc0be773.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/Open_Wastes_title_screen.jpg"
-dest_files=["res://.godot/imported/Open_Wastes_title_screen.jpg-4baf6e824807999f2aa622898be746eb.ctex"]
+source_file="res://images/Icons/pistol_icon.png"
+dest_files=["res://.godot/imported/pistol_icon.png-0596cc16b02c98e6a73f9dacfc0be773.ctex"]
 
 [params]
 

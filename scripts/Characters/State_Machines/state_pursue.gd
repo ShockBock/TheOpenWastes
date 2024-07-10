@@ -8,7 +8,7 @@ extends State
 @onready var player : CharacterBody3D = get_tree().get_first_node_in_group("player")
 
 func process_physics(_delta: float) -> State:
-	if !parent.is_on_floor():
+	if not parent.is_on_floor():
 		return fall_state
 	
 	var distance_to_player : float = parent.global_position.distance_to(player.global_position)

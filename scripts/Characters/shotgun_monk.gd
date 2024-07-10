@@ -1,11 +1,16 @@
 extends CharacterBody3D
 
-@onready
-var animations : AnimatedSprite3D = %Shotgun_monk_animations
-@onready
-var state_machine : Node = %State_machine
+@export var animations : AnimatedSprite3D
+@export var state_machine : Node
 
 #region Export variables
+@export_group("Health")
+@export var health : float = 100.0
+## How long, as a function of how much damaged received,
+## hit state should last.
+@export var hit_state_length : float = 2
+var last_damage_taken : float
+
 @export_group("Attack")
 ## How long character takes aim before firing
 @export_range(0, 2) var aiming_time_secs : float = 1.0
@@ -45,6 +50,7 @@ var state_machine : Node = %State_machine
 ## Time (secs) until projectile deletes itself, if not having collided with anything
 @export_range(0, 5) var projectile_life_secs : float = 2
 ## x-offset of projectile spawn point, local to firing character
+@export_subgroup("Offsets")
 @export_range(-1, 1) var projectile_spawn_x_offset : float = 0.0
 ## y-offset of projectile spawn point, local to firing character
 @export_range(0, 2) var projectile_spawn_y_offset : float = 1.0
@@ -55,6 +61,11 @@ var state_machine : Node = %State_machine
 
 func _ready() -> void:
 	state_machine.init(self, animations)
+
+
+func taken_hit(damage : float) -> void:
+	last_damage_taken = damage
+	state_machine.taken_hit()
 
 
 func _unhandled_input(event: InputEvent) -> void:

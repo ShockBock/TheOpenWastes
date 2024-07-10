@@ -43,7 +43,7 @@ var health : int = 100
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var health_counter = $CanvasLayer/HUD/HealthCounter
-@onready var pistol_shot : AudioStreamPlayer = $PistolShot
+@onready var pistol_shot : AudioStreamPlayer = $Audio/PistolShot
 
 
 func _ready():

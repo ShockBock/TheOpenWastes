@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dhiqr6owmwmmw"]
 
-[ext_resource type="Script" path="res://scripts/MAIN_SEQUENCE.gd" id="2_hme1r"]
+[ext_resource type="Script" path="res://scripts/main_sequence.gd" id="2_hme1r"]
 [ext_resource type="AudioStream" uid="uid://c8v40y43qo2uv" path="res://Audio/Post Apocalyptic Ambient - SPACE DRIFTER.mp3" id="3_g81af"]
 [ext_resource type="Script" path="res://scripts/building_placer.gd" id="3_vj1hu"]
 [ext_resource type="PackedScene" uid="uid://dfciq53er7gmf" path="res://Scenes/terrain.tscn" id="4_mlopx"]
