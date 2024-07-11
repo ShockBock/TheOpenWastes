@@ -14,8 +14,11 @@ func enter():
 	hit_sound.play()
 	subtract_damage()
 
+
 func subtract_damage() -> void:
 	parent.health -= parent.last_damage_taken
+	if parent.health > 0:
+		hit_sound.play()
 
 
 func process_frame(delta) -> State:

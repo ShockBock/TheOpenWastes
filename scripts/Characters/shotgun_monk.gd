@@ -25,6 +25,11 @@ var last_damage_taken : float
 ## Time in seconds character will strafe
 @export_range(0, 3) var strafe_time_secs: float = 1.5
 
+@export_group("Pursuit")
+## Time character will continue to pursue player, even within firing range,
+## before switching to aiming and firing states
+@export_range(0, 5) var minimum_pursue_time_secs : float = 2.5
+
 @export_group("Idling")
 ## Time in seconds character should spend on moving to random position
 ## and loitering at a reached random position

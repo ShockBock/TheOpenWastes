@@ -3,7 +3,7 @@
 class_name State
 ## Referred to by state machine nodes
 
-extends Node
+extends Node3D
 
 @export
 var animation_name: String
