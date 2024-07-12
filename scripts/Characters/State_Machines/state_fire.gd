@@ -32,9 +32,9 @@ func process_physics(delta : float) -> State :
 			return strafe_state
 		else :
 			return pursue_state
-	
-	firing_time_countdown -= delta
-	return null
+	else :
+		firing_time_countdown -= delta
+		return null
 
 
 func raycast_check_if_target_blocked() -> void :

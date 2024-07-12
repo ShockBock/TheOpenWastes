@@ -65,8 +65,15 @@ func process_physics(delta: float) -> State:
 	parent.look_at(player.global_position, Vector3.UP)
 
 	var velocity = strafing_target_final * parent.move_speed
+	
+	if not parent.is_on_floor() :
+		velocity.y = 0 - (gravity * delta)
+	
+	else :
+		velocity.y = 0
+		
 	parent.velocity = velocity
-	parent.move_and_slide()  # This will move the character
+	parent.move_and_slide()
 	
 	random_move_time_secs_countdown -= delta
 	return null

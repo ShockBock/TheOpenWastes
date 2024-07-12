@@ -8,7 +8,7 @@ signal weapon_fired
 
 @export_group("Weapons")
 ## Max damage per projectile. Ideally should attenuate with range
-@export_range(0, 20) var pistol_projectile_max_damage: float = 20
+@export_range(0, 20) var pistol_projectile_max_damage : float = 20
 ## Time (secs) until projectile deletes itself, if not having collided with anything
 @export_range(0, 5) var pistol_projectile_life_secs : float = 2
 ## Speed of each projectile
@@ -43,41 +43,44 @@ var health : int = 100
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var health_counter = $CanvasLayer/HUD/HealthCounter
-@onready var pistol_shot : AudioStreamPlayer = $Audio/PistolShot
+@onready var pistol_shot_audio : AudioStreamPlayer = $Audio/PistolShot
+@onready var pistol_shot_animation : AnimationPlayer = \
+		$Head/Camera3D/PlayerArmWithPistol/PlayerArmAnimationPlayer
 
 
-func _ready():
+func _ready() :
 	# Use mouse as movement for camera, rather than pointer
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	health_counter.text = str(health)
 
 
-func _unhandled_input(event):
-	if event is InputEventMouseMotion:
+func _unhandled_input(event) :
+	if event is InputEventMouseMotion :
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 
 
-func _physics_process(delta) -> void:
+func _physics_process(delta) -> void :
 	# Add gravity.
-	if not is_on_floor():
+	if not is_on_floor() :
 		velocity.y -= gravity * delta
-	else:
+	else :
 		# Handle Jump.
-		if Input.is_action_just_pressed("jump"):
+		if Input.is_action_just_pressed("jump") :
 			velocity.y = JUMP_VELOCITY
-		else:
+		else :
 			velocity.y = -0.5
 		
 	# Handle Sprint.
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("sprint") :
 		speed = SPRINT_SPEED
-	else:
+	else :
 		speed = WALK_SPEED
 	
-	if Input.is_action_just_pressed("shoot"):
-		pistol_shot.play()
+	if Input.is_action_just_pressed("shoot") and not pistol_shot_animation.is_playing() :
+		pistol_shot_audio.play()
+		pistol_shot_animation.play("Recoil")
 		emit_signal("weapon_fired")
 		
 	
@@ -86,15 +89,15 @@ func _physics_process(delta) -> void:
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
 	var direction : Vector3 = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		
-	if is_on_floor():
-		if direction:
+	if is_on_floor() :
+		if direction :
 			velocity.x = direction.x * speed
 			velocity.z = direction.z * speed
-		else:
+		else :
 			# Adds inertial die-off when player stops moving (on ground).
 			velocity.x = lerp(velocity.x, direction.x * speed, delta * 7.0)
 			velocity.z = lerp(velocity.z, direction.x * speed, delta * 7.0)
-	else:
+	else :
 		# Maintains direction once jumped until ground reached.
 		velocity.x = lerp(velocity.x, direction.x * speed, delta * 2.0)
 		velocity.z = lerp(velocity.z, direction.x * speed, delta * 2.0)
@@ -111,17 +114,17 @@ func _physics_process(delta) -> void:
 	move_and_slide()
 
 
-func _headbob(time) -> Vector3:
+func _headbob(time) -> Vector3 :
 	var pos = Vector3.ZERO
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
 
 
-func health_tracker(max_damage) -> void:
+func health_tracker(max_damage) -> void :
 	health -= max_damage
 	health_counter.text = str(health)
-	if health <= 0:
+	if health <= 0 :
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		var player_died = get_node("/root/OpenWastes/MAIN_SEQUENCE")
 		player_died.end_game()

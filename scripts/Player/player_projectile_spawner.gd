@@ -42,9 +42,10 @@ func position_projectile_instance() -> void:
 	var projectile_instance_position : Vector3 = camera.global_transform.origin
 	
 	# Tweak the spawn point of the projectile
-	var x_vector = camera.global_transform.basis.x.normalized()
-	projectile_instance_position += player.pistol_projectile_spawn_x_offset * x_vector
-	projectile_instance_position.y += player.pistol_projectile_spawn_y_offset
+	var x_rotation_vector = camera.global_transform.basis.x.normalized()
+	var y_rotation_vector = camera.global_transform.basis.y.normalized()
+	projectile_instance_position += player.pistol_projectile_spawn_x_offset * x_rotation_vector
+	projectile_instance_position += player.pistol_projectile_spawn_y_offset * y_rotation_vector
 	projectile_instance_position += player.pistol_projectile_spawn_distance_offset * direction
 	
 	projectile_instance.global_transform.origin = projectile_instance_position
