@@ -257,8 +257,9 @@ die_state = NodePath("../ShotgunMonkDie")
 hit_sound = NodePath("../../Audio/ShotgunMonkHit")
 animation_name = "hit"
 
-[node name="ShotgunMonkIdle" type="Node3D" parent="State_machine"]
+[node name="ShotgunMonkIdle" type="Node3D" parent="State_machine" node_paths=PackedStringArray("pursue_state")]
 script = ExtResource("38_dd7hf")
+pursue_state = NodePath("../ShotgunMonkPursue")
 animation_name = "move_forward"
 
 [node name="ShotgunMonkFire" type="Node3D" parent="State_machine" node_paths=PackedStringArray("strafe_state", "pursue_state", "fire_sound")]

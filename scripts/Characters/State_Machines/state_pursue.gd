@@ -1,54 +1,51 @@
 extends State
 
-@export var aim_state : State
-@export var idle_state : State
+@export var aim_state: State
+@export var idle_state: State
 
-@onready var player : CharacterBody3D = get_tree().get_first_node_in_group("player")
+@onready var player: CharacterBody3D = get_tree().get_first_node_in_group("player")
 
-var current_pursue_time_secs : float
+var current_pursue_time_secs: float
 
-func enter() -> void :
+func enter() -> void:
 	super()
-	current_pursue_time_secs = parent.minimum_pursue_time_secs
+	current_pursue_time_secs = NPC.minimum_pursue_time_secs
 
 
-func process_physics(delta : float) -> State :
+func process_physics(delta: float) -> State:
 	
-	var distance_to_player : float = \
-			parent.global_position.distance_to(player.global_position)
+	var distance_to_player: float = \
+			NPC.global_position.distance_to(player.global_position)
 	
-	#if not parent.is_on_floor() :
-		#return fall_state
-	
-	if distance_to_player < parent.firing_range :
-		if current_pursue_time_secs <= 0 :
+	if distance_to_player < NPC.firing_range:
+		if current_pursue_time_secs <= 0:
 			return aim_state
-		else :
+		else:
 			move_outside_navmesh(delta)
 			return null
 	
-	if distance_to_player > parent.minimum_idle_range :
+	if distance_to_player > NPC.minimum_idle_range:
 		return idle_state
 	
-	else :
+	else:
 		move_outside_navmesh(delta)
 		return null
 
-func move_outside_navmesh(delta) -> void :
+func move_outside_navmesh(delta) -> void:
 	current_pursue_time_secs -= delta
 	
-	var direction := player.global_position - parent.global_position
+	var direction:= player.global_position - NPC.global_position
 	direction = direction.normalized()
 
-	parent.look_at(parent.global_position + direction, Vector3.UP)
+	NPC.look_at(NPC.global_position + direction, Vector3.UP)
 
-	var velocity = direction * parent.move_speed
+	var velocity = direction * NPC.move_speed
 	
-	if not parent.is_on_floor() :
+	if not NPC.is_on_floor():
 		velocity.y = 0 - (gravity * delta)
 	
-	else :
+	else:
 		velocity.y = 0
 	
-	parent.velocity = velocity
-	parent.move_and_slide()  # This will move the character
+	NPC.velocity = velocity
+	NPC.move_and_slide()  # This will move the character

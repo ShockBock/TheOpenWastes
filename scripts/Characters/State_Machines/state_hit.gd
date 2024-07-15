@@ -3,26 +3,25 @@ extends State
 @export var pursue_state: State
 @export var die_state: State
 
-@export var hit_sound : AudioStreamPlayer3D
+@export var hit_sound: AudioStreamPlayer3D
 
-var hit_state_length : float
+var hit_state_length: float
 
 
 func enter():
 	super()
-	hit_state_length = parent.hit_state_length
-	hit_sound.play()
+	hit_state_length = NPC.hit_state_length
 	subtract_damage()
 
 
 func subtract_damage() -> void:
-	parent.health -= parent.last_damage_taken
-	if parent.health > 0:
+	NPC.health -= NPC.last_damage_taken
+	if NPC.health > 0:
 		hit_sound.play()
 
 
 func process_frame(delta) -> State:
-	if parent.health <= 0:
+	if NPC.health <= 0:
 		return die_state
 	
 	hit_state_length -= delta

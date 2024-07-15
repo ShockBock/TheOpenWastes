@@ -6,16 +6,16 @@ extends Node
 ## by The Shaggy Dev, 2023
 ## www.youtube.com/watch?v=bNdFXooM1MQ
 
-@export var starting_state : State
-@export var hit_state : State
+@export var starting_state: State
+@export var hit_state: State
 
 var current_state: State
 
 # Initialize the state machine by giving each child state a reference to the
 # parent object it belongs to and enter the default starting_state.
-func init(parent: CharacterBody3D, animations: AnimatedSprite3D) -> void:
+func init(NPC: Node3D, animations: AnimatedSprite3D) -> void:
 	for child in get_children():
-		child.parent = parent
+		child.NPC = NPC
 		child.animations = animations
 
 	# Initialize to the default state

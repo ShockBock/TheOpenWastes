@@ -1,15 +1,15 @@
 extends Node3D
 
-var normalised_direction_vector : Vector3
-var speed : float
+var normalised_direction_vector: Vector3
+var speed: float
 var max_life_time_secs
-var remaining_life_time_secs : float
-var max_damage : float
-var damage : float
-var shooter_collision : CollisionShape3D
+var remaining_life_time_secs: float
+var max_damage: float
+var damage: float
+var shooter_collision: CollisionShape3D
 
 @onready var projectile_tracer_ray_cast_3d = %ProjectileTracerRayCast3D
-@onready var player : CharacterBody3D = get_tree().get_first_node_in_group("player")
+@onready var player: CharacterBody3D = get_tree().get_first_node_in_group("player")
 
 
 func _ready() -> void:
@@ -43,7 +43,7 @@ func _physics_process(delta):
 
 
 func collision_detection() -> void:
-	var collision : Node3D
+	var collision: Node3D
 	if projectile_tracer_ray_cast_3d.is_colliding():
 		collision = projectile_tracer_ray_cast_3d.get_collider()
 		damage = damage_as_a_function_of_projectile_lifespan()
@@ -51,7 +51,7 @@ func collision_detection() -> void:
 			prints("projectile.gd:", shooter_collision, "collided with their own projectile")
 			pass
 		elif collision == player:
-			player.health_tracker(damage)
+			player.track_health(damage)
 			queue_free()
 		elif collision.is_in_group("enemy"):
 			collision.taken_hit(damage)

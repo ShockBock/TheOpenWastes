@@ -1,13 +1,13 @@
 extends Node3D
 
-var shotgun_monk := preload("res://Scenes/Characters/shotgun_monk.tscn")
-var player_character := preload("res://Scenes/player.tscn")
+var shotgun_monk:= preload("res://Scenes/Characters/shotgun_monk.tscn")
+var player_character:= preload("res://Scenes/player.tscn")
 
 func _on_main_sequence_spawn_characters_signal():
 	var character = null
-	var character_x_offset : float
-	var character_y_offset : float
-	var character_z_offset : float
+	var character_x_offset: float
+	var character_y_offset: float
+	var character_z_offset: float
 	
 	character = player_character
 	character_x_offset = 8.0

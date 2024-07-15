@@ -2,16 +2,16 @@
 
 extends Node
 
-const PROJECTILE_PATH : String = "res://Scenes/Miscellaneous/projectile_tracer.tscn"
+const PROJECTILE_PATH: String = "res://Scenes/Miscellaneous/projectile_tracer.tscn"
 var projectile = preload(PROJECTILE_PATH)
 
-var direction : Vector3
+var direction: Vector3
 
-@onready var player : CharacterBody3D = get_parent()
-@onready var camera : Camera3D = $"../Head/Camera3D"
-@onready var projectile_instance : Node3D
+@onready var player: CharacterBody3D = get_parent()
+@onready var camera: Camera3D = $"../Head/Camera3D"
+@onready var projectile_instance: Node3D
 
-@export var character_collision : CollisionShape3D
+@export var character_collision: CollisionShape3D
 
 func _on_player_weapon_fired() -> void:
 	normalised_direction()
@@ -39,7 +39,7 @@ func instantiate_projectile() -> void:
 
 
 func position_projectile_instance() -> void:
-	var projectile_instance_position : Vector3 = camera.global_transform.origin
+	var projectile_instance_position: Vector3 = camera.global_transform.origin
 	
 	# Tweak the spawn point of the projectile
 	var x_rotation_vector = camera.global_transform.basis.x.normalized()

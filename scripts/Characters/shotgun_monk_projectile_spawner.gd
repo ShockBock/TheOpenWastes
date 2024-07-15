@@ -4,14 +4,14 @@ extends Node
 
 var projectile = preload("res://Scenes/Miscellaneous/projectile_tracer.tscn")
 
-var direction : Vector3
-var projectile_spread : Vector3
+var direction: Vector3
+var projectile_spread: Vector3
 
-@onready var parent : CharacterBody3D = get_parent()
-@onready var player : CharacterBody3D = get_tree().get_first_node_in_group("player")
+@onready var parent: CharacterBody3D = get_parent()
+@onready var player: CharacterBody3D = get_tree().get_first_node_in_group("player")
 
 # Used in event projectile collides with spawning character's own collision shape
-@export var character_collision : CollisionShape3D
+@export var character_collision: CollisionShape3D
 
 func _on_shotgun_monk_fire_spawn_projectiles():
 	normalised_direction_to_target()
@@ -23,7 +23,7 @@ func _on_shotgun_monk_fire_spawn_projectiles():
 
 
 func normalised_direction_to_target() -> void:
-	var player_target : Vector3 = player.global_position
+	var player_target: Vector3 = player.global_position
 	player_target.y -= parent.target_y_offset_metres
 	direction = parent.global_position - player_target
 	direction = direction.normalized()
