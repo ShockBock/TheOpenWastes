@@ -18,7 +18,8 @@ var wall_section_local_positions : Array[Vector3] = [
 	Vector3(4, 0, 4),
 	Vector3(4, 0, 0),
 	]
-	
+
+#region : Building component dictionaries
 var building_component_dictionary = {
 	"floor_stairs_hole" : preload("res://Scenes/Buildings/Building001/001floor_stairs_hole.tscn"),
 	"wall_interior" : preload("res://Scenes/Buildings/Building001/001wall_interior.tscn"),
@@ -59,6 +60,7 @@ var building_navmesh_dicationary = {
 	"floor_top_001_navmesh" : preload("res://Scenes/Buildings/Building001/001Navmeshes/001floor_top_001_navmesh.tscn"),
 	"floor_top_002_navmesh" : preload("res://Scenes/Buildings/Building001/001Navmeshes/001floor_top_002_navmesh.tscn")
 	}
+#endregion
 
 func _ready():
 	build_foundation_and_steps()

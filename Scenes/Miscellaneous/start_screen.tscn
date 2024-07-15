@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhsa2fr57peog"]
+
+[ext_resource type="Script" path="res://scripts/start_screen.gd" id="1_3s7j5"]
+[ext_resource type="Texture2D" uid="uid://c34lbj8nerp3v" path="res://images/title_screen.jpg" id="1_4yakw"]
+[ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://Fonts/KomikaDisplay-RoV.ttf" id="2_sj3si"]
+
+[sub_resource type="Theme" id="Theme_j3txm"]
+
+[node name="StartScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3s7j5")
+
+[node name="OpenWastesImage" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1151.0
+offset_bottom = 648.0
+texture = ExtResource("1_4yakw")
+expand_mode = 1
+
+[node name="OpenWastesPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 71.0
+offset_right = 1130.0
+offset_bottom = 233.0
+theme = SubResource("Theme_j3txm")
+
+[node name="OpenWastesText" type="Label" parent="OpenWastesPanel"]
+layout_mode = 0
+offset_right = 1065.0
+offset_bottom = 142.0
+theme_override_fonts/font = ExtResource("2_sj3si")
+theme_override_font_sizes/font_size = 120
+text = "The Open Wastes"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="OpenWastesPanel"]
+layout_mode = 0
+offset_left = 388.0
+offset_top = 311.0
+offset_right = 666.0
+offset_bottom = 426.0
+theme_override_fonts/font = ExtResource("2_sj3si")
+theme_override_font_sizes/font_size = 90
+text = "Start"
+
+[node name="ExitButton" type="Button" parent="OpenWastesPanel"]
+layout_mode = 0
+offset_left = 388.0
+offset_top = 446.0
+offset_right = 666.0
+offset_bottom = 561.0
+theme_override_fonts/font = ExtResource("2_sj3si")
+theme_override_font_sizes/font_size = 90
+text = "Exit
+"
+
+[connection signal="pressed" from="OpenWastesPanel/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="OpenWastesPanel/ExitButton" to="." method="_on_exit_button_pressed"]

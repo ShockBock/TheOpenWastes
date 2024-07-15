@@ -1,0 +1,108 @@
+[gd_resource type="VisualShader" load_steps=9 format=3 uid="uid://c5k16vbqsofc5"]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_hibbc"]
+default_input_values = [0, 0.0, 1, 1.5]
+operator = 5
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_wkoen"]
+function = 12
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_ef06v"]
+parameter_name = "bullet_tracer"
+default_value_enabled = true
+default_value = Color(1, 1, 0, 1)
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_0g3br"]
+parameter_name = "bullet_emission"
+default_value_enabled = true
+default_value = 20.0
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_go5b3"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_hmd4j"]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_qdqvk"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_jdnis"]
+input_name = "vertex"
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform vec4 bullet_tracer : source_color = vec4(1.000000, 1.000000, 0.000000, 1.000000);
+uniform float bullet_emission = 20;
+
+
+
+void vertex() {
+// Input:2
+	vec3 n_out2p0 = VERTEX;
+
+
+// Output:0
+	COLOR.rgb = n_out2p0;
+
+
+}
+
+void fragment() {
+// ColorParameter:4
+	vec4 n_out4p0 = bullet_tracer;
+
+
+// FloatParameter:5
+	float n_out5p0 = bullet_emission;
+
+
+// VectorOp:6
+	vec3 n_out6p0 = vec3(n_out4p0.xyz) * vec3(n_out5p0);
+
+
+// Input:7
+	vec4 n_out7p0 = COLOR;
+
+
+// VectorDecompose:8
+	float n_out8p0 = vec3(n_out7p0.xyz).x;
+	float n_out8p1 = vec3(n_out7p0.xyz).y;
+	float n_out8p2 = vec3(n_out7p0.xyz).z;
+
+
+// FloatFunc:13
+	float n_out13p0 = abs(n_out8p2);
+
+
+// FloatOp:11
+	float n_in11p1 = 1.50000;
+	float n_out11p0 = pow(n_out13p0, n_in11p1);
+
+
+// Output:0
+	ALBEDO = n_out6p0;
+	ALPHA = n_out11p0;
+
+
+}
+"
+nodes/vertex/2/node = SubResource("VisualShaderNodeInput_jdnis")
+nodes/vertex/2/position = Vector2(-101.958, 228.021)
+nodes/vertex/connections = PackedInt32Array(2, 0, 0, 6)
+nodes/fragment/0/position = Vector2(1280, 100)
+nodes/fragment/4/node = SubResource("VisualShaderNodeColorParameter_ef06v")
+nodes/fragment/4/position = Vector2(-60, 40)
+nodes/fragment/5/node = SubResource("VisualShaderNodeFloatParameter_0g3br")
+nodes/fragment/5/position = Vector2(-60, 240)
+nodes/fragment/6/node = SubResource("VisualShaderNodeVectorOp_go5b3")
+nodes/fragment/6/position = Vector2(320, 100)
+nodes/fragment/7/node = SubResource("VisualShaderNodeInput_hmd4j")
+nodes/fragment/7/position = Vector2(-40, 480)
+nodes/fragment/8/node = SubResource("VisualShaderNodeVectorDecompose_qdqvk")
+nodes/fragment/8/position = Vector2(260, 480)
+nodes/fragment/11/node = SubResource("VisualShaderNodeFloatOp_hibbc")
+nodes/fragment/11/position = Vector2(840, 320)
+nodes/fragment/13/node = SubResource("VisualShaderNodeFloatFunc_wkoen")
+nodes/fragment/13/position = Vector2(660, 320)
+nodes/fragment/connections = PackedInt32Array(4, 0, 6, 0, 5, 0, 6, 1, 7, 0, 8, 0, 6, 0, 0, 0, 13, 0, 11, 0, 11, 0, 0, 1, 8, 2, 13, 0)
