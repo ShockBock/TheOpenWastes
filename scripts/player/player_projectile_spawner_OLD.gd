@@ -7,13 +7,13 @@ var projectile = preload(PROJECTILE_PATH)
 
 var direction: Vector3
 
-@onready var player: CharacterBody3D = get_parent()
-@onready var camera: Camera3D = $"../Head/Camera3D"
+@onready var player = get_tree().get_nodes_in_group("player")[0] as CharacterBody3D
+@onready var camera = player.get_node("Head/Camera3D") as Camera3D
 @onready var projectile_instance: Node3D
 
 @export var character_collision: CollisionShape3D
 
-func _on_player_weapon_fired() -> void:
+func _on_player_arm_with_pistol_root_weapon_fired() -> void:
 	normalised_direction()
 	instantiate_projectile()
 	position_projectile_instance()

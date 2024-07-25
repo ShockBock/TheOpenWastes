@@ -10,8 +10,7 @@ var projectile_spread: Vector3
 @onready var parent: CharacterBody3D = get_parent()
 @onready var player: CharacterBody3D = get_tree().get_first_node_in_group("player")
 
-# Used in event projectile collides with spawning character's own collision shape
-@export var character_collision: CollisionShape3D
+@export var own_collision: CollisionShape3D
 
 func _on_shotgun_monk_fire_spawn_projectiles():
 	normalised_direction_to_target()
@@ -39,8 +38,8 @@ func instantiate_projectile() -> void:
 	var projectile_instance = projectile.instantiate()
 	
 	# Pass necessary data to the projectile
-	projectile_instance.set_up_variables(direction, projectile_speed,
-			projectile_life_secs, projectile_max_damage, character_collision)
+	projectile_instance.set_up_variables(direction, own_collision, projectile_speed,
+			projectile_life_secs, projectile_max_damage)
 	
 	# Tweak the spawn point of the projectile
 	# so it lines up with the firing character's weapon animation

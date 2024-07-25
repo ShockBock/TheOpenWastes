@@ -18,10 +18,10 @@ func _ready() -> void:
 
 func set_up_variables(
 		direction,
+		own_collision_mesh,
 		projectile_speed,
 		projectile_life_secs,
 		projectile_max_damage,
-		character_collision
 		) -> void:
 	# Inherits key variables from node with spawned the projectile
 	
@@ -30,7 +30,7 @@ func set_up_variables(
 	max_life_time_secs = projectile_life_secs
 	remaining_life_time_secs = projectile_life_secs
 	max_damage = projectile_max_damage
-	shooter_collision = character_collision
+	shooter_collision = own_collision_mesh
 
 
 func _physics_process(delta):

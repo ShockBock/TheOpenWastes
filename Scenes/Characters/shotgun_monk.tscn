@@ -19,19 +19,19 @@
 [ext_resource type="Texture2D" uid="uid://dg4pf6oxovngo" path="res://images/Sprites/Shotgun_monk/MARAE1.png" id="11_ahho0"]
 [ext_resource type="Texture2D" uid="uid://gs73dcox8747" path="res://images/Sprites/Shotgun_monk/MARAC5.png" id="12_04e40"]
 [ext_resource type="AudioStream" uid="uid://bdl2wfibryv4m" path="res://Audio/SFX/Shotgun_monk_die.wav" id="13_57xx7"]
-[ext_resource type="Script" path="res://scripts/Characters/State_Machines/state_machine.gd" id="13_b8lne"]
+[ext_resource type="Script" path="res://scripts/Characters/state_machines/NPCs/state_machine_NPC.gd" id="13_b8lne"]
 [ext_resource type="Texture2D" uid="uid://divqor1ji26th" path="res://images/Sprites/Shotgun_monk/MARAD5.png" id="13_q43gn"]
 [ext_resource type="AudioStream" uid="uid://02tp7qnpdxeb" path="res://Audio/SFX/Shotgun_monk_fire.wav" id="14_3m24v"]
 [ext_resource type="Texture2D" uid="uid://dcmm228wehqax" path="res://images/Sprites/Shotgun_monk/MARAE5.png" id="14_xshtr"]
 [ext_resource type="Texture2D" uid="uid://t8wtx2bfxe8r" path="res://images/Sprites/Shotgun_monk/MARAA6A4.png" id="15_yos2c"]
 [ext_resource type="Texture2D" uid="uid://bcthnq3i0mody" path="res://images/Sprites/Shotgun_monk/MARAB6B4.png" id="16_xt23w"]
-[ext_resource type="Script" path="res://scripts/Characters/State_Machines/state_die.gd" id="17_kuhr3"]
+[ext_resource type="Script" path="res://scripts/Characters/state_machines/NPCs/state_die.gd" id="17_kuhr3"]
 [ext_resource type="Texture2D" uid="uid://ctw6aqu4j0wdg" path="res://images/Sprites/Shotgun_monk/MARAC6C4.png" id="17_vg1ys"]
 [ext_resource type="Texture2D" uid="uid://cwpwdvxn4rwpd" path="res://images/Sprites/Shotgun_monk/MARAD6D4.png" id="18_a8sh1"]
 [ext_resource type="Texture2D" uid="uid://bcegw2mbomy2r" path="res://images/Sprites/Shotgun_monk/MARAE6E4.png" id="19_6gr6a"]
-[ext_resource type="Script" path="res://scripts/Characters/State_Machines/state_pursue.gd" id="19_bp78i"]
-[ext_resource type="Script" path="res://scripts/Characters/State_Machines/state_aim.gd" id="20_sumju"]
-[ext_resource type="Script" path="res://scripts/Characters/State_Machines/state_fire.gd" id="21_sfwoa"]
+[ext_resource type="Script" path="res://scripts/Characters/state_machines/NPCs/state_pursue.gd" id="19_bp78i"]
+[ext_resource type="Script" path="res://scripts/Characters/state_machines/NPCs/state_aim.gd" id="20_sumju"]
+[ext_resource type="Script" path="res://scripts/Characters/state_machines/NPCs/state_fire.gd" id="21_sfwoa"]
 [ext_resource type="Texture2D" uid="uid://dhh077uq0375s" path="res://images/Sprites/Shotgun_monk/MARAA7A3.png" id="25_omaej"]
 [ext_resource type="Texture2D" uid="uid://d3usrhgb3s1ws" path="res://images/Sprites/Shotgun_monk/MARAA8A2.png" id="25_tpts0"]
 [ext_resource type="Texture2D" uid="uid://bcgdtog640fvy" path="res://images/Sprites/Shotgun_monk/MARAB8B2.png" id="26_6v74k"]
@@ -42,9 +42,9 @@
 [ext_resource type="Texture2D" uid="uid://bwojtyiukf4ds" path="res://images/Sprites/Shotgun_monk/MARAD8D2.png" id="28_xg838"]
 [ext_resource type="Texture2D" uid="uid://ieot747xa3" path="res://images/Sprites/Shotgun_monk/MARAE8E2.png" id="29_bu2tl"]
 [ext_resource type="Texture2D" uid="uid://bxeb4oi5vwcbb" path="res://images/Sprites/Shotgun_monk/MARAE7E3.png" id="29_n4vrt"]
-[ext_resource type="Script" path="res://scripts/Characters/State_Machines/state_idle.gd" id="38_dd7hf"]
-[ext_resource type="Script" path="res://scripts/Characters/State_Machines/state_hit.gd" id="39_tcmeq"]
-[ext_resource type="Script" path="res://scripts/Characters/State_Machines/state_strafe.gd" id="42_2rtbq"]
+[ext_resource type="Script" path="res://scripts/Characters/state_machines/NPCs/state_idle.gd" id="38_dd7hf"]
+[ext_resource type="Script" path="res://scripts/Characters/state_machines/NPCs/state_hit.gd" id="39_tcmeq"]
+[ext_resource type="Script" path="res://scripts/Characters/state_machines/NPCs/state_strafe.gd" id="42_2rtbq"]
 [ext_resource type="Script" path="res://scripts/Miscellaneous/audio_node.gd" id="45_16ojv"]
 [ext_resource type="Script" path="res://scripts/Characters/shotgun_monk_projectile_spawner.gd" id="45_uyqrh"]
 [ext_resource type="AudioStream" uid="uid://bjrxro0jllu3q" path="res://Audio/SFX/shotgun_monk_hit.wav" id="48_n423m"]
@@ -224,11 +224,8 @@ offset = Vector2(-30, 0)
 billboard = 2
 alpha_cut = 1
 sprite_frames = SubResource("SpriteFrames_sw010")
-animation = &"death"
+animation = &"move_forward"
 autoplay = "move_forward"
-
-[node name="ShotgunMonkShootRay" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
@@ -281,9 +278,9 @@ pursue_state = NodePath("../ShotgunMonkPursue")
 aim_state = NodePath("../ShotgunMonkAim")
 animation_name = "move_forward"
 
-[node name="ProjectileSpawner" type="Node" parent="." node_paths=PackedStringArray("character_collision")]
+[node name="ProjectileSpawner" type="Node" parent="." node_paths=PackedStringArray("own_collision")]
 script = ExtResource("45_uyqrh")
-character_collision = NodePath("../ShotgunMonkCollision")
+own_collision = NodePath("../ShotgunMonkCollision")
 
 [node name="Audio" type="Node" parent="."]
 script = ExtResource("45_16ojv")

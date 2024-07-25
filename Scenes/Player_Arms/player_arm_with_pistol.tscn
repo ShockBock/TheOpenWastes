@@ -1,6 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bsyh2g0iqygo2"]
+[gd_scene load_steps=9 format=3 uid="uid://bsyh2g0iqygo2"]
 
+[ext_resource type="Script" path="res://scripts/player/player_pistol.gd" id="1_5i7xt"]
 [ext_resource type="PackedScene" uid="uid://b015v86x1q8c6" path="res://Models/Player_hands_and_weapons/player_arm_with_pistol.blend" id="1_cudn8"]
+[ext_resource type="Script" path="res://scripts/player/PlayerPistolData.gd" id="2_xhecw"]
+[ext_resource type="Script" path="res://scripts/player/player_projectile_spawner.gd" id="3_pyncj"]
+[ext_resource type="Script" path="res://scripts/Miscellaneous/audio_node.gd" id="3_s38d1"]
+[ext_resource type="AudioStream" uid="uid://v0jeoi3bcfd5" path="res://Audio/SFX/player_pistol_shot.wav" id="4_d75ne"]
 
 [sub_resource type="Animation" id="Animation_7a4e6"]
 resource_name = "Recoil"
@@ -37,11 +42,35 @@ _data = {
 }
 
 [node name="PlayerArmWithPistolRoot" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.226018, -0.270497, 0.155278)
+script = ExtResource("1_5i7xt")
+
+[node name="PlayerPistolData" type="Node" parent="."]
+script = ExtResource("2_xhecw")
+projectile_speed = 60.0
 
 [node name="PlayerArmWithPistol" parent="." instance=ExtResource("1_cudn8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="PlayerArmAnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="PlayerArmWithPistolAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_uoc0b")
 }
+
+[node name="ProjectileSpawnPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0814867, 0.148422, -0.67997)
+
+[node name="ProjectileSpawner" type="Node" parent="ProjectileSpawnPoint" node_paths=PackedStringArray("projectile_data", "projective_spawn_point")]
+script = ExtResource("3_pyncj")
+projectile_data = NodePath("../../PlayerPistolData")
+projective_spawn_point = NodePath("..")
+
+[node name="Audio" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_s38d1")
+
+[node name="PistolShot" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("4_d75ne")
+volume_db = -25.0
+pitch_scale = 0.8
+
+[connection signal="weapon_fired" from="." to="ProjectileSpawnPoint/ProjectileSpawner" method="_on_player_arm_with_pistol_root_weapon_fired"]
