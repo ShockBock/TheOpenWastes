@@ -85,5 +85,5 @@ stream = ExtResource("4_d75ne")
 volume_db = -25.0
 pitch_scale = 0.8
 
-[connection signal="weapon_fired" from="." to="MuzzleFlashSpawnPoint/MuzzleFlashSpawner" method="_on_player_arm_with_pistol_root_weapon_fired"]
 [connection signal="weapon_fired" from="." to="ProjectileSpawnPoint/ProjectileSpawner" method="_on_player_arm_with_pistol_root_weapon_fired"]
+[connection signal="weapon_fired" from="." to="MuzzleFlashSpawnPoint/MuzzleFlashSpawner" method="_on_player_arm_with_pistol_root_weapon_fired"]

@@ -4,6 +4,7 @@ extends Node3D
 
 signal weapon_fired
 
+@export_group("Pistol assets")
 @export var pistol_shot_audio: AudioStreamPlayer
 @export var pistol_shot_animation: AnimationPlayer
 
