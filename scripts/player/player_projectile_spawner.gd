@@ -12,7 +12,7 @@ var direction: Vector3
 @onready var projectile_instance: Node3D
 
 @export var projectile_data: Node
-@export var projective_spawn_point: Marker3D
+@export var projectile_spawn_point: Marker3D
 
 func _on_player_arm_with_pistol_root_weapon_fired() -> void:
 	normalised_direction()
@@ -36,4 +36,4 @@ func instantiate_projectile() -> void:
 	)
 	
 	add_child(projectile_instance)
-	projectile_instance.global_transform.origin = projective_spawn_point.global_transform.origin
+	projectile_instance.global_transform.origin = projectile_spawn_point.global_transform.origin

@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bql67emtit1gs"]
+
+[ext_resource type="Texture2D" uid="uid://bceykr2dfcdpl" path="res://images/Sprites/muzzle_flash/muzzle_flash_flare01.PNG" id="1_geobi"]
+
+[resource]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(2.5, 1, 0.5, 1)
+albedo_texture = ExtResource("1_geobi")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false

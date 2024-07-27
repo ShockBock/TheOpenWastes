@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://bsyh2g0iqygo2"]
+[gd_scene load_steps=10 format=3 uid="uid://bsyh2g0iqygo2"]
 
 [ext_resource type="Script" path="res://scripts/player/player_pistol.gd" id="1_5i7xt"]
 [ext_resource type="PackedScene" uid="uid://b015v86x1q8c6" path="res://Models/Player_hands_and_weapons/player_arm_with_pistol.blend" id="1_cudn8"]
-[ext_resource type="Script" path="res://scripts/player/PlayerPistolData.gd" id="2_xhecw"]
+[ext_resource type="Script" path="res://scripts/player/player_pistol_data.gd" id="2_qo8lr"]
 [ext_resource type="Script" path="res://scripts/player/player_projectile_spawner.gd" id="3_pyncj"]
 [ext_resource type="Script" path="res://scripts/Miscellaneous/audio_node.gd" id="3_s38d1"]
 [ext_resource type="AudioStream" uid="uid://v0jeoi3bcfd5" path="res://Audio/SFX/player_pistol_shot.wav" id="4_d75ne"]
+[ext_resource type="Script" path="res://scripts/Miscellaneous/muzzle_flash_spawner.gd" id="5_0yxcj"]
 
 [sub_resource type="Animation" id="Animation_7a4e6"]
 resource_name = "Recoil"
@@ -41,12 +42,14 @@ _data = {
 "Recoil": SubResource("Animation_7a4e6")
 }
 
-[node name="PlayerArmWithPistolRoot" type="Node3D"]
+[node name="PlayerArmWithPistolRoot" type="Node3D" node_paths=PackedStringArray("pistol_shot_audio", "pistol_shot_animation")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.226018, -0.270497, 0.155278)
 script = ExtResource("1_5i7xt")
+pistol_shot_audio = NodePath("Audio/PistolShot")
+pistol_shot_animation = NodePath("PlayerArmWithPistolAnimationPlayer")
 
 [node name="PlayerPistolData" type="Node" parent="."]
-script = ExtResource("2_xhecw")
+script = ExtResource("2_qo8lr")
 projectile_speed = 60.0
 
 [node name="PlayerArmWithPistol" parent="." instance=ExtResource("1_cudn8")]
@@ -59,10 +62,19 @@ libraries = {
 [node name="ProjectileSpawnPoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0814867, 0.148422, -0.67997)
 
-[node name="ProjectileSpawner" type="Node" parent="ProjectileSpawnPoint" node_paths=PackedStringArray("projectile_data", "projective_spawn_point")]
+[node name="ProjectileSpawner" type="Node" parent="ProjectileSpawnPoint" node_paths=PackedStringArray("projectile_data", "projectile_spawn_point")]
 script = ExtResource("3_pyncj")
 projectile_data = NodePath("../../PlayerPistolData")
-projective_spawn_point = NodePath("..")
+projectile_spawn_point = NodePath("..")
+
+[node name="MuzzleFlashSpawnPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0814867, 0.148422, -0.500852)
+
+[node name="MuzzleFlashSpawner" type="Node3D" parent="MuzzleFlashSpawnPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0215803)
+script = ExtResource("5_0yxcj")
+muzzle_flash_duration_secs = 0.48
+muzzle_flash_scale_factor = 0.01
 
 [node name="Audio" type="Node" parent="."]
 unique_name_in_owner = true
@@ -73,4 +85,5 @@ stream = ExtResource("4_d75ne")
 volume_db = -25.0
 pitch_scale = 0.8
 
+[connection signal="weapon_fired" from="." to="MuzzleFlashSpawnPoint/MuzzleFlashSpawner" method="_on_player_arm_with_pistol_root_weapon_fired"]
 [connection signal="weapon_fired" from="." to="ProjectileSpawnPoint/ProjectileSpawner" method="_on_player_arm_with_pistol_root_weapon_fired"]

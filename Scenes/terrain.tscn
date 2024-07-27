@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://dfciq53er7gmf"]
 
 [ext_resource type="Script" path="res://scripts/terrain.gd" id="2_4jivq"]
-[ext_resource type="Shader" path="res://shaders/terrain.gdshader" id="3_t5d5q"]
+[ext_resource type="Shader" path="res://shaders_and_materials/terrain.gdshader" id="3_t5d5q"]
 [ext_resource type="Texture2D" uid="uid://cuqmjg1d2ndoj" path="res://images/Textures/Ground051/Ground051_1K-JPG_Color.jpg" id="4_g1s4m"]
 [ext_resource type="Texture2D" uid="uid://8csxd3i4nybc" path="res://images/Textures/Ground051/Ground051_1K-JPG_NormalGL.jpg" id="4_irnmg"]
 [ext_resource type="Texture2D" uid="uid://xkmpqpkom4hy" path="res://images/Textures/Rock033/Rock033_1K-JPG_Color.jpg" id="5_kbmck"]
