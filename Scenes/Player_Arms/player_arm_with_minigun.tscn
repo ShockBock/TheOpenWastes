@@ -1,15 +1,18 @@
-[gd_scene load_steps=16 format=3 uid="uid://41k8spc36un5"]
+[gd_scene load_steps=28 format=3 uid="uid://41k8spc36un5"]
 
 [ext_resource type="Texture2D" uid="uid://bhxijgayhvkhc" path="res://Models/Player_hands_and_weapons/FPS_arm_with_minigun_minigun_color.jpg" id="1_n011y"]
 [ext_resource type="Script" path="res://scripts/player/player_minigun.gd" id="1_u4lgn"]
+[ext_resource type="Script" path="res://scripts/player/player_minigun_data.gd" id="2_8wg6o"]
 [ext_resource type="Texture2D" uid="uid://c6wpip0scppn6" path="res://Models/Player_hands_and_weapons/FPS_arm_with_minigun_minigun_metallic.png" id="2_ioreh"]
 [ext_resource type="Texture2D" uid="uid://cnjaxe3wwgfu0" path="res://Models/Player_hands_and_weapons/FPS_arm_with_minigun_minigun_normal.jpg" id="3_87ycl"]
 [ext_resource type="Texture2D" uid="uid://j43ri306fmnh" path="res://Models/Player_hands_and_weapons/FPS_arm_with_minigun_player_arms_color.png" id="4_y8b4s"]
 [ext_resource type="Script" path="res://scripts/Miscellaneous/audio_node.gd" id="6_tgydq"]
-[ext_resource type="Script" path="res://scripts/Miscellaneous/muzzle_flash_spawner.gd" id="7_bgm3v"]
-[ext_resource type="AudioStream" uid="uid://cou66saauodl6" path="res://Audio/SFX/player_minigun_spinup.wav" id="7_dhrfi"]
+[ext_resource type="Script" path="res://scripts/Miscellaneous/muzzle_flash.gd" id="7_mk3ma"]
 [ext_resource type="AudioStream" uid="uid://cgbyuc1i81wq4" path="res://Audio/SFX/player_minigun_burst.wav" id="8_ho8h0"]
+[ext_resource type="Material" uid="uid://dcdw7orgkpb73" path="res://shaders_and_materials/muzzle_flash_flash_material.tres" id="8_nosbq"]
+[ext_resource type="Material" uid="uid://bql67emtit1gs" path="res://shaders_and_materials/muzzle_flash_flare_material.tres" id="9_f7mkg"]
 [ext_resource type="AudioStream" uid="uid://dxiwb5ktjctyf" path="res://Audio/SFX/player_minigun_spindown.wav" id="9_q53yw"]
+[ext_resource type="Texture2D" uid="uid://bceykr2dfcdpl" path="res://images/Sprites/muzzle_flash/muzzle_flash_flare01.PNG" id="10_1pjlw"]
 [ext_resource type="Script" path="res://scripts/player/player_projectile_spawner.gd" id="10_nrecd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_03lfe"]
@@ -78,16 +81,64 @@ bind/1/name = &"barrel_assembly"
 bind/1/bone = -1
 bind/1/pose = Transform3D(1, -8.66252e-07, 0, 0, 0, 1, -8.66252e-07, -1, 0, -0.0196608, -0.631578, -0.213234)
 
-[node name="PlayerArmWithMinigunRoot" type="Node3D" node_paths=PackedStringArray("minigun_skeleton", "minigun_spinup_audio", "minigun_burst_audio", "minigun_spindown_audio")]
-transform = Transform3D(-1, -9.74492e-09, 8.6878e-08, 0, 0.993768, 0.111469, -8.74228e-08, 0.111469, -0.993768, 0.152, -0.32, 0.0593359)
+[sub_resource type="QuadMesh" id="QuadMesh_8s7pr"]
+material = ExtResource("8_nosbq")
+
+[sub_resource type="QuadMesh" id="QuadMesh_x1bf7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8klx"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("10_1pjlw")
+
+[sub_resource type="Curve" id="Curve_hkp2m"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_fet0f"]
+max_value = 5.0
+_data = [Vector2(0, 5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_w15og"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_qe3xl"]
+curve_x = SubResource("Curve_hkp2m")
+curve_y = SubResource("Curve_fet0f")
+curve_z = SubResource("Curve_w15og")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k4dnl"]
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 0.1
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.05
+scale_max = 0.1
+scale_curve = SubResource("CurveXYZTexture_qe3xl")
+color = Color(5, 2, 1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_vdicw"]
+size = Vector2(0.5, 0.5)
+
+[node name="PlayerArmWithMinigunRoot" type="Node3D" node_paths=PackedStringArray("minigun_data", "minigun_skeleton", "minigun_burst_audio", "minigun_spindown_audio")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.152, -0.32, 0.0593359)
 script = ExtResource("1_u4lgn")
+minigun_data = NodePath("PlayerMinigunData")
 minigun_skeleton = NodePath("MinigunSkeleton3D")
-minigun_spinup_audio = NodePath("Audio/MinigunSpinup")
 minigun_burst_audio = NodePath("Audio/MinigunBurst")
 minigun_spindown_audio = NodePath("Audio/MinigunSpindown")
-barrel_rotation_rate = 10.0
 
 [node name="PlayerMinigunData" type="Node" parent="."]
+script = ExtResource("2_8wg6o")
+barrel_rotation_rate = 20.0
+projectile_speed = 60.0
 
 [node name="MinigunSkeleton3D" type="Skeleton3D" parent="."]
 bones/0/name = "root"
@@ -102,7 +153,7 @@ bones/1/parent = 0
 bones/1/rest = Transform3D(1, 0, -7.15256e-07, 0, 1, 0, 7.15256e-07, 0, 1, 5.32424e-10, 0.324308, -2.96868e-09)
 bones/1/enabled = true
 bones/1/position = Vector3(0.000474975, 0.325475, 0.000474975)
-bones/1/rotation = Quaternion(0.000474975, 0.000474975, 0.000474975, 1.00048)
+bones/1/rotation = Quaternion(0.000474975, 1.00048, 0.000474975, 0.000474975)
 bones/1/scale = Vector3(1, 1, 1)
 
 [node name="MinigunMesh" type="MeshInstance3D" parent="MinigunSkeleton3D"]
@@ -112,33 +163,61 @@ skin = SubResource("Skin_t4bho")
 [node name="ProjectileSpawnPoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000383988, -0.0109203, 1.11665)
 
-[node name="ProjectileSpawner" type="Node" parent="ProjectileSpawnPoint"]
+[node name="ProjectileSpawner" type="Node" parent="ProjectileSpawnPoint" node_paths=PackedStringArray("projectile_data", "projectile_spawn_point")]
 script = ExtResource("10_nrecd")
+projectile_data = NodePath("../../PlayerMinigunData")
+projectile_spawn_point = NodePath("..")
 
 [node name="MuzzleFlashSpawnPoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 8.88178e-15, 0, 8.88178e-15, 1, 0, 0, 0, 1, 0.000939012, 0.0169346, 0.853004)
 
-[node name="MuzzleFlashSpawner" type="Node3D" parent="MuzzleFlashSpawnPoint"]
+[node name="MuzzleFlash" type="Node3D" parent="MuzzleFlashSpawnPoint" node_paths=PackedStringArray("weapon_data", "flash", "flare", "sparks")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0215803)
-script = ExtResource("7_bgm3v")
-muzzle_flash_duration_secs = 0.48
-muzzle_flash_scale_factor = 0.01
+script = ExtResource("7_mk3ma")
+weapon_data = NodePath("../../PlayerMinigunData")
+flash = NodePath("Flash")
+flare = NodePath("Flare")
+sparks = NodePath("Sparks")
+scaling_factor_rand_min = 0.2
+
+[node name="Flash" type="MeshInstance3D" parent="MuzzleFlashSpawnPoint/MuzzleFlash"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_8s7pr")
+
+[node name="Flare" type="MeshInstance3D" parent="MuzzleFlashSpawnPoint/MuzzleFlash"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+material_override = ExtResource("9_f7mkg")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_x1bf7")
+
+[node name="Sparks" type="GPUParticles3D" parent="MuzzleFlashSpawnPoint/MuzzleFlash"]
+transform = Transform3D(1, 8.88178e-16, 0, 8.88178e-16, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_n8klx")
+emitting = false
+amount = 5
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_k4dnl")
+draw_pass_1 = SubResource("QuadMesh_vdicw")
 
 [node name="Audio" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("6_tgydq")
 
-[node name="MinigunSpinup" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("7_dhrfi")
-volume_db = -15.0
-pitch_scale = 0.8
-
 [node name="MinigunBurst" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("8_ho8h0")
 volume_db = -15.0
 pitch_scale = 0.8
+max_polyphony = 2
+bus = &"SFX"
 
 [node name="MinigunSpindown" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("9_q53yw")
 volume_db = -25.0
 pitch_scale = 0.8
+bus = &"SFX"
+
+[connection signal="weapon_fired" from="." to="ProjectileSpawnPoint/ProjectileSpawner" method="_on_weapon_fired"]
+[connection signal="weapon_fired" from="." to="MuzzleFlashSpawnPoint/MuzzleFlash" method="_on_weapon_fired"]

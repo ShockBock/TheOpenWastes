@@ -64,6 +64,10 @@ var last_damage_taken: float
 
 #endregion
 
+## Referred to by state machine branches to determine whether collision mesh
+## has already been turned off
+var is_dead: bool = false
+
 func _ready() -> void:
 	state_machine.init(self, animations)
 

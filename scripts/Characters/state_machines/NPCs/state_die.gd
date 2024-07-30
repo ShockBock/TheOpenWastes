@@ -8,5 +8,8 @@ func enter():
 	death_sound.play()
 
 # Delete collision node, so characters and projectiles will no longer interact
-	collision_shape.queue_free()
-
+	if NPC.is_dead == true:
+		return
+	else:
+		NPC.is_dead = true
+		collision_shape.queue_free()

@@ -1,5 +1,8 @@
 extends Node3D
 
+## For generic tracer-style firearm projectile,
+## e.g. for use with pistols, shotguns, automatic weapons etc.
+
 var normalised_direction_vector: Vector3
 var speed: float
 var max_life_time_secs
@@ -15,7 +18,8 @@ var shooter_collision: CollisionShape3D
 func _ready() -> void:
 	look_at(global_position + normalised_direction_vector, Vector3.UP)
 
-
+## Inherits key variables from node with spawned the projectile
+## and assigns them to local variables
 func set_up_variables(
 		direction,
 		own_collision_mesh,
@@ -23,7 +27,6 @@ func set_up_variables(
 		projectile_life_secs,
 		projectile_max_damage,
 		) -> void:
-	# Inherits key variables from node with spawned the projectile
 	
 	normalised_direction_vector -= direction
 	speed = projectile_speed
@@ -40,6 +43,12 @@ func _physics_process(delta):
 	collision_detection()
 	
 	lifetime_and_self_termination(delta)
+
+
+## Called only if weapon with very high rate of fire instantiates the projectile.
+## Creates a string of extra 'phantom' bullets, with no collision properties
+func burst_multimesh_instances() -> void:
+	pass
 
 
 func collision_detection() -> void:
