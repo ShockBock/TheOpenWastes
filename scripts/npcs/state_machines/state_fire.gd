@@ -4,6 +4,7 @@ signal spawn_projectiles
 
 @export var strafe_state: State
 @export var pursue_state: State
+@export var npc_data: Node
 
 @export var fire_sound: AudioStreamPlayer3D
 
@@ -17,7 +18,7 @@ var raycast_vertical_offset: float = 0.5
 
 func enter():
 	super()
-	firing_time_countdown = NPC.firing_time_secs
+	firing_time_countdown = npc_data.firing_time_secs
 	raycast_check_if_target_blocked()
 	if shot_blocked:
 		return strafe_state
@@ -44,7 +45,7 @@ func raycast_check_if_target_blocked() -> void:
 	# Set up raycast from character to player
 	var params = PhysicsRayQueryParameters3D.new()
 	
-	var ray_from: Vector3 = NPC.global_position
+	var ray_from: Vector3 = npc.global_position
 	ray_from.y += raycast_vertical_offset
 	params.from = ray_from
 	

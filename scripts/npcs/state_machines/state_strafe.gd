@@ -2,6 +2,7 @@ extends State
 
 @export var pursue_state: State
 @export var aim_state: State
+@export var npc_data: Node
 
 @onready var player: CharacterBody3D = get_tree().get_first_node_in_group("player")
 
@@ -21,8 +22,8 @@ var strafing_target_final: Vector3
 
 func enter():
 	super()
-	random_move_time_secs_countdown = NPC.strafe_time_secs
-	distance_to_player = NPC.global_position.distance_to(player.global_position)
+	random_move_time_secs_countdown = npc_data.strafe_time_secs
+	distance_to_player = npc.global_position.distance_to(player.global_position)
 	calculate_strafing_target()
 
 func calculate_strafing_target():
@@ -30,7 +31,7 @@ func calculate_strafing_target():
 	# perpendicular to a line between it and the player
 	
 	# Calculate direction vector
-	character_to_player_vector = NPC.global_position - player.global_position
+	character_to_player_vector = npc.global_position - player.global_position
 	
 	# Project this vector onto the x-z plane
 	character_to_player_vector.y = 0
@@ -39,7 +40,7 @@ func calculate_strafing_target():
 	character_to_player_vector = character_to_player_vector.normalized()
 	
 	# Calculate two strafing targets as both perpendicular to the above
-	# ApNPCly the dot product concept explains why (if!) this works
+	# Appcly the dot product concept explains why (if!) this works
 	strafing_target_a.x = -character_to_player_vector.z
 	strafing_target_a.z = character_to_player_vector.x
 	
@@ -55,23 +56,23 @@ func calculate_strafing_target():
 
 func process_physics(delta: float) -> State:
 	if random_move_time_secs_countdown <= 0:
-		if distance_to_player > NPC.firing_range:
+		if distance_to_player > npc_data.firing_range:
 			return pursue_state
 		else:
 			return aim_state
 	
-	NPC.look_at(player.global_position, Vector3.UP)
+	npc.look_at(player.global_position, Vector3.UP)
 
-	var velocity = strafing_target_final * NPC.move_speed
+	var velocity = strafing_target_final * npc_data.move_speed
 	
-	if not NPC.is_on_floor():
+	if not npc.is_on_floor():
 		velocity.y = 0 - (gravity * delta)
 	
 	else:
 		velocity.y = 0
 		
-	NPC.velocity = velocity
-	NPC.move_and_slide()
+	npc.velocity = velocity
+	npc.move_and_slide()
 	
 	random_move_time_secs_countdown -= delta
 	return null

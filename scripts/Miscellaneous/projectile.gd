@@ -11,7 +11,7 @@ var max_damage: float
 var damage: float
 var shooter_collision: CollisionShape3D
 
-@onready var projectile_tracer_ray_cast_3d = %ProjectileTracerRayCast3D
+@export var projectile_tracer_ray_cast_3d: RayCast3D
 @onready var player: CharacterBody3D = get_tree().get_first_node_in_group("player")
 
 
@@ -43,12 +43,6 @@ func _physics_process(delta):
 	collision_detection()
 	
 	lifetime_and_self_termination(delta)
-
-
-## Called only if weapon with very high rate of fire instantiates the projectile.
-## Creates a string of extra 'phantom' bullets, with no collision properties
-func burst_multimesh_instances() -> void:
-	pass
 
 
 func collision_detection() -> void:

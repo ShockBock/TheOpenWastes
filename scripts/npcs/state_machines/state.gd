@@ -12,7 +12,7 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var animations: AnimatedSprite3D
 var move_component
-var NPC: Node3D
+var npc: Node3D
 
 func enter() -> void:
 	animations.play(animation_name)

@@ -13,9 +13,9 @@ var current_state: State
 
 # Initialize the state machine by giving each child state a reference to the
 # parent object it belongs to and enter the default starting_state.
-func init(NPC: Node3D, animations: AnimatedSprite3D) -> void:
+func init(npc: Node3D, animations: AnimatedSprite3D) -> void:
 	for child in get_children():
-		child.NPC = NPC
+		child.npc = npc
 		child.animations = animations
 
 	# Initialize to the default state

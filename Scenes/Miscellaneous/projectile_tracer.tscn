@@ -11,8 +11,9 @@ shader_parameter/bullet_tracer = Color(1, 1, 0, 1)
 shader_parameter/bullet_emission = 40.0
 shader_parameter/fade_attenuation = 1.5
 
-[node name="ProjectileTracer" type="Node3D"]
+[node name="ProjectileTracer" type="Node3D" node_paths=PackedStringArray("projectile_tracer_ray_cast_3d")]
 script = ExtResource("1_6mqnv")
+projectile_tracer_ray_cast_3d = NodePath("ProjectileTracerRayCast3D")
 
 [node name="ProjectileTracerMesh" type="MeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_2l1lq")

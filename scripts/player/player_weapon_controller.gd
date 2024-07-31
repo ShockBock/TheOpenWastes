@@ -5,8 +5,8 @@ extends Node3D
 var weapon_array: Array = ["pistol", "minigun"]
 var weapon_selection: int = 0
 
-var pistol_scene = preload("res://Scenes/Player_Arms/player_arm_with_pistol.tscn")
-var minigun_scene = preload("res://Scenes/Player_Arms/player_arm_with_minigun.tscn")
+var pistol_scene = preload("res://Scenes/player_arms/player_arm_with_pistol.tscn")
+var minigun_scene = preload("res://Scenes/player_arms/player_arm_with_minigun.tscn")
 
 func _unhandled_input(_InputEvent) -> void:
 	if Input.is_action_just_pressed("change_weapon"):
