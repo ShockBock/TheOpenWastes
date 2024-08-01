@@ -1,0 +1,162 @@
+[gd_scene load_steps=22 format=3 uid="uid://bsyh2g0iqygo2"]
+
+[ext_resource type="Script" path="res://scripts/player/player_pistol.gd" id="1_fp756"]
+[ext_resource type="Script" path="res://scripts/player/player_pistol_data.gd" id="2_a03b0"]
+[ext_resource type="PackedScene" uid="uid://b015v86x1q8c6" path="res://Models/Player_hands_and_weapons/player_arm_with_pistol.blend" id="3_60m8b"]
+[ext_resource type="Script" path="res://scripts/player/player_projectile_spawner.gd" id="4_hwvs8"]
+[ext_resource type="Script" path="res://scripts/Miscellaneous/muzzle_flash.gd" id="5_16l04"]
+[ext_resource type="Texture2D" uid="uid://bceykr2dfcdpl" path="res://images/Sprites/muzzle_flash/muzzle_flash_flare01.PNG" id="6_a3ypn"]
+[ext_resource type="Material" uid="uid://dcdw7orgkpb73" path="res://shaders_and_materials/muzzle_flash_flash_material.tres" id="7_x57or"]
+[ext_resource type="Material" uid="uid://bql67emtit1gs" path="res://shaders_and_materials/muzzle_flash_flare_material.tres" id="8_mq0qd"]
+[ext_resource type="Script" path="res://scripts/Miscellaneous/audio_node.gd" id="9_gvmjn"]
+[ext_resource type="AudioStream" uid="uid://v0jeoi3bcfd5" path="res://Audio/SFX/player_pistol_shot.wav" id="10_nlhn0"]
+
+[sub_resource type="Animation" id="Animation_7a4e6"]
+resource_name = "Recoil"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerArmWithPistol:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.1, 0.1), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerArmWithPistol:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.349066, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uoc0b"]
+_data = {
+"Recoil": SubResource("Animation_7a4e6")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ktui4"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("6_a3ypn")
+
+[sub_resource type="Curve" id="Curve_j4fec"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_o3gl4"]
+max_value = 5.0
+_data = [Vector2(0, 5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_wxgei"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_b0ep7"]
+curve_x = SubResource("Curve_j4fec")
+curve_y = SubResource("Curve_o3gl4")
+curve_z = SubResource("Curve_wxgei")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dkas3"]
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 0.1
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.05
+scale_max = 0.1
+scale_curve = SubResource("CurveXYZTexture_b0ep7")
+color = Color(5, 2, 1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_bqmxb"]
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="QuadMesh" id="QuadMesh_cv5nx"]
+material = ExtResource("7_x57or")
+
+[sub_resource type="QuadMesh" id="QuadMesh_v7jhe"]
+
+[node name="PlayerArmWithPistolRoot" type="Node3D" node_paths=PackedStringArray("pistol_shot_audio", "pistol_shot_animation", "muzzle_flash")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.226018, -0.270497, 0.155278)
+script = ExtResource("1_fp756")
+pistol_shot_audio = NodePath("Audio/PistolShot")
+pistol_shot_animation = NodePath("PlayerArmWithPistolAnimationPlayer")
+muzzle_flash = NodePath("MuzzleFlashLocation/MuzzleFlash")
+
+[node name="PlayerPistolData" type="Node" parent="."]
+script = ExtResource("2_a03b0")
+projectile_speed = 60.0
+
+[node name="PlayerArmWithPistol" parent="." instance=ExtResource("3_60m8b")]
+
+[node name="PlayerArmWithPistolAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uoc0b")
+}
+
+[node name="ProjectileSpawnPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0814867, 0.148422, -0.67997)
+
+[node name="ProjectileSpawner" type="Node" parent="ProjectileSpawnPoint" node_paths=PackedStringArray("projectile_data", "projectile_spawn_point")]
+script = ExtResource("4_hwvs8")
+projectile_data = NodePath("../../PlayerPistolData")
+projectile_spawn_point = NodePath("..")
+
+[node name="MuzzleFlashLocation" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0814867, 0.148422, -0.478954)
+
+[node name="MuzzleFlash" type="Node3D" parent="MuzzleFlashLocation" node_paths=PackedStringArray("weapon_data", "flash", "flare", "sparks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0215803)
+script = ExtResource("5_16l04")
+weapon_data = NodePath("../../PlayerPistolData")
+flash = NodePath("Flash")
+flare = NodePath("Flare")
+sparks = NodePath("Sparks")
+scaling_factor_rand_min = 0.2
+
+[node name="Sparks" type="GPUParticles3D" parent="MuzzleFlashLocation/MuzzleFlash"]
+material_override = SubResource("StandardMaterial3D_ktui4")
+emitting = false
+amount = 5
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_dkas3")
+draw_pass_1 = SubResource("QuadMesh_bqmxb")
+
+[node name="Flash" type="MeshInstance3D" parent="MuzzleFlashLocation/MuzzleFlash"]
+cast_shadow = 0
+mesh = SubResource("QuadMesh_cv5nx")
+
+[node name="Flare" type="MeshInstance3D" parent="MuzzleFlashLocation/MuzzleFlash"]
+material_override = ExtResource("8_mq0qd")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_v7jhe")
+
+[node name="Audio" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("9_gvmjn")
+
+[node name="PistolShot" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("10_nlhn0")
+volume_db = -25.0
+pitch_scale = 0.8
+bus = &"SFX"
+
+[connection signal="weapon_fired" from="." to="ProjectileSpawnPoint/ProjectileSpawner" method="_on_weapon_fired"]
+[connection signal="weapon_fired" from="." to="MuzzleFlashLocation/MuzzleFlash" method="_on_weapon_fired"]

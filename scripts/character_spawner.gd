@@ -1,6 +1,6 @@
 extends Node3D
 
-var shotgun_monk:= preload("res://Scenes/Characters/shotgun_monk.tscn")
+var shotgun_monk:= preload("res://Scenes/npcs/shotgun_monk.tscn")
 var player_character:= preload("res://Scenes/player.tscn")
 
 func _on_main_sequence_spawn_characters_signal():

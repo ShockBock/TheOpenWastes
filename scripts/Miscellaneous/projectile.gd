@@ -1,5 +1,8 @@
 extends Node3D
 
+## For generic tracer-style firearm projectile,
+## e.g. for use with pistols, shotguns, automatic weapons etc.
+
 var normalised_direction_vector: Vector3
 var speed: float
 var max_life_time_secs
@@ -8,29 +11,29 @@ var max_damage: float
 var damage: float
 var shooter_collision: CollisionShape3D
 
-@onready var projectile_tracer_ray_cast_3d = %ProjectileTracerRayCast3D
+@export var projectile_tracer_ray_cast_3d: RayCast3D
 @onready var player: CharacterBody3D = get_tree().get_first_node_in_group("player")
 
 
 func _ready() -> void:
 	look_at(global_position + normalised_direction_vector, Vector3.UP)
 
-
+## Inherits key variables from node with spawned the projectile
+## and assigns them to local variables
 func set_up_variables(
 		direction,
+		own_collision_mesh,
 		projectile_speed,
 		projectile_life_secs,
 		projectile_max_damage,
-		character_collision
 		) -> void:
-	# Inherits key variables from node with spawned the projectile
 	
 	normalised_direction_vector -= direction
 	speed = projectile_speed
 	max_life_time_secs = projectile_life_secs
 	remaining_life_time_secs = projectile_life_secs
 	max_damage = projectile_max_damage
-	shooter_collision = character_collision
+	shooter_collision = own_collision_mesh
 
 
 func _physics_process(delta):

@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtg43m68aq1sr"]
+
+[ext_resource type="Script" path="res://scripts/options_screen.gd" id="1_2tpig"]
+[ext_resource type="Texture2D" uid="uid://c34lbj8nerp3v" path="res://images/title_screen.jpg" id="2_eupoj"]
+[ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://Fonts/KomikaDisplay-RoV.ttf" id="3_mcy0t"]
+
+[sub_resource type="Theme" id="Theme_iqg3e"]
+
+[node name="OptionsScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2tpig")
+
+[node name="OpenWastesImage" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1151.0
+offset_bottom = 648.0
+texture = ExtResource("2_eupoj")
+expand_mode = 1
+
+[node name="OptionsPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 202.0
+offset_top = 148.0
+offset_right = 1002.0
+offset_bottom = 298.0
+theme = SubResource("Theme_iqg3e")
+
+[node name="InvertMouseYText" type="Label" parent="OptionsPanel"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 35.0
+offset_right = 553.46
+offset_bottom = 115.0
+theme_override_fonts/font = ExtResource("3_mcy0t")
+theme_override_font_sizes/font_size = 50
+text = "Invert mouse y:"
+horizontal_alignment = 1
+
+[node name="InvertMouseButton" type="CheckButton" parent="OptionsPanel"]
+layout_mode = 0
+offset_left = 488.0
+offset_top = 10.0
+offset_right = 532.0
+offset_bottom = 34.0
+scale = Vector2(5, 5)
+expand_icon = true
+
+[node name="MainMenuButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 351.0
+offset_top = 488.0
+offset_right = 822.0
+offset_bottom = 603.0
+theme_override_fonts/font = ExtResource("3_mcy0t")
+theme_override_font_sizes/font_size = 90
+text = "Main menu"
+
+[connection signal="toggled" from="OptionsPanel/InvertMouseButton" to="." method="_on_invert_mouse_button_toggled"]
+[connection signal="pressed" from="MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="toggled" from="MainMenuButton" to="." method="_on_main_menu_button_toggled"]

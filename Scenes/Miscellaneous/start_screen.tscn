@@ -24,10 +24,10 @@ expand_mode = 1
 
 [node name="OpenWastesPanel" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 49.0
-offset_top = 71.0
-offset_right = 1130.0
-offset_bottom = 233.0
+offset_left = 43.0
+offset_top = 20.0
+offset_right = 1124.0
+offset_bottom = 336.0
 theme = SubResource("Theme_j3txm")
 
 [node name="OpenWastesText" type="Label" parent="OpenWastesPanel"]
@@ -39,26 +39,48 @@ theme_override_font_sizes/font_size = 120
 text = "The Open Wastes"
 horizontal_alignment = 1
 
+[node name="TributeText" type="Label" parent="OpenWastesPanel"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 155.0
+offset_right = 1037.0
+offset_bottom = 315.0
+theme_override_fonts/font = ExtResource("2_sj3si")
+theme_override_font_sizes/font_size = 60
+text = "An open-source tribute to Fallout
+built in Godot"
+horizontal_alignment = 1
+
 [node name="StartButton" type="Button" parent="OpenWastesPanel"]
 layout_mode = 0
-offset_left = 388.0
-offset_top = 311.0
-offset_right = 666.0
-offset_bottom = 426.0
+offset_top = 482.0
+offset_right = 278.0
+offset_bottom = 597.0
 theme_override_fonts/font = ExtResource("2_sj3si")
 theme_override_font_sizes/font_size = 90
 text = "Start"
 
+[node name="OptionsButton" type="Button" parent="OpenWastesPanel"]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 482.0
+offset_right = 720.0
+offset_bottom = 597.0
+theme_override_fonts/font = ExtResource("2_sj3si")
+theme_override_font_sizes/font_size = 90
+text = "Options"
+
 [node name="ExitButton" type="Button" parent="OpenWastesPanel"]
 layout_mode = 0
-offset_left = 388.0
-offset_top = 446.0
-offset_right = 666.0
-offset_bottom = 561.0
+offset_left = 795.0
+offset_top = 482.0
+offset_right = 1073.0
+offset_bottom = 597.0
 theme_override_fonts/font = ExtResource("2_sj3si")
 theme_override_font_sizes/font_size = 90
 text = "Exit
 "
 
 [connection signal="pressed" from="OpenWastesPanel/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="OpenWastesPanel/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="OpenWastesPanel/ExitButton" to="." method="_on_exit_button_pressed"]

@@ -1,0 +1,314 @@
+[gd_scene load_steps=52 format=3 uid="uid://lvjprgceb8wt"]
+
+[ext_resource type="Script" path="res://scripts/npcs/shotgun_monk.gd" id="1_uyo7i"]
+[ext_resource type="Texture2D" uid="uid://q2r5xerf6dde" path="res://images/Sprites/Shotgun_monk/MARAG1aim.png" id="2_4alky"]
+[ext_resource type="Script" path="res://scripts/npcs/shotgun_monk_data.gd" id="2_sdc6d"]
+[ext_resource type="Texture2D" uid="uid://dp1cyjwluoiy7" path="res://images/Sprites/Shotgun_monk/MARAH0.png" id="3_rqd8c"]
+[ext_resource type="Texture2D" uid="uid://dl05tbhkrc04c" path="res://images/Sprites/Shotgun_monk/MARAI0.png" id="4_jpk0e"]
+[ext_resource type="Texture2D" uid="uid://by7niqiiheia6" path="res://images/Sprites/Shotgun_monk/MARAJ0.png" id="5_gvskk"]
+[ext_resource type="Texture2D" uid="uid://wv3cgcyevfe" path="res://images/Sprites/Shotgun_monk/MARAK0.png" id="6_tus5d"]
+[ext_resource type="Texture2D" uid="uid://ciuw24iyshv5a" path="res://images/Sprites/Shotgun_monk/MARAL0.png" id="7_f363u"]
+[ext_resource type="Texture2D" uid="uid://bpbdnvocb7e0p" path="res://images/Sprites/Shotgun_monk/MARAM0.png" id="8_ih6vu"]
+[ext_resource type="Texture2D" uid="uid://cu83btly4nrsl" path="res://images/Sprites/Shotgun_monk/MARAG1.png" id="9_c06cf"]
+[ext_resource type="Texture2D" uid="uid://cvnnjaijulm40" path="res://images/Sprites/Shotgun_monk/MARAF1.png" id="10_dwfeq"]
+[ext_resource type="Texture2D" uid="uid://xbpkt0riq8lg" path="res://images/Sprites/Shotgun_monk/MARAA5.png" id="11_1rnnm"]
+[ext_resource type="Texture2D" uid="uid://bpcwxejk518cb" path="res://images/Sprites/Shotgun_monk/MARAB5.png" id="12_f70ld"]
+[ext_resource type="Texture2D" uid="uid://gs73dcox8747" path="res://images/Sprites/Shotgun_monk/MARAC5.png" id="13_w18sp"]
+[ext_resource type="Texture2D" uid="uid://divqor1ji26th" path="res://images/Sprites/Shotgun_monk/MARAD5.png" id="14_xd5ei"]
+[ext_resource type="Texture2D" uid="uid://dcmm228wehqax" path="res://images/Sprites/Shotgun_monk/MARAE5.png" id="15_wmsk0"]
+[ext_resource type="Texture2D" uid="uid://t8wtx2bfxe8r" path="res://images/Sprites/Shotgun_monk/MARAA6A4.png" id="16_5yy0i"]
+[ext_resource type="Texture2D" uid="uid://bcthnq3i0mody" path="res://images/Sprites/Shotgun_monk/MARAB6B4.png" id="17_jmx67"]
+[ext_resource type="Texture2D" uid="uid://ctw6aqu4j0wdg" path="res://images/Sprites/Shotgun_monk/MARAC6C4.png" id="18_4v6ka"]
+[ext_resource type="Texture2D" uid="uid://cwpwdvxn4rwpd" path="res://images/Sprites/Shotgun_monk/MARAD6D4.png" id="19_mmlj7"]
+[ext_resource type="Texture2D" uid="uid://bcegw2mbomy2r" path="res://images/Sprites/Shotgun_monk/MARAE6E4.png" id="20_ijxsc"]
+[ext_resource type="Texture2D" uid="uid://buu3t2qqoddyt" path="res://images/Sprites/Shotgun_monk/MARAA1.png" id="21_47hv6"]
+[ext_resource type="Texture2D" uid="uid://xrywi2f2k03q" path="res://images/Sprites/Shotgun_monk/MARAB1.png" id="22_rtnct"]
+[ext_resource type="Texture2D" uid="uid://fhdnbgggmil4" path="res://images/Sprites/Shotgun_monk/MARAC1.png" id="23_6q6e4"]
+[ext_resource type="Texture2D" uid="uid://bf6pmpuxjw7uv" path="res://images/Sprites/Shotgun_monk/MARAD1.png" id="24_f4cxx"]
+[ext_resource type="Texture2D" uid="uid://dg4pf6oxovngo" path="res://images/Sprites/Shotgun_monk/MARAE1.png" id="25_yip57"]
+[ext_resource type="Texture2D" uid="uid://d3usrhgb3s1ws" path="res://images/Sprites/Shotgun_monk/MARAA8A2.png" id="26_2xw6n"]
+[ext_resource type="Texture2D" uid="uid://bcgdtog640fvy" path="res://images/Sprites/Shotgun_monk/MARAB8B2.png" id="27_rp0bo"]
+[ext_resource type="Texture2D" uid="uid://ch044wyjnn7lr" path="res://images/Sprites/Shotgun_monk/MARAC8C2.png" id="28_aw45e"]
+[ext_resource type="Texture2D" uid="uid://bwojtyiukf4ds" path="res://images/Sprites/Shotgun_monk/MARAD8D2.png" id="29_8eyfh"]
+[ext_resource type="Texture2D" uid="uid://ieot747xa3" path="res://images/Sprites/Shotgun_monk/MARAE8E2.png" id="30_6y2dj"]
+[ext_resource type="Texture2D" uid="uid://dhh077uq0375s" path="res://images/Sprites/Shotgun_monk/MARAA7A3.png" id="31_426au"]
+[ext_resource type="Texture2D" uid="uid://dokhq8l45ltnc" path="res://images/Sprites/Shotgun_monk/MARAB7B3.png" id="32_dc3lm"]
+[ext_resource type="Texture2D" uid="uid://dlc2s877suc2y" path="res://images/Sprites/Shotgun_monk/MARAC7C3.png" id="33_f1dpu"]
+[ext_resource type="Texture2D" uid="uid://dxruojwd160ji" path="res://images/Sprites/Shotgun_monk/MARAD7D3.png" id="34_dpakn"]
+[ext_resource type="Texture2D" uid="uid://bxeb4oi5vwcbb" path="res://images/Sprites/Shotgun_monk/MARAE7E3.png" id="35_xpm82"]
+[ext_resource type="Script" path="res://scripts/npcs/state_machines/state_machine_NPC.gd" id="36_jpqad"]
+[ext_resource type="Script" path="res://scripts/npcs/state_machines/state_aim.gd" id="37_qwx3j"]
+[ext_resource type="Script" path="res://scripts/npcs/state_machines/state_die.gd" id="38_jaf8i"]
+[ext_resource type="Script" path="res://scripts/npcs/state_machines/state_hit.gd" id="39_g2st8"]
+[ext_resource type="Script" path="res://scripts/npcs/state_machines/state_idle.gd" id="40_hm1un"]
+[ext_resource type="Script" path="res://scripts/npcs/state_machines/state_fire.gd" id="41_cvoe3"]
+[ext_resource type="Script" path="res://scripts/npcs/state_machines/state_pursue.gd" id="42_y7ta1"]
+[ext_resource type="Script" path="res://scripts/npcs/state_machines/state_strafe.gd" id="43_lrpk6"]
+[ext_resource type="Script" path="res://scripts/npcs/shotgun_monk_projectile_spawner.gd" id="44_e5g06"]
+[ext_resource type="Script" path="res://scripts/Miscellaneous/audio_node.gd" id="45_eb0xb"]
+[ext_resource type="AudioStream" uid="uid://bdl2wfibryv4m" path="res://Audio/SFX/Shotgun_monk_die.wav" id="46_ayg07"]
+[ext_resource type="AudioStream" uid="uid://02tp7qnpdxeb" path="res://Audio/SFX/Shotgun_monk_fire.wav" id="47_5iy0j"]
+[ext_resource type="AudioStream" uid="uid://bjrxro0jllu3q" path="res://Audio/SFX/shotgun_monk_hit.wav" id="48_n06y5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5m70n"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sw010"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4alky")
+}],
+"loop": true,
+"name": &"aim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rqd8c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jpk0e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_gvskk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_tus5d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_f363u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ih6vu")
+}],
+"loop": false,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_c06cf")
+}],
+"loop": true,
+"name": &"fire",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_dwfeq")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_1rnnm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_f70ld")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_w18sp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_xd5ei")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_wmsk0")
+}],
+"loop": true,
+"name": &"move_back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_5yy0i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_jmx67")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_4v6ka")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_mmlj7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_ijxsc")
+}],
+"loop": true,
+"name": &"move_back_side",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_47hv6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_rtnct")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_6q6e4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_f4cxx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_yip57")
+}],
+"loop": true,
+"name": &"move_forward",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_2xw6n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_rp0bo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_aw45e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_8eyfh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_6y2dj")
+}],
+"loop": true,
+"name": &"move_forward_side",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_426au")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_dc3lm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_f1dpu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_dpakn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_xpm82")
+}],
+"loop": true,
+"name": &"move_side",
+"speed": 5.0
+}]
+
+[node name="ShotgunMonk" type="CharacterBody3D" node_paths=PackedStringArray("animations", "state_machine") groups=["enemy"]]
+script = ExtResource("1_uyo7i")
+animations = NodePath("ShotgunMonkAnimations")
+state_machine = NodePath("State_machine")
+
+[node name="ShotgunMonkData" type="Node" parent="."]
+script = ExtResource("2_sdc6d")
+move_speed = 3.032
+projectile_speed = 60.0
+
+[node name="ShotgunMonkCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_5m70n")
+
+[node name="ShotgunMonkAnimations" type="AnimatedSprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1.945, 0, 0, 0, 1.945, 0, 0, 0, 1.945, 0, 0, 0)
+centered = false
+offset = Vector2(-30, 0)
+billboard = 2
+alpha_cut = 1
+sprite_frames = SubResource("SpriteFrames_sw010")
+animation = &"aim"
+autoplay = "move_forward"
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="ProjectileSpawnPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.344533, 1.17606, -1.0064)
+
+[node name="ProjectileSpawner" type="Node" parent="ProjectileSpawnPoint" node_paths=PackedStringArray("shotgun_monk", "shotgun_monk_data", "projectile_spawn_point", "own_collision")]
+script = ExtResource("44_e5g06")
+shotgun_monk = NodePath("../..")
+shotgun_monk_data = NodePath("../../ShotgunMonkData")
+projectile_spawn_point = NodePath("..")
+own_collision = NodePath("../../ShotgunMonkCollision")
+
+[node name="State_machine" type="Node3D" parent="." node_paths=PackedStringArray("starting_state", "hit_state")]
+unique_name_in_owner = true
+script = ExtResource("36_jpqad")
+starting_state = NodePath("ShotgunMonkPursue")
+hit_state = NodePath("ShotgunMonkHit")
+
+[node name="ShotgunMonkAim" type="Node3D" parent="State_machine" node_paths=PackedStringArray("pursue_state", "fire_state", "npc_data")]
+script = ExtResource("37_qwx3j")
+pursue_state = NodePath("../ShotgunMonkPursue")
+fire_state = NodePath("../ShotgunMonkFire")
+npc_data = NodePath("../../ShotgunMonkData")
+animation_name = "aim"
+
+[node name="ShotgunMonkDie" type="Node3D" parent="State_machine" node_paths=PackedStringArray("collision_shape", "death_sound", "npc_data")]
+script = ExtResource("38_jaf8i")
+collision_shape = NodePath("../../ShotgunMonkCollision")
+death_sound = NodePath("../../Audio/ShotgunMonkDie")
+npc_data = NodePath("../../ShotgunMonkData")
+animation_name = "death"
+
+[node name="ShotgunMonkHit" type="Node3D" parent="State_machine" node_paths=PackedStringArray("pursue_state", "die_state", "npc_data", "hit_sound")]
+script = ExtResource("39_g2st8")
+pursue_state = NodePath("../ShotgunMonkPursue")
+die_state = NodePath("../ShotgunMonkDie")
+npc_data = NodePath("../../ShotgunMonkData")
+hit_sound = NodePath("../../Audio/ShotgunMonkHit")
+animation_name = "hit"
+
+[node name="ShotgunMonkIdle" type="Node3D" parent="State_machine" node_paths=PackedStringArray("pursue_state", "npc_data", "animation")]
+script = ExtResource("40_hm1un")
+pursue_state = NodePath("../ShotgunMonkPursue")
+npc_data = NodePath("../../ShotgunMonkData")
+animation = NodePath("../../ShotgunMonkAnimations")
+animation_name = "move_forward"
+
+[node name="ShotgunMonkFire" type="Node3D" parent="State_machine" node_paths=PackedStringArray("strafe_state", "pursue_state", "npc_data", "fire_sound")]
+script = ExtResource("41_cvoe3")
+strafe_state = NodePath("../ShotgunMonkStrafe")
+pursue_state = NodePath("../ShotgunMonkPursue")
+npc_data = NodePath("../../ShotgunMonkData")
+fire_sound = NodePath("../../Audio/ShotgunMonkFire")
+animation_name = "fire"
+
+[node name="ShotgunMonkPursue" type="Node3D" parent="State_machine" node_paths=PackedStringArray("aim_state", "idle_state", "npc_data")]
+script = ExtResource("42_y7ta1")
+aim_state = NodePath("../ShotgunMonkAim")
+idle_state = NodePath("../ShotgunMonkIdle")
+npc_data = NodePath("../../ShotgunMonkData")
+animation_name = "move_forward"
+
+[node name="ShotgunMonkStrafe" type="Node3D" parent="State_machine" node_paths=PackedStringArray("pursue_state", "aim_state", "npc_data")]
+script = ExtResource("43_lrpk6")
+pursue_state = NodePath("../ShotgunMonkPursue")
+aim_state = NodePath("../ShotgunMonkAim")
+npc_data = NodePath("../../ShotgunMonkData")
+animation_name = "move_forward"
+
+[node name="Audio" type="Node" parent="."]
+script = ExtResource("45_eb0xb")
+
+[node name="ShotgunMonkDie" type="AudioStreamPlayer3D" parent="Audio"]
+stream = ExtResource("46_ayg07")
+volume_db = -15.0
+
+[node name="ShotgunMonkFire" type="AudioStreamPlayer3D" parent="Audio"]
+stream = ExtResource("47_5iy0j")
+volume_db = -15.0
+
+[node name="ShotgunMonkHit" type="AudioStreamPlayer3D" parent="Audio"]
+stream = ExtResource("48_n06y5")
+volume_db = -15.0
+
+[connection signal="spawn_projectiles" from="State_machine/ShotgunMonkFire" to="ProjectileSpawnPoint/ProjectileSpawner" method="_on_shotgun_monk_fire_spawn_projectiles"]
