@@ -2,8 +2,8 @@ extends State
 
 @export var pursue_state: State
 @export var npc_data: Node
+@export var animation: AnimatedSprite3D
 
-@onready var animation: AnimatedSprite3D = %ShotgunMonkAnimations
 @onready var player: CharacterBody3D = \
 get_tree().get_first_node_in_group("player")
 
@@ -18,7 +18,8 @@ func enter() -> void:
 	super()
 	idle_behaviour_time_secs = npc_data.idle_behaviour_time_secs
 	set_idle_target_position()
-	
+
+
 func process_physics(delta: float):
 	
 	if npc.global_position.distance_to(player.global_position) <= npc_data.minimum_idle_range:
@@ -33,6 +34,7 @@ func process_physics(delta: float):
 	if npc.global_position.distance_to(character_idle_target_position) >= 0.05:
 		move_to_idle_target_position(delta)
 
+
 func set_idle_target_position() -> void:
 	character_idle_target_position.x = \
 			npc.global_position.x + randf_range(-npc_data.idle_movement_distance,
@@ -42,16 +44,14 @@ func set_idle_target_position() -> void:
 			npc.global_position.z + randf_range(-npc_data.idle_movement_distance,
 			npc_data.idle_movement_distance)
 
+
 func move_to_idle_target_position(delta) -> void:
 	# Calculate the direction vector from the current position to the target position
 	direction_to_idle_target = character_idle_target_position - npc.global_position
 	# Normalize the direction to get a unit vector
 	direction_to_idle_target = direction_to_idle_target.normalized()
 	
-	if not npc.is_on_floor():
-		direction_to_idle_target.y -= gravity * delta
-	else:
-		direction_to_idle_target.y = 0
+	direction_to_idle_target.y = 0 - (gravity * delta)
 	
 	npc.velocity = direction_to_idle_target * npc_data.move_speed
 	npc.move_and_slide()
@@ -60,7 +60,7 @@ func move_to_idle_target_position(delta) -> void:
 
 #region Experimental
 ## Unfinished attempt to get monk animation to correspond with the direction
-## it is moving during idle
+## it is moving during idle. Currently unconnected to rest of code.
 func choose_animation_facing():
 	var angle_between_player_and_character_facing: float
 	angle_between_player_and_character_facing = \

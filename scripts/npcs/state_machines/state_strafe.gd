@@ -63,14 +63,10 @@ func process_physics(delta: float) -> State:
 	
 	npc.look_at(player.global_position, Vector3.UP)
 
-	var velocity = strafing_target_final * npc_data.move_speed
+	var velocity: Vector3 = strafing_target_final * npc_data.move_speed
 	
-	if not npc.is_on_floor():
-		velocity.y = 0 - (gravity * delta)
+	velocity.y = 0 - (gravity * delta)
 	
-	else:
-		velocity.y = 0
-		
 	npc.velocity = velocity
 	npc.move_and_slide()
 	

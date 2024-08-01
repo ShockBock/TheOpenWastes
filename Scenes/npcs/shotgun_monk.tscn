@@ -230,7 +230,7 @@ autoplay = "move_forward"
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="ProjectileSpawnPoint" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.344533, 1.17606, -3.06276)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.344533, 1.17606, -1.0064)
 
 [node name="ProjectileSpawner" type="Node" parent="ProjectileSpawnPoint" node_paths=PackedStringArray("shotgun_monk", "shotgun_monk_data", "projectile_spawn_point", "own_collision")]
 script = ExtResource("44_e5g06")
@@ -267,10 +267,11 @@ npc_data = NodePath("../../ShotgunMonkData")
 hit_sound = NodePath("../../Audio/ShotgunMonkHit")
 animation_name = "hit"
 
-[node name="ShotgunMonkIdle" type="Node3D" parent="State_machine" node_paths=PackedStringArray("pursue_state", "npc_data")]
+[node name="ShotgunMonkIdle" type="Node3D" parent="State_machine" node_paths=PackedStringArray("pursue_state", "npc_data", "animation")]
 script = ExtResource("40_hm1un")
 pursue_state = NodePath("../ShotgunMonkPursue")
 npc_data = NodePath("../../ShotgunMonkData")
+animation = NodePath("../../ShotgunMonkAnimations")
 animation_name = "move_forward"
 
 [node name="ShotgunMonkFire" type="Node3D" parent="State_machine" node_paths=PackedStringArray("strafe_state", "pursue_state", "npc_data", "fire_sound")]

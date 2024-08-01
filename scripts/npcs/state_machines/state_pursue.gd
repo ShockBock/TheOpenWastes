@@ -34,18 +34,14 @@ func process_physics(delta: float) -> State:
 func move_outside_navmesh(delta) -> void:
 	current_pursue_time_secs -= delta
 	
-	var direction:= player.global_position - npc.global_position
+	var direction: Vector3 = player.global_position - npc.global_position
 	direction = direction.normalized()
 
 	npc.look_at(npc.global_position + direction, Vector3.UP)
 
-	var velocity = direction * npc_data.move_speed
-	
-	if not npc.is_on_floor():
-		velocity.y = 0 - (gravity * delta)
-	
-	else:
-		velocity.y = 0
+	var velocity: Vector3 = direction * npc_data.move_speed
+
+	velocity.y = 0 - (gravity * delta)
 	
 	npc.velocity = velocity
 	npc.move_and_slide()  # This will move the character
