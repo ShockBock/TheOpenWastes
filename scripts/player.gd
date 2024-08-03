@@ -7,7 +7,6 @@ extends CharacterBody3D
 @export var walk_speed: float = 5.0
 @export var sprint_speed: float = 8.0
 @export var jump_velocity: float = 4.5
-@export var mouse_sensitivity: float = 0.015
 
 @export var bob_frequency: float = 2.0
 @export var bob_amplitude: float = 0.08
@@ -34,12 +33,12 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and mouse_freed == false:
-		head.rotate_y(-event.relative.x * mouse_sensitivity)
+		head.rotate_y(-event.relative.x * Global.mouse_sensitivity)
 		var y_sensitivity
-		if global.mouse_inverted:
-			y_sensitivity = -mouse_sensitivity
+		if Global.mouse_inverted:
+			y_sensitivity = -Global.mouse_sensitivity
 		else:
-			y_sensitivity = mouse_sensitivity
+			y_sensitivity = Global.mouse_sensitivity
 		camera.rotate_x(-event.relative.y * y_sensitivity)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 	
@@ -98,7 +97,7 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("exit"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		get_tree().change_scene_to_file("res://Scenes/Miscellaneous/start_screen.tscn")
+		get_tree().change_scene_to_file("res://Scenes/ui/start_screen.tscn")
 
 
 func _headbob(time: float) -> Vector3:
