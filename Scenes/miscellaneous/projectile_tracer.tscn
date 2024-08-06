@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxh7wsutsypbi"]
+
+[ext_resource type="Script" path="res://scripts/miscellaneous/projectile.gd" id="1_6mqnv"]
+[ext_resource type="Shader" path="res://shaders_and_materials/bullet_tracer.gdshader" id="2_frtgf"]
+[ext_resource type="ArrayMesh" uid="uid://bj5m26oqd431s" path="res://Scenes/miscellaneous/projectile_tracer_mesh_only.tres" id="3_bs82v"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2l1lq"]
+render_priority = 0
+shader = ExtResource("2_frtgf")
+shader_parameter/bullet_tracer = Color(1, 1, 0, 1)
+shader_parameter/bullet_emission = 40.0
+shader_parameter/fade_attenuation = 1.5
+
+[node name="ProjectileTracer" type="Node3D" node_paths=PackedStringArray("projectile_tracer_ray_cast_3d")]
+script = ExtResource("1_6mqnv")
+projectile_tracer_ray_cast_3d = NodePath("ProjectileTracerRayCast3D")
+
+[node name="ProjectileTracerMesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_2l1lq")
+cast_shadow = 0
+mesh = ExtResource("3_bs82v")
+skeleton = NodePath("")
+
+[node name="ProjectileTracerRayCast3D" type="RayCast3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.5, 0, 0, 0, -6.55671e-08, -0.5, 0, 1.5, -2.18557e-08, 0, 0, 1)

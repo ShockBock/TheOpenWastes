@@ -1,8 +1,8 @@
-## Based heavily on LegionGames'
-## Juiced Up First Person Character Controller Tutorial - Godot 3D FPS
-## www.youtube.com/watch?v=A3HLeyaBCq4
-
 extends CharacterBody3D
+
+## Based heavily on LegionGames'
+## Juiced Up First Person Character Controller Tutorial - Godot 3D FPS.
+## www.youtube.com/watch?v=A3HLeyaBCq4
 
 @export var walk_speed: float = 5.0
 @export var sprint_speed: float = 8.0
@@ -33,12 +33,12 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and mouse_freed == false:
-		head.rotate_y(-event.relative.x * Global.mouse_sensitivity)
+		head.rotate_y(-event.relative.x * Global.current_mouse_sensitivity)
 		var y_sensitivity
 		if Global.mouse_inverted:
-			y_sensitivity = -Global.mouse_sensitivity
+			y_sensitivity = -Global.current_mouse_sensitivity
 		else:
-			y_sensitivity = Global.mouse_sensitivity
+			y_sensitivity = Global.current_mouse_sensitivity
 		camera.rotate_x(-event.relative.y * y_sensitivity)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 	

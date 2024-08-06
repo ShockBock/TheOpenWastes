@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cu50lbr5vrv82"]
+
+[ext_resource type="PackedScene" uid="uid://dbsqyjbrhgisi" path="res://models/Building001/floor_stairs_hole.blend" id="1_g8257"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="floor_stairs_hole" parent="." instance=ExtResource("1_g8257")]

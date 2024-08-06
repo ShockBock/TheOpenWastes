@@ -61,14 +61,13 @@ func process_physics(delta: float) -> State:
 		else:
 			return aim_state
 	
-	npc.look_at(player.global_position, Vector3.UP)
-
 	var velocity: Vector3 = strafing_target_final * npc_data.move_speed
-	
 	velocity.y = 0 - (gravity * delta)
 	
 	npc.velocity = velocity
 	npc.move_and_slide()
+	
+	npc.look_at(player.global_position, Vector3.UP)
 	
 	random_move_time_secs_countdown -= delta
 	return null

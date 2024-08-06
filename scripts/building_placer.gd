@@ -7,7 +7,7 @@ extends Node3D
 
 signal buildings_complete
 
-var building001 = preload("res://Scenes/Buildings/Building001.tscn")
+var building001 = preload("res://Scenes/buildings/building001.tscn")
 
 func _on_main_sequence_place_buildings_signal():
 	spawn_buildings_on_x_z_grid()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://dhsa2fr57peog"]
 
-[ext_resource type="Script" path="res://scripts/start_screen.gd" id="1_3s7j5"]
+[ext_resource type="Script" path="res://scripts/ui/start_screen.gd" id="1_3s7j5"]
 [ext_resource type="Texture2D" uid="uid://c34lbj8nerp3v" path="res://images/title_screen.jpg" id="1_4yakw"]
 [ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://Fonts/KomikaDisplay-RoV.ttf" id="2_sj3si"]
 

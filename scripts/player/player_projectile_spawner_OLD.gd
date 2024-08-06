@@ -2,7 +2,7 @@
 
 extends Node
 
-const PROJECTILE_PATH: String = "res://Scenes/Miscellaneous/projectile_tracer.tscn"
+const PROJECTILE_PATH: String = "res://Scenes/miscellaneous/projectile_tracer.tscn"
 var projectile = preload(PROJECTILE_PATH)
 
 var direction: Vector3

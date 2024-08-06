@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://3u8uohq6frrn"]
-
-[ext_resource type="PackedScene" uid="uid://cidmn7uv2dghc" path="res://Models/Building001/rubble_wall_blank.blend" id="1_df2nt"]
-
-[node name="Node3D" type="Node3D"]
-
-[node name="rubble_wall_blank" parent="." instance=ExtResource("1_df2nt")]

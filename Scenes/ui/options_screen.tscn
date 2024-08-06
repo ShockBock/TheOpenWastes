@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://dtg43m68aq1sr"]
 
-[ext_resource type="Script" path="res://scripts/options_screen.gd" id="1_gwtbq"]
+[ext_resource type="Script" path="res://scripts/ui/options_screen.gd" id="1_gwtbq"]
 [ext_resource type="Texture2D" uid="uid://c34lbj8nerp3v" path="res://images/title_screen.jpg" id="2_yeks1"]
 [ext_resource type="PackedScene" uid="uid://cv4rmq3eb8hf1" path="res://Scenes/ui/input_button.tscn" id="3_wxb44"]
 [ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://Fonts/KomikaDisplay-RoV.ttf" id="4_eqmkq"]
@@ -56,7 +56,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gwtbq")
 action_list = NodePath("PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList")
-mouse_inversion_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList/MarginContainer")
+mouse_inversion_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList/MarginInvertMouse")
 mouse_sensitivity = NodePath("PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList/MouseSensitivityButton")
 
 [node name="OpenWastesImage" type="TextureRect" parent="."]
@@ -100,8 +100,28 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
 
-[node name="InputButtonDemo" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList" instance=ExtResource("3_wxb44")]
+[node name="MarginInvertMouse" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList"]
 layout_mode = 2
+
+[node name="ContainerInvertMouse" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList/MarginInvertMouse"]
+layout_mode = 2
+
+[node name="LabelInvertMouse" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList/MarginInvertMouse/ContainerInvertMouse"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("4_eqmkq")
+theme_override_font_sizes/font_size = 35
+text = "Invert mouse y"
+vertical_alignment = 1
+
+[node name="SpacerInvertMouse" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList/MarginInvertMouse/ContainerInvertMouse"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+
+[node name="ButtonInvertMouse" type="CheckButton" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList/MarginInvertMouse/ContainerInvertMouse"]
+layout_mode = 2
+expand_icon = true
 
 [node name="MouseSensitivityButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList"]
 custom_minimum_size = Vector2(0, 35)
@@ -139,36 +159,15 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 
-[node name="LabelSensitivityValue" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList/MouseSensitivityButton/MarginContainer/HBoxContainer"]
-layout_mode = 2
-mouse_filter = 1
-theme_override_fonts/font = ExtResource("4_eqmkq")
-theme_override_font_sizes/font_size = 35
-text = "Example input"
-vertical_alignment = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList"]
-layout_mode = 2
-
-[node name="ContainerInvertMouse" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList/MarginContainer"]
-layout_mode = 2
-
-[node name="LabelInvertMouse" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList/MarginContainer/ContainerInvertMouse"]
-layout_mode = 2
-mouse_filter = 1
-theme_override_fonts/font = ExtResource("4_eqmkq")
-theme_override_font_sizes/font_size = 35
-text = "Invert mouse y"
-vertical_alignment = 1
-
-[node name="SpacerInvertMouse" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList/MarginContainer/ContainerInvertMouse"]
+[node name="HSliderMouseSensitivity" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList/MouseSensitivityButton/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_filter = 1
+size_flags_vertical = 4
+max_value = 0.05
+step = 0.0
 
-[node name="ButtonInvertMouse" type="CheckButton" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList/MarginContainer/ContainerInvertMouse"]
+[node name="InputButtonDemo" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList" instance=ExtResource("3_wxb44")]
 layout_mode = 2
-expand_icon = true
 
 [node name="ResetButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -190,6 +189,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_jngbj")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_jngbj")
 text = "Main menu"
 
-[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList/MarginContainer/ContainerInvertMouse/ButtonInvertMouse" to="." method="_on_invert_mouse_button_toggled"]
+[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList/MarginInvertMouse/ContainerInvertMouse/ButtonInvertMouse" to="." method="_on_invert_mouse_button_toggled"]
+[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList/MouseSensitivityButton/MarginContainer/HBoxContainer/HSliderMouseSensitivity" to="." method="_on_h_slider_mouse_sensitivity_value_changed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ResetButton" to="." method="_on_reset_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

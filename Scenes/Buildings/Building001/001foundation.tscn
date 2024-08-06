@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bc66nkq7ksxjm"]
-
-[ext_resource type="PackedScene" uid="uid://di6xrfekds0qu" path="res://Models/Building001/foundation.blend" id="1_sa4es"]
-
-[node name="Node3D" type="Node3D"]
-
-[node name="foundation" parent="." instance=ExtResource("1_sa4es")]
