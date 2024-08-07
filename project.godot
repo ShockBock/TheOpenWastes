@@ -18,7 +18,8 @@ config/icon="res://images/icon.png"
 
 [autoload]
 
-Global="*res://scripts/global.gd"
+Global="*res://scripts/singletons/global.gd"
+ConfigFileHandler="*res://scripts/singletons/config_file_handler.gd"
 
 [display]
 

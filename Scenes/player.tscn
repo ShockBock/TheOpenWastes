@@ -12,10 +12,13 @@ height = 1.8
 radius = 0.4
 height = 1.8
 
-[node name="Player" type="CharacterBody3D" groups=["player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head", "camera", "health_counter") groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 floor_max_angle = 0.872665
 script = ExtResource("1_pm0ck")
+head = NodePath("Head")
+camera = NodePath("Head/Camera3D")
+health_counter = NodePath("CanvasLayer/HUD/HealthCounter")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_be4rj")
