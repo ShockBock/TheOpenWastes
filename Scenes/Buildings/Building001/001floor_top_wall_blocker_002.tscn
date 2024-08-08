@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ds67oyoj7551u"]
-
-[ext_resource type="PackedScene" uid="uid://clbw1chh3bdo7" path="res://Models/Building001/floor_top_wall_blocker002.blend" id="1_fvoq1"]
-
-[node name="Node3D" type="Node3D"]
-
-[node name="floor_top_wall_blocker002" parent="." instance=ExtResource("1_fvoq1")]

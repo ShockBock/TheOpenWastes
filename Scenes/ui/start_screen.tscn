@@ -1,0 +1,145 @@
+[gd_scene load_steps=12 format=3 uid="uid://dhsa2fr57peog"]
+
+[ext_resource type="Script" path="res://scripts/ui/start_screen.gd" id="1_3s7j5"]
+[ext_resource type="Texture2D" uid="uid://c34lbj8nerp3v" path="res://images/title_screen.jpg" id="1_4yakw"]
+[ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://Fonts/KomikaDisplay-RoV.ttf" id="2_sj3si"]
+
+[sub_resource type="Theme" id="Theme_j3txm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qonas"]
+bg_color = Color(0, 0, 0, 0.392157)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y63bm"]
+bg_color = Color(0, 0, 0, 0.392157)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_maw7o"]
+bg_color = Color(1, 1, 1, 0.392157)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xaeom"]
+bg_color = Color(0, 0, 0, 0.392157)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2of15"]
+bg_color = Color(1, 1, 1, 0.392157)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xwnk2"]
+bg_color = Color(0, 0, 0, 0.392157)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u0stk"]
+bg_color = Color(1, 1, 1, 0.392157)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="StartScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3s7j5")
+
+[node name="OpenWastesImage" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1151.0
+offset_bottom = 648.0
+texture = ExtResource("1_4yakw")
+expand_mode = 1
+
+[node name="OpenWastesPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 20.0
+offset_right = 1124.0
+offset_bottom = 336.0
+theme = SubResource("Theme_j3txm")
+theme_override_styles/panel = SubResource("StyleBoxFlat_qonas")
+
+[node name="OpenWastesText" type="Label" parent="OpenWastesPanel"]
+layout_mode = 0
+offset_right = 1065.0
+offset_bottom = 142.0
+theme_override_fonts/font = ExtResource("2_sj3si")
+theme_override_font_sizes/font_size = 120
+text = "The Open Wastes"
+horizontal_alignment = 1
+
+[node name="TributeText" type="Label" parent="OpenWastesPanel"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 155.0
+offset_right = 1037.0
+offset_bottom = 315.0
+theme_override_fonts/font = ExtResource("2_sj3si")
+theme_override_font_sizes/font_size = 60
+text = "An open-source tribute to Fallout
+built in Godot"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="OpenWastesPanel"]
+layout_mode = 0
+offset_top = 482.0
+offset_right = 278.0
+offset_bottom = 597.0
+theme_override_fonts/font = ExtResource("2_sj3si")
+theme_override_font_sizes/font_size = 90
+theme_override_styles/normal = SubResource("StyleBoxFlat_y63bm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_maw7o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_maw7o")
+text = "Start"
+
+[node name="OptionsButton" type="Button" parent="OpenWastesPanel"]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 482.0
+offset_right = 720.0
+offset_bottom = 597.0
+theme_override_fonts/font = ExtResource("2_sj3si")
+theme_override_font_sizes/font_size = 90
+theme_override_styles/normal = SubResource("StyleBoxFlat_xaeom")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2of15")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2of15")
+text = "Options"
+
+[node name="ExitButton" type="Button" parent="OpenWastesPanel"]
+layout_mode = 0
+offset_left = 795.0
+offset_top = 482.0
+offset_right = 1073.0
+offset_bottom = 597.0
+theme_override_fonts/font = ExtResource("2_sj3si")
+theme_override_font_sizes/font_size = 90
+theme_override_styles/normal = SubResource("StyleBoxFlat_xwnk2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_u0stk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u0stk")
+text = "Exit
+"
+
+[connection signal="pressed" from="OpenWastesPanel/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="OpenWastesPanel/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="OpenWastesPanel/ExitButton" to="." method="_on_exit_button_pressed"]

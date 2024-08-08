@@ -6,7 +6,7 @@
 
 extends Node
 
-var projectile = preload("res://Scenes/Miscellaneous/projectile_tracer.tscn")
+var projectile = preload("res://Scenes/miscellaneous/projectile_tracer.tscn")
 
 var direction: Vector3
 var projectile_spread: Vector3

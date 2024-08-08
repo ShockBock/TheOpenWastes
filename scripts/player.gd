@@ -1,19 +1,27 @@
-## Based heavily on LegionGames'
-## Juiced Up First Person Character Controller Tutorial - Godot 3D FPS
-## www.youtube.com/watch?v=A3HLeyaBCq4
-
 extends CharacterBody3D
+
+## Based heavily on LegionGames'
+## Juiced Up First Person Character Controller Tutorial - Godot 3D FPS.
+## www.youtube.com/watch?v=A3HLeyaBCq4
 
 @export var walk_speed: float = 5.0
 @export var sprint_speed: float = 8.0
 @export var jump_velocity: float = 4.5
-@export var mouse_sensitivity: float = 0.015
 
+@export_group("Head bob")
 @export var bob_frequency: float = 2.0
 @export var bob_amplitude: float = 0.08
 
+@export_group("Field of view (FOV)")
 @export var base_fov: float = 75.0
 @export var fov_change: float = 1.5
+
+@export_group("Plug-in nodes")
+@export var head: Node3D
+@export var camera: Camera3D
+@export var health_counter: Label
+
+@onready var mouse_settings: Dictionary = ConfigFileHandler.load_mouse_settings()
 
 var gravity: float = 9.8
 var health: int = 100
@@ -22,21 +30,26 @@ var mouse_freed: bool
 var speed: float = 0.0
 var t_bob: float = 0.0
 
-@onready var head = $Head
-@onready var camera = $Head/Camera3D
-@onready var health_counter = $CanvasLayer/HUD/HealthCounter
+var mouse_inverted: bool
+var mouse_sensitivity: float
+
 
 func _ready() -> void:
 	# Use mouse as movement for camera, rather than pointer
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 	health_counter.text = str(health)
 	mouse_freed = false
+	
+	mouse_sensitivity = mouse_settings.mouse_sensitivity
+	mouse_inverted = mouse_settings.invert_mouse
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and mouse_freed == false:
 		head.rotate_y(-event.relative.x * mouse_sensitivity)
 		var y_sensitivity
-		if global.mouse_inverted:
+		if mouse_inverted:
 			y_sensitivity = -mouse_sensitivity
 		else:
 			y_sensitivity = mouse_sensitivity
@@ -98,7 +111,7 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("exit"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		get_tree().change_scene_to_file("res://Scenes/Miscellaneous/start_screen.tscn")
+		get_tree().change_scene_to_file("res://Scenes/ui/start_screen.tscn")
 
 
 func _headbob(time: float) -> Vector3:

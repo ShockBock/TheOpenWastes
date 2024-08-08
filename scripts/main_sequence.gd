@@ -5,7 +5,7 @@ signal generate_terrain_signal
 signal place_buildings_signal
 signal spawn_characters_signal
 
-@onready var DeathScreen:= preload("res://Scenes/Miscellaneous/death_screen.tscn")
+@onready var DeathScreen:= preload("res://Scenes/ui/death_screen.tscn")
 
 func _ready():
 	main_sequence_begin()
@@ -32,4 +32,4 @@ func _on_building_placer_buildings_complete() -> void:
 
 
 func end_game() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Miscellaneous/death_screen.tscn")
+	get_tree().change_scene_to_file("res://Scenes/ui/death_screen.tscn")

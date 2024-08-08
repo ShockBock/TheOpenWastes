@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ca0smx2u4jckj"]
+
+[ext_resource type="PackedScene" uid="uid://dc8wxyrx3pme6" path="res://models/Building001/Navmeshes/foundation_stairs_navmesh.blend" id="1_rcibp"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="foundation_stairs_navmesh" parent="." instance=ExtResource("1_rcibp")]
+
+[editable path="foundation_stairs_navmesh"]

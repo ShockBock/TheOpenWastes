@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://c45ui65hom4ef"]
+
+[ext_resource type="Texture2D" uid="uid://d2vr7w16huywj" path="res://images/you_died.jpg" id="1_5ggyv"]
+[ext_resource type="Script" path="res://scripts/ui/death_screen.gd" id="1_ch5bn"]
+[ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://Fonts/KomikaDisplay-RoV.ttf" id="2_1d4de"]
+
+[sub_resource type="Theme" id="Theme_b111j"]
+
+[node name="DeathScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 312.0
+offset_bottom = 328.0
+script = ExtResource("1_ch5bn")
+
+[node name="SkeletonImage" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1151.0
+offset_bottom = 648.0
+texture = ExtResource("1_5ggyv")
+expand_mode = 1
+
+[node name="YouDiedPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 590.0
+offset_top = 337.0
+offset_right = 1130.0
+offset_bottom = 636.0
+theme = SubResource("Theme_b111j")
+
+[node name="YouDiedText" type="Label" parent="YouDiedPanel"]
+layout_mode = 0
+offset_right = 531.46
+offset_bottom = 217.0
+theme_override_fonts/font = ExtResource("2_1d4de")
+theme_override_font_sizes/font_size = 90
+text = "You died,
+sorry chief"
+horizontal_alignment = 1
+
+[node name="MainMenuButton" type="Button" parent="YouDiedPanel"]
+layout_mode = 0
+offset_left = 174.0
+offset_top = 228.0
+offset_right = 333.0
+offset_bottom = 284.0
+theme_override_fonts/font = ExtResource("2_1d4de")
+theme_override_font_sizes/font_size = 40
+text = "Main menu"
+
+[connection signal="pressed" from="YouDiedPanel/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

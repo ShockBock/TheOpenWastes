@@ -45,7 +45,7 @@
 [ext_resource type="Script" path="res://scripts/npcs/state_machines/state_pursue.gd" id="42_y7ta1"]
 [ext_resource type="Script" path="res://scripts/npcs/state_machines/state_strafe.gd" id="43_lrpk6"]
 [ext_resource type="Script" path="res://scripts/npcs/shotgun_monk_projectile_spawner.gd" id="44_e5g06"]
-[ext_resource type="Script" path="res://scripts/Miscellaneous/audio_node.gd" id="45_eb0xb"]
+[ext_resource type="Script" path="res://scripts/miscellaneous/audio_node.gd" id="45_eb0xb"]
 [ext_resource type="AudioStream" uid="uid://bdl2wfibryv4m" path="res://Audio/SFX/Shotgun_monk_die.wav" id="46_ayg07"]
 [ext_resource type="AudioStream" uid="uid://02tp7qnpdxeb" path="res://Audio/SFX/Shotgun_monk_fire.wav" id="47_5iy0j"]
 [ext_resource type="AudioStream" uid="uid://bjrxro0jllu3q" path="res://Audio/SFX/shotgun_monk_hit.wav" id="48_n06y5"]
@@ -202,10 +202,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="ShotgunMonk" type="CharacterBody3D" node_paths=PackedStringArray("animations", "state_machine") groups=["enemy"]]
+[node name="ShotgunMonk" type="CharacterBody3D" node_paths=PackedStringArray("animations", "state_machine", "shotgun_monk_data") groups=["enemy"]]
 script = ExtResource("1_uyo7i")
 animations = NodePath("ShotgunMonkAnimations")
 state_machine = NodePath("State_machine")
+shotgun_monk_data = NodePath("ShotgunMonkData")
 
 [node name="ShotgunMonkData" type="Node" parent="."]
 script = ExtResource("2_sdc6d")
