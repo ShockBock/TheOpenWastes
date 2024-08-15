@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+## Player character controller.
+##
 ## Based heavily on LegionGames'
 ## Juiced Up First Person Character Controller Tutorial - Godot 3D FPS.
 ## www.youtube.com/watch?v=A3HLeyaBCq4

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cv4rmq3eb8hf1"]
 
-[ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://Fonts/KomikaDisplay-RoV.ttf" id="1_br4lv"]
+[ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://fonts/KomikaDisplay-RoV.ttf" id="1_br4lv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yr5al"]
 bg_color = Color(0, 0, 0, 0.392157)

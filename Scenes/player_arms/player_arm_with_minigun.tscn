@@ -1,11 +1,11 @@
 [gd_scene load_steps=28 format=3 uid="uid://41k8spc36un5"]
 
-[ext_resource type="Texture2D" uid="uid://bhxijgayhvkhc" path="res://models/Player_hands_and_weapons/FPS_arm_with_minigun_minigun_color.jpg" id="1_n011y"]
-[ext_resource type="Script" path="res://scripts/player/player_minigun.gd" id="1_u4lgn"]
-[ext_resource type="Script" path="res://scripts/player/player_minigun_data.gd" id="2_8wg6o"]
-[ext_resource type="Texture2D" uid="uid://c6wpip0scppn6" path="res://models/Player_hands_and_weapons/FPS_arm_with_minigun_minigun_metallic.png" id="2_ioreh"]
-[ext_resource type="Texture2D" uid="uid://cnjaxe3wwgfu0" path="res://models/Player_hands_and_weapons/FPS_arm_with_minigun_minigun_normal.jpg" id="3_87ycl"]
-[ext_resource type="Texture2D" uid="uid://j43ri306fmnh" path="res://models/Player_hands_and_weapons/FPS_arm_with_minigun_player_arms_color.png" id="4_y8b4s"]
+[ext_resource type="Texture2D" uid="uid://bhxijgayhvkhc" path="res://Models/Player_hands_and_weapons/FPS_arm_with_minigun_minigun_color.jpg" id="1_n011y"]
+[ext_resource type="Script" path="res://scripts/ui/player/player_minigun.gd" id="1_u4lgn"]
+[ext_resource type="Script" path="res://scripts/ui/player/player_minigun_data.gd" id="2_8wg6o"]
+[ext_resource type="Texture2D" uid="uid://c6wpip0scppn6" path="res://Models/Player_hands_and_weapons/FPS_arm_with_minigun_minigun_metallic.png" id="2_ioreh"]
+[ext_resource type="Texture2D" uid="uid://cnjaxe3wwgfu0" path="res://Models/Player_hands_and_weapons/FPS_arm_with_minigun_minigun_normal.jpg" id="3_87ycl"]
+[ext_resource type="Texture2D" uid="uid://j43ri306fmnh" path="res://Models/Player_hands_and_weapons/FPS_arm_with_minigun_player_arms_color.png" id="4_y8b4s"]
 [ext_resource type="Script" path="res://scripts/miscellaneous/audio_node.gd" id="6_tgydq"]
 [ext_resource type="Script" path="res://scripts/miscellaneous/muzzle_flash.gd" id="7_mk3ma"]
 [ext_resource type="AudioStream" uid="uid://cgbyuc1i81wq4" path="res://Audio/SFX/player_minigun_burst.wav" id="8_ho8h0"]
@@ -13,7 +13,7 @@
 [ext_resource type="Material" uid="uid://bql67emtit1gs" path="res://shaders_and_materials/muzzle_flash_flare_material.tres" id="9_f7mkg"]
 [ext_resource type="AudioStream" uid="uid://dxiwb5ktjctyf" path="res://Audio/SFX/player_minigun_spindown.wav" id="9_q53yw"]
 [ext_resource type="Texture2D" uid="uid://bceykr2dfcdpl" path="res://images/Sprites/muzzle_flash/muzzle_flash_flare01.PNG" id="10_1pjlw"]
-[ext_resource type="Script" path="res://scripts/player/player_projectile_spawner.gd" id="10_nrecd"]
+[ext_resource type="Script" path="res://scripts/ui/player/player_projectile_spawner.gd" id="10_nrecd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_03lfe"]
 resource_name = "02___Default"
@@ -153,7 +153,7 @@ bones/1/parent = 0
 bones/1/rest = Transform3D(1, 0, -7.15256e-07, 0, 1, 0, 7.15256e-07, 0, 1, 5.32424e-10, 0.324308, -2.96868e-09)
 bones/1/enabled = true
 bones/1/position = Vector3(0.000474975, 0.325475, 0.000474975)
-bones/1/rotation = Quaternion(0.000474975, 1.00048, 0.000474975, 0.000474975)
+bones/1/rotation = Quaternion(0.000474975, 1.00048, 0.000474975, 1.00048)
 bones/1/scale = Vector3(1, 1, 1)
 
 [node name="MinigunMesh" type="MeshInstance3D" parent="MinigunSkeleton3D"]

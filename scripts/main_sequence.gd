@@ -1,5 +1,9 @@
 extends Node3D
 
+## Orchestrates the generation of the game's main nodes.
+##
+## Responsible for generating: terrain, buildings and characters.
+
 signal start_screen_signal
 signal generate_terrain_signal
 signal place_buildings_signal

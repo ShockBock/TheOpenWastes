@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://d2vr7w16huywj" path="res://images/you_died.jpg" id="1_5ggyv"]
 [ext_resource type="Script" path="res://scripts/ui/death_screen.gd" id="1_ch5bn"]
-[ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://Fonts/KomikaDisplay-RoV.ttf" id="2_1d4de"]
+[ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://fonts/KomikaDisplay-RoV.ttf" id="2_1d4de"]
 
 [sub_resource type="Theme" id="Theme_b111j"]
 

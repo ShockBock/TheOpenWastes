@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://df4fp1w4chafv"]
+
+[ext_resource type="PackedScene" uid="uid://cej6isqwe4jq5" path="res://Models/building002/002_wall_blank.blend" id="1_rf0ai"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="002_wall_blank" parent="." instance=ExtResource("1_rf0ai")]
