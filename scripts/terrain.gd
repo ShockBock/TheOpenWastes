@@ -56,4 +56,4 @@ func generate_terrain():
 	_emit_landscape_complete.call_deferred()
 
 func _emit_landscape_complete():
-	emit_signal("landscape_complete")
+	landscape_complete.emit()

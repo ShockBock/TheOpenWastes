@@ -4,7 +4,6 @@ extends Node3D
 ##
 ## Responsible for generating: terrain, buildings and characters.
 
-signal start_screen_signal
 signal generate_terrain_signal
 signal place_buildings_signal
 signal spawn_characters_signal
@@ -20,7 +19,7 @@ func main_sequence_begin() -> void:
 
 
 func generate_terrain() -> void:
-	emit_signal("generate_terrain_signal")
+	generate_terrain_signal.emit()
 
 
 func _on_terrain_landscape_complete() -> void:
@@ -28,11 +27,11 @@ func _on_terrain_landscape_complete() -> void:
 
 
 func place_buildings() -> void:
-	emit_signal("place_buildings_signal")
+	place_buildings_signal.emit()
 
 
 func _on_building_placer_buildings_complete() -> void:
-	emit_signal("spawn_characters_signal")
+	spawn_characters_signal.emit()
 
 
 func end_game() -> void:

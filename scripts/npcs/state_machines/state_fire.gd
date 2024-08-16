@@ -65,4 +65,4 @@ func raycast_check_if_target_blocked() -> void:
 
 func fire_weapon() -> void:
 	fire_sound.play()
-	emit_signal("spawn_projectiles")
+	spawn_projectiles.emit()

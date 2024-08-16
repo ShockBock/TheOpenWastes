@@ -37,4 +37,3 @@ func instantiate_projectile() -> void:
 	
 	add_child(projectile_instance)
 	projectile_instance.global_transform.origin = projectile_spawn_point.global_transform.origin
-

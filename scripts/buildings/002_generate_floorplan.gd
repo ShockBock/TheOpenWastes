@@ -109,4 +109,3 @@ func flood_fill(x: int, y: int, visited: Array):
 
 func emit_floorplan_complete() -> void:
 	emit_signal("floorplan_complete", grid)
-
