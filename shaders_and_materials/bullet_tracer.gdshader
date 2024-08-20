@@ -14,18 +14,18 @@ void vertex() {
 void fragment() {
 	// Set the base colour to the bullet tracer colour
 	vec3 base_color = bullet_tracer.rgb;
-	
+
 	// Apply the emission intensity to the base colour
 	vec3 final_color = base_color * bullet_emission;
-	
+
 	// Breaking down the alpha calculation into multiple steps
 	// Extract the blue (i.e. z-axis) channel from the COLOR input
-	float blue_channel = COLOR.b;         
+	float blue_channel = COLOR.b;
 	// Take the absolute value of the blue (i.e. z-axis) channel
 	float abs_blue = abs(blue_channel);
-	// Calculate the alpha value using the power function     
-	float alpha_value = pow(abs_blue, fade_attenuation);  
-	
+	// Calculate the alpha value using the power function
+	float alpha_value = pow(abs_blue, fade_attenuation);
+
 	// Set the final output colour and alpha
 	ALBEDO = final_color;
 	ALPHA = alpha_value;

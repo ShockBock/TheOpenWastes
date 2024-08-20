@@ -1,12 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://rbutn0us3u48"]
+[gd_scene load_steps=6 format=3 uid="uid://rbutn0us3u48"]
 
 [ext_resource type="Script" path="res://scripts/buildings/002_generate_floorplan.gd" id="1_khren"]
 [ext_resource type="Script" path="res://scripts/buildings/002_main_sequence.gd" id="1_x8wjh"]
+[ext_resource type="Script" path="res://scripts/buildings/002_data.gd" id="2_q6ax7"]
+[ext_resource type="Script" path="res://scripts/buildings/002_assign_wall_sections.gd" id="3_o0ria"]
+[ext_resource type="Script" path="res://scripts/buildings/002_instantiate_wall_sections.gd" id="4_vko3e"]
 
-[node name="002MainSequence" type="Node3D"]
+[node name="002MainSequence" type="Node3D" node_paths=PackedStringArray("assign_wall_sections_node", "instantiate_wall_sections_node")]
 script = ExtResource("1_x8wjh")
+assign_wall_sections_node = NodePath("002AssignWallSections")
+instantiate_wall_sections_node = NodePath("002InstantiateWallSections")
 
-[node name="002GenerateFloorplan" type="Node" parent="."]
+[node name="002Data" type="Node" parent="."]
+script = ExtResource("2_q6ax7")
+
+[node name="002GenerateFloorplan" type="Node" parent="." node_paths=PackedStringArray("main_sequence_node", "data_node")]
 script = ExtResource("1_khren")
+main_sequence_node = NodePath("..")
+data_node = NodePath("../002Data")
 
-[connection signal="floorplan_complete" from="002GenerateFloorplan" to="." method="_on_generate_floorplan_floorplan_complete"]
+[node name="002AssignWallSections" type="Node" parent="." node_paths=PackedStringArray("main_sequence_node", "data_node")]
+script = ExtResource("3_o0ria")
+main_sequence_node = NodePath("..")
+data_node = NodePath("../002Data")
+
+[node name="002InstantiateWallSections" type="Node" parent="." node_paths=PackedStringArray("main_sequence_node", "data_node")]
+script = ExtResource("4_vko3e")
+main_sequence_node = NodePath("..")
+data_node = NodePath("../002Data")

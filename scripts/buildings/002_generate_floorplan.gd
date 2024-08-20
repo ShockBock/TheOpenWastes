@@ -1,10 +1,6 @@
 @icon("res://images/Icons/building_icon.png")
 
-@tool
-
 extends Node
-
-signal floorplan_complete(grid)
 
 ## Building floorplan generator.
 ## 
@@ -12,31 +8,47 @@ signal floorplan_complete(grid)
 ## It sets all grid's cell to OCCUPIED,
 ## then re-assigns an amount of cells up to max_empty_cells as EMPTY.
 ## However, it will only set a cell to EMPTY if this does not disconnect an OCCUPIED cell.
+##																[br]
+## Example:														[br]
+##																[br]
+## [O] [O] [ ]													[br]
+## [O] [O] [O]													[br]
+## [O] [ ] [ ]													[br]
+##																[br]
+## Where 'O' = OCCUPIED.										[br]
+##																[br]
 ## ChatGPT takes the majority of the credit for this one!
 
 enum CellState { EMPTY, OCCUPIED }
 
-## Number of cells on each side of the flooplan grid.
-@export var grid_size: int = 3
+@export_group("Plug-in nodes")
+@export var main_sequence_node: Node
+@export var data_node: Node
 
-## A random number of cells up to max_empty_cells will be set to EMPTY.
-@export var max_empty_cells: int = 4
+var grid_size: int
+var max_empty_cells: int
 
 ## Stores floorplan layout as a grid.
 var grid: Array = []
 
 func _ready():
+	get_grid_properties_from_data_node()
 	initialise_the_grid_with_all_cells_occupied()
 	randomly_empty_cells()
-	emit_floorplan_complete.call_deferred()
+	floorplan_complete.call_deferred()
+
+
+func get_grid_properties_from_data_node() -> void:
+	grid_size = data_node.grid_size
+	max_empty_cells = data_node.max_empty_cells
 
 
 func initialise_the_grid_with_all_cells_occupied() -> void:
 	grid = []
-	for i in range(grid_size):
+	for row in range(grid_size):
 		grid.append([])
-		for j in range(grid_size):
-			grid[i].append(CellState.OCCUPIED)
+		for column in range(grid_size):
+			grid[row].append(CellState.OCCUPIED)
 
 
 func randomly_empty_cells() -> void:
@@ -54,7 +66,7 @@ func randomly_empty_cells() -> void:
 				empty_cells.pop_back()
 
 
-## Function to check if all OCCUPIED cells are connected
+## Check if all OCCUPIED cells are connected
 func are_all_occupied_cells_connected() -> bool:
 	var visited: Array = []
 	for i in range(grid_size):
@@ -64,10 +76,10 @@ func are_all_occupied_cells_connected() -> bool:
 	
 	# Find the first occupied cell to start the flood fill
 	var start = null
-	for i in range(grid_size):
-		for j in range(grid_size):
-			if grid[i][j] == CellState.OCCUPIED:
-				start = Vector2(i, j)
+	for row in range(grid_size):
+		for column in range(grid_size):
+			if grid[row][column] == CellState.OCCUPIED:
+				start = Vector2(row, column)
 				break
 		if start != null:
 			break
@@ -79,9 +91,9 @@ func are_all_occupied_cells_connected() -> bool:
 	flood_fill(start.x, start.y, visited)
 	
 	# Check if all occupied cells were visited
-	for i in range(grid_size):
-		for j in range(grid_size):
-			if grid[i][j] == CellState.OCCUPIED and not visited[i][j]:
+	for row in range(grid_size):
+		for column in range(grid_size):
+			if grid[row][column] == CellState.OCCUPIED and not visited[row][column]:
 				return false
 	
 	return true
@@ -107,5 +119,5 @@ func flood_fill(x: int, y: int, visited: Array):
 	flood_fill(x, y - 1, visited)  # up
 
 
-func emit_floorplan_complete() -> void:
-	emit_signal("floorplan_complete", grid)
+func floorplan_complete() -> void:
+	main_sequence_node.pass_floorplan(grid)

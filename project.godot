@@ -23,7 +23,7 @@ ConfigFileHandler="*res://scripts/singletons/config_file_handler.gd"
 
 [display]
 
-window/size/mode=2
+window/size/mode=1
 window/stretch/mode="canvas_items"
 
 [filesystem]

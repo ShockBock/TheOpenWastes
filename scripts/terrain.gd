@@ -4,8 +4,11 @@ extends Node3D
 ##
 ## Creates a mesh, subdivides it, applies noise to simulate differential amplitude,
 ## applies the mesh to a MeshInstance3D and creates a correspnding CollisionShape3D.
-## Based on "Procedural Terrain Generation: Displacement & Collisions"
-## by DitzyNinja's Godojo, at https://www.youtube.com/watch?v=OUnJEaatl2Q
+## [br]
+## Based on Procedural Terrain Generation: Displacement & Collisions 
+## by DitzyNinja's Godojo.
+##
+## @tutorial: https://www.youtube.com/watch?v=OUnJEaatl2Q
 
 signal landscape_complete
 

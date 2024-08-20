@@ -4,7 +4,8 @@ extends CharacterBody3D
 ##
 ## Based heavily on LegionGames'
 ## Juiced Up First Person Character Controller Tutorial - Godot 3D FPS.
-## www.youtube.com/watch?v=A3HLeyaBCq4
+##
+## @tutorial: www.youtube.com/watch?v=A3HLeyaBCq4
 
 @export var walk_speed: float = 5.0
 @export var sprint_speed: float = 8.0
