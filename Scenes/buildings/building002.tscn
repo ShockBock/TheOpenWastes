@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://rbutn0us3u48"]
+[gd_scene load_steps=9 format=3 uid="uid://rbutn0us3u48"]
 
 [ext_resource type="Script" path="res://scripts/buildings/002_generate_floorplan.gd" id="1_khren"]
 [ext_resource type="Script" path="res://scripts/buildings/002_main_sequence.gd" id="1_x8wjh"]
@@ -6,10 +6,30 @@
 [ext_resource type="Script" path="res://scripts/buildings/002_assign_wall_sections.gd" id="3_o0ria"]
 [ext_resource type="Script" path="res://scripts/buildings/002_instantiate_wall_sections.gd" id="4_vko3e"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4mpcr"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_4cvw1"]
+sky_material = SubResource("ProceduralSkyMaterial_4mpcr")
+
+[sub_resource type="Environment" id="Environment_3oprx"]
+background_mode = 2
+sky = SubResource("Sky_4cvw1")
+tonemap_mode = 2
+glow_enabled = true
+
 [node name="002MainSequence" type="Node3D" node_paths=PackedStringArray("assign_wall_sections_node", "instantiate_wall_sections_node")]
 script = ExtResource("1_x8wjh")
 assign_wall_sections_node = NodePath("002AssignWallSections")
 instantiate_wall_sections_node = NodePath("002InstantiateWallSections")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3oprx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.414315, -0.7882, 0.455065, 0, 0.499998, 0.866027, -0.910133, -0.358808, 0.207157, 0, 6.99515, 0)
+shadow_enabled = true
 
 [node name="002Data" type="Node" parent="."]
 script = ExtResource("2_q6ax7")
@@ -28,3 +48,6 @@ data_node = NodePath("../002Data")
 script = ExtResource("4_vko3e")
 main_sequence_node = NodePath("..")
 data_node = NodePath("../002Data")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 5.70083e-08, -6.62782e-08, 0, 0.758134, 0.652098, 8.74228e-08, 0.652098, -0.758134, 0, 6.43535, -9.44256)
