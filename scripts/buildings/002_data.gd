@@ -2,7 +2,7 @@ extends Node
 
 @export_group("Floorplan properties")
 ## Number of cells on each side of the flooplan grid.
-@export_range(3, 10) var grid_size: int = 3
+@export_range(3, 10) var floorplan_grid_size: int = 3
 ## A random number of cells up to max_empty_cells will be set to EMPTY.
 @export var max_empty_cells: int = 4
 ## How many sections (saved as individual scenes) are in each wall.
