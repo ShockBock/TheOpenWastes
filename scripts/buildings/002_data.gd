@@ -8,6 +8,8 @@ extends Node
 ## How many sections (saved as individual scenes) are in each wall.
 @export var number_of_sections_per_wall: int = 2
 @export var floorplan_cell_size_metres: float = 8.0
+@export var wall_height_metres: float = 2.0
+@export var max_number_of_storeys: int = 8
 
 var walls_component_array = [
 	preload("res://Scenes/buildings/building002assets/002_wall_blank.tscn"),

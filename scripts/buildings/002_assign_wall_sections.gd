@@ -127,23 +127,27 @@ func assign_occupied_cell_walls(row: int, cell_in_row: int) -> void:
 			walls_array_x[row][cell_in_row][section] = \
 					randi_range(0, (data_node.walls_component_array.size() - 1))
 	
-	# If this cell is in the last column (cell_in_row), place a wall to the right.
+	# If this cell is in the last column (cell_in_row), assign a wall to the right.
 	if cell_in_row == floorplan_grid_size - 1:
 		for section in number_of_sections_per_wall:
 			walls_array_y[row][cell_in_row + 1][section] = \
 					randi_range(0, data_node.walls_component_array.size() - 1)
 	
-	# If this cell is in the last row (row), place a wall below.
+	# If this cell is in the last row (row), assign a wall below.
 	if row == floorplan_grid_size - 1:
 		for section in number_of_sections_per_wall:
 			walls_array_x[row + 1][cell_in_row][section] = \
 					randi_range(0, (data_node.walls_component_array.size() - 1))
 
+
 ## Passes the two completed wall arrays (x and y) to the main sequence node
 ## for distribution to the nodes which instantiate the wall assets.
 func wall_arrays_complete() -> void:
 	main_sequence_node.pass_walls_arrays(walls_array_x, walls_array_y)
-	
+
+
+## Call this for a diagram of the floorplan, showing OCCUPIED and EMPTY cells
+## and for the arrays which hold the indeces of the cells' walls.
 func DEBUG_print_grid():
 	print_rich("[b]Basic floorplan:[/b]")
 	for row in range(floorplan_grid_size):

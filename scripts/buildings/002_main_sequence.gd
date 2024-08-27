@@ -7,6 +7,7 @@ extends Node3D
 enum CellState { EMPTY, OCCUPIED }
 
 @export_group("Plug-in nodes")
+@export var data_node: Node
 @export var assign_wall_sections_node: Node
 @export var instantiate_wall_sections_node: Node
 
@@ -44,4 +45,5 @@ func pass_walls_arrays(walls_array_x: Array, walls_array_y: Array) -> void:
 	instantiate_wall_sections_node.walls_array_x = walls_array_x
 	instantiate_wall_sections_node.walls_array_y = walls_array_y
 	
-	instantiate_wall_sections_node.sequence()
+	for storey in randi_range(1, data_node.max_number_of_storeys):
+		instantiate_wall_sections_node.sequence(storey)

@@ -41,11 +41,10 @@ var wall_section_local_positions_metres_array: Array[Vector3] = [
 var cell_offsets_metres_array: Array = []
 
 
-func sequence() -> void:
+func sequence(storey: int) -> void:
 	get_grid_properties_from_data_node()
 	calculate_cell_offset_array()
-	instantiate_walls_sequence()
-	#DEBUG_print_grid()
+	instantiate_walls_sequence(storey)
 
 
 func get_grid_properties_from_data_node() -> void:
@@ -79,8 +78,7 @@ func calculate_cell_offset_array() -> void:
 			cell_offsets_metres_array[row].append(cell_offset_metres)
 
 
-func instantiate_walls_sequence() -> void:
-	var wall_section_instance
+func instantiate_walls_sequence(storey: int) -> void:
 	# For each row in the floorplan...
 	for row in range(floorplan_grid_size):
 		# For each cell in that row...
@@ -88,102 +86,106 @@ func instantiate_walls_sequence() -> void:
 			# For the sides of the cells...
 			for wall_section_count in \
 					(wall_section_local_positions_metres_array.size()):
-				
-				# For the wall sections on the left of the cell...
-				if walls_array_y[row][cell_in_row][wall_section_count % 2] == null:
-					pass
-				elif wall_section_count == 0 or wall_section_count == 1:
-					var wall_section_selection = walls_array_y[row][cell_in_row][wall_section_count % 2]
-					wall_section_instance = data_node.walls_component_array[wall_section_selection].instantiate()
-					# Add wall section's local translation relative to 'parent' cell.
-					wall_section_instance.position = wall_section_local_positions_metres_array[wall_section_count]
-					# Add the cell's translation relative to overall floorplan.
-					wall_section_instance.position += cell_offsets_metres_array[row][cell_in_row]
-					wall_section_instance.rotation.y = right_angle_rotation
-					add_child(wall_section_instance)
-				else:
-					pass
-				
-				# For the wall sections on the top of the cell...
-				if walls_array_x[row][cell_in_row][wall_section_count % 2] == null:
-					pass
-				elif wall_section_count == 2 or wall_section_count == 3:
-					var wall_section_selection = walls_array_x[row][cell_in_row][wall_section_count % 2]
-					wall_section_instance = data_node.walls_component_array[wall_section_selection].instantiate()
-					# Add wall section's local translation relative to 'parent' cell.
-					wall_section_instance.position = wall_section_local_positions_metres_array[wall_section_count]
-					# Add the cell's translation relative to overall floorplan.
-					wall_section_instance.position += cell_offsets_metres_array[row][cell_in_row]
-					wall_section_instance.rotation.y = right_angle_rotation * 2
-					add_child(wall_section_instance)
-				else:
-					pass
-				
-				# If the current cell is on the right hand side of floorplan
-				# add wall to the right.
-				if walls_array_y[row][cell_in_row + 1][wall_section_count % 2] == null:
-					pass
-				elif wall_section_count < 4 or wall_section_count > 5:
-					pass
-				elif cell_in_row == (floorplan_grid_size - 1):
-					var wall_section_selection = walls_array_y[row][cell_in_row + 1][wall_section_count % 2]
-					wall_section_instance = data_node.walls_component_array[wall_section_selection].instantiate()
-					# Add wall section's local translation relative to 'parent' cell.
-					wall_section_instance.position = wall_section_local_positions_metres_array[wall_section_count]
-					# Add the cell's translation relative to overall floorplan.
-					wall_section_instance.position += cell_offsets_metres_array[row][cell_in_row]
-					wall_section_instance.rotation.y = right_angle_rotation * 3
-					add_child(wall_section_instance)
-				else:
-					pass
-				
-				# If the current cell is on the bottom of floorplan add wall below.
-				if walls_array_x[row + 1][cell_in_row][wall_section_count % 2] == null:
-					pass
-				elif wall_section_count < 6:
-					pass
-				elif row == (floorplan_grid_size - 1):
-					var wall_section_selection = walls_array_x[row + 1][cell_in_row][wall_section_count % 2]
-					wall_section_instance = data_node.walls_component_array[wall_section_selection].instantiate()
-					# Add wall section's local translation relative to 'parent' cell.
-					wall_section_instance.position = wall_section_local_positions_metres_array[wall_section_count]
-					# Add the cell's translation relative to overall floorplan.
-					wall_section_instance.position += cell_offsets_metres_array[row][cell_in_row]
-					wall_section_instance.rotation.y = 0
-					add_child(wall_section_instance)
-				else:
-					pass
+				instantiate_walls(
+					storey,
+					row,
+					cell_in_row,
+					wall_section_count,
+					)
 
 
-
-func instantiate_walls_left_and_top() -> void:
-	pass
-
-
-func instantiate_walls_right_and_bottom() -> void:
-	pass
-
-
-func DEBUG_print_grid():
-	print_rich("[b]Basic floorplan:[/b]")
-	for row in range(floorplan_grid_size):
-		var line: String = ""
-		for cell_in_row in range(floorplan_grid_size):
-			if floorplan[row][cell_in_row] == CellState.OCCUPIED:
-				line += "[O] "
-			else:
-				line += "[ ] "
-		print(line)
-	print()
-	print_rich("[b]Wall arrays:[/b]")
-	print("Array x:")
-	for row in walls_array_x.size():
-		print(walls_array_x[row])
-	print("Array y:")
-	for row in walls_array_y.size():
-		print(walls_array_y[row])
-	print()
-	print_rich("[b]cell_offsets_metres_array[/b]")
-	print(cell_offsets_metres_array[0])
-	print(cell_offsets_metres_array[1])
-	print(cell_offsets_metres_array[2])
+func instantiate_walls(
+	storey: int,
+	row: int,
+	cell_in_row: int,
+	wall_section_count: int
+	):
+	## Used to get the amount of wall sections in one quarter,
+	## i.e. how many sections per wall?
+	@warning_ignore("integer_division")
+	var wall_index_quarter: int = wall_section_local_positions_metres_array.size() / 4
+	## Used to store instantiated wall sections.
+	var wall_section_instance
+	
+	# For the wall sections on the left of the cell...
+	if walls_array_y[row][cell_in_row][wall_section_count % 2] == null:
+		pass
+	elif wall_section_count < wall_index_quarter:
+		var wall_section_selection = walls_array_y[row][cell_in_row][wall_section_count % 2]
+		wall_section_instance = data_node.walls_component_array[wall_section_selection].instantiate()
+		# Add wall section's local translation relative to 'parent' cell.
+		wall_section_instance.position = wall_section_local_positions_metres_array[wall_section_count]
+		# Add the cell's translation relative to overall floorplan.
+		wall_section_instance.position += cell_offsets_metres_array[row][cell_in_row]
+		# Add the section's vertical translation due to its storey.
+		wall_section_instance.position.y += storey * data_node.wall_height_metres
+		# Add the section's rotation due to the wall of which it forms part.
+		wall_section_instance.rotation.y = right_angle_rotation
+		add_child(wall_section_instance)
+	else:
+		pass
+	
+	# For the wall sections on the top of the cell...
+	if walls_array_x[row][cell_in_row][wall_section_count % 2] == null:
+		pass
+	elif (
+		wall_section_count >= wall_index_quarter
+		and wall_section_count < (wall_index_quarter * 2)
+		):
+		var wall_section_selection = walls_array_x[row][cell_in_row][wall_section_count % 2]
+		wall_section_instance = data_node.walls_component_array[wall_section_selection].instantiate()
+		# Add wall section's local translation relative to 'parent' cell.
+		wall_section_instance.position = wall_section_local_positions_metres_array[wall_section_count]
+		# Add the cell's translation relative to overall floorplan.
+		wall_section_instance.position += cell_offsets_metres_array[row][cell_in_row]
+		# Add the section's vertical translation due to its storey.
+		wall_section_instance.position.y += storey * data_node.wall_height_metres
+		# Add the section's rotation due to the wall of which it forms part.
+		wall_section_instance.rotation.y = right_angle_rotation * 2
+		add_child(wall_section_instance)
+	else:
+		pass
+	
+	# If the current cell is on the right hand side of floorplan
+	# add wall to the right.
+	if walls_array_y[row][cell_in_row + 1][wall_section_count % 2] == null:
+		pass # current array entry is empty; proceed no further.
+	elif (
+		wall_section_count >= (wall_index_quarter * 2)
+		and wall_section_count < (wall_index_quarter * 3)
+		and cell_in_row == (floorplan_grid_size - 1)
+		):
+		var wall_section_selection = walls_array_y[row][cell_in_row + 1][wall_section_count % 2]
+		wall_section_instance = data_node.walls_component_array[wall_section_selection].instantiate()
+		# Add wall section's local translation relative to 'parent' cell.
+		wall_section_instance.position = wall_section_local_positions_metres_array[wall_section_count]
+		# Add the cell's translation relative to overall floorplan.
+		wall_section_instance.position += cell_offsets_metres_array[row][cell_in_row]
+		# Add the section's vertical translation due to its storey.
+		wall_section_instance.position.y += storey * data_node.wall_height_metres
+		# Add the section's rotation due to the wall of which it forms part.
+		wall_section_instance.rotation.y = right_angle_rotation * 3
+		add_child(wall_section_instance)
+	else:
+		pass
+	
+	# If the current cell is on the bottom of floorplan add wall below.
+	if walls_array_x[row + 1][cell_in_row][wall_section_count % 2] == null:
+		pass
+	elif (
+		wall_section_count >= (wall_index_quarter * 3)
+		and row == (floorplan_grid_size - 1)
+		):
+		var wall_section_selection = walls_array_x[row + 1][cell_in_row][wall_section_count % 2]
+		wall_section_instance = data_node.walls_component_array[wall_section_selection].instantiate()
+		# Add wall section's local translation relative to 'parent' cell.
+		wall_section_instance.position = wall_section_local_positions_metres_array[wall_section_count]
+		# Add the cell's translation relative to overall floorplan.
+		wall_section_instance.position += cell_offsets_metres_array[row][cell_in_row]
+		# Add the section's vertical translation due to its storey.
+		wall_section_instance.position.y += storey * data_node.wall_height_metres
+		# Add the section's rotation due to the wall of which it forms part.
+		wall_section_instance.rotation.y = 0
+		add_child(wall_section_instance)
+	else:
+		pass

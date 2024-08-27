@@ -20,8 +20,9 @@ sky = SubResource("Sky_4cvw1")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="002MainSequence" type="Node3D" node_paths=PackedStringArray("assign_wall_sections_node", "instantiate_wall_sections_node")]
+[node name="002MainSequence" type="Node3D" node_paths=PackedStringArray("data_node", "assign_wall_sections_node", "instantiate_wall_sections_node")]
 script = ExtResource("1_x8wjh")
+data_node = NodePath("002Data")
 assign_wall_sections_node = NodePath("002AssignWallSections")
 instantiate_wall_sections_node = NodePath("002InstantiateWallSections")
 
