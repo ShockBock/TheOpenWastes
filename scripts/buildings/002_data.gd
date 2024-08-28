@@ -20,6 +20,19 @@ var walls_array_x: Array = []
 ## Stores the floorplan's cells' surrounding walls on the y-axis of the grid.
 var walls_array_y: Array = []
 
+## Stores distance in metres each wall section should be translated
+## relative to 'parent' cell.
+var wall_section_local_positions_metres_array: Array[Vector3] = [
+	Vector3(-4, 0, -4),
+	Vector3(-4, 0, 0),
+	Vector3(-4, 0, 4),
+	Vector3(0, 0, 4),
+	Vector3(4, 0, 4),
+	Vector3(4, 0, 0),
+	Vector3(4, 0, -4),
+	Vector3(0, 0, -4),
+	]
+
 var walls_component_array = [
 	preload("res://Scenes/buildings/building002assets/002_wall_blank.tscn"),
 	preload("res://Scenes/buildings/building002assets/002_wall_windows_001.tscn"),

@@ -5,8 +5,6 @@ extends Node
 ## Receives array of randomly chosen wall sections
 ## and instantiates them in world space.
 
-enum CellState { EMPTY, OCCUPIED }
-
 @export_group("Plug-in nodes")
 ## Plug in root / MainSequence node
 @export var main_sequence_node: Node
@@ -25,20 +23,11 @@ var walls_array_y: Array = []
 var floorplan_cell_size_metres: float
 
 ## Stores distance in metres each wall section should be translated
-## relative to 'parent' cell.
-var wall_section_local_positions_metres_array: Array[Vector3] = [
-	Vector3(-4, 0, -4),
-	Vector3(-4, 0, 0),
-	Vector3(-4, 0, 4),
-	Vector3(0, 0, 4),
-	Vector3(4, 0, 4),
-	Vector3(4, 0, 0),
-	Vector3(4, 0, -4),
-	Vector3(0, 0, -4),
-	]
-## Stores distance in metres each wall section should be translated
 ## as the result of the 'parent' cell's position.
 var cell_offsets_metres_array: Array = []
+## Stores distance in metres each wall section should be translated
+## relative to 'parent' cell.
+var wall_section_local_positions_metres_array: Array = []
 
 func sequence(storey: int) -> void:
 	get_grid_properties_from_data_node()
@@ -53,6 +42,8 @@ func get_grid_properties_from_data_node() -> void:
 	floorplan_cell_size_metres = data_node.floorplan_cell_size_metres
 	walls_array_x = data_node.walls_array_x
 	walls_array_y = data_node.walls_array_y
+	wall_section_local_positions_metres_array = \
+			data_node.wall_section_local_positions_metres_array
 
 
 ## Works out the (x, y) co-ordinates in metres by which to translate

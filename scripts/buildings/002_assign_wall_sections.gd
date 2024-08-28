@@ -4,7 +4,7 @@
 
 extends Node
 
-enum CellState { EMPTY, OCCUPIED }
+enum CellState { EMPTY, OCCUPIED, STAIRS }
 
 @export_group("Plug-in nodes")
 @export var main_sequence_node: Node
@@ -30,7 +30,7 @@ func sequence() -> void:
 
 
 ## Floorplan grid is passed via a signal from the generating script as 0s and 1s.
-## The enum terms are thus stripped and need reaplying.
+## The enum terms are thus stripped and need reapplying.
 func apply_enum_tags() -> void:
 	# Gets the size of each row / column of the grid
 	floorplan_grid_size = floorplan[0].size()
@@ -39,8 +39,10 @@ func apply_enum_tags() -> void:
 		for cell_in_row in floorplan_grid_size:
 			if floorplan[row][cell_in_row] == 0:
 				floorplan[row][cell_in_row] = CellState.EMPTY
-			else:
+			elif floorplan[row][cell_in_row] == 1:
 				floorplan[row][cell_in_row] = CellState.OCCUPIED
+			else:
+				floorplan[row][cell_in_row] = CellState.STAIRS
 
 
 func get_grid_properties_from_data_node() -> void:
@@ -84,7 +86,7 @@ func populate_walls_array_default() -> void:
 
 
 ## Handles which function calculates walls for a given cell
-## based on whether it is EMPTY or OCCUPIED.
+## based on whether it is EMPTY or otherwise.
 func assign_walls() -> void:
 	for row in range(floorplan_grid_size):
 		for cell_in_row in range(floorplan_grid_size):
@@ -95,16 +97,22 @@ func assign_walls() -> void:
 
 
 ## Determines whether the EMPTY cell should have a wall above and/or to the left,
-## as the result of them being next to an OCCUPIED cell.
+## as the result of them being next to an OCCUPIED or STAIRS cell.
 func assign_empty_cell_walls(row: int, cell_in_row: int) -> void:
-	if floorplan[row][cell_in_row - 1] == CellState.OCCUPIED and cell_in_row - 1 >= 0:
+	if (
+		not floorplan[row][cell_in_row - 1] == CellState.EMPTY
+		and cell_in_row - 1 >= 0
+		):
 		for section in number_of_sections_per_wall:
 			# Each wall is made up of multiple sections, i.e. 2.
 			# The random choice of each section is saved as an array entry.
 			walls_array_y[row][cell_in_row][section] = \
 					randi_range(0, data_node.walls_component_array.size() - 1)
 	
-	if floorplan[row - 1][cell_in_row] == CellState.OCCUPIED and row - 1 >= 0:
+	if (
+		not floorplan[row - 1][cell_in_row] == CellState.EMPTY
+		and row - 1 >= 0
+		):
 		for section in number_of_sections_per_wall:
 			walls_array_x[row][cell_in_row][section] = \
 					randi_range(0, (data_node.walls_component_array.size() - 1))
@@ -115,7 +123,10 @@ func assign_empty_cell_walls(row: int, cell_in_row: int) -> void:
 ## if the OCCUPIED cell is on the bottom row.
 func assign_occupied_cell_walls(row: int, cell_in_row: int) -> void:
 	# Each OCCUPIED cell has a left wall.
-	if floorplan[row][cell_in_row - 1] == CellState.EMPTY or cell_in_row - 1 < 0:
+	if (
+		floorplan[row][cell_in_row - 1] == CellState.EMPTY
+		or cell_in_row - 1 < 0
+		):
 		for section in number_of_sections_per_wall:
 			# Each wall is made up of multiple sections, i.e. 2.
 			# The random choice of each section is saved as an array entry.
@@ -123,7 +134,10 @@ func assign_occupied_cell_walls(row: int, cell_in_row: int) -> void:
 					randi_range(0, data_node.walls_component_array.size() - 1)
 	
 	#  Each OCCUPIED cell has a wall above.
-	if floorplan[row - 1][cell_in_row] == CellState.EMPTY or row - 1 < 0:
+	if (
+		floorplan[row - 1][cell_in_row] == CellState.EMPTY
+		or row - 1 < 0
+		):
 		for section in number_of_sections_per_wall:
 			walls_array_x[row][cell_in_row][section] = \
 					randi_range(0, (data_node.walls_component_array.size() - 1))
@@ -153,11 +167,14 @@ func wall_arrays_complete() -> void:
 ## and for the arrays which hold the indeces of the cells' walls.
 func DEBUG_print_grid():
 	print_rich("[b]Basic floorplan:[/b]")
+	print("O = occupied, S = stairwell")
 	for row in range(floorplan_grid_size):
 		var line: String = ""
 		for cell in range(floorplan_grid_size):
 			if floorplan[row][cell] == CellState.OCCUPIED:
 				line += "[O] "
+			elif floorplan[row][cell] == CellState.STAIRS:
+				line += "[S] "
 			else:
 				line += "[ ] "
 		print(line)

@@ -19,7 +19,7 @@ extends Node
 ##																[br]
 ## ChatGPT takes the majority of the credit for this one!
 
-enum CellState { EMPTY, OCCUPIED }
+enum CellState { EMPTY, OCCUPIED, STAIRS }
 
 @export_group("Plug-in nodes")
 @export var main_sequence_node: Node
@@ -35,6 +35,7 @@ func _ready():
 	get_grid_properties_from_data_node()
 	initialise_the_grid_with_all_cells_occupied()
 	randomly_empty_cells()
+	assign_stairwell()
 	floorplan_complete.call_deferred()
 
 
@@ -120,6 +121,15 @@ func flood_fill(x: int, y: int, visited: Array):
 	flood_fill(x - 1, y, visited)  # left
 	flood_fill(x, y + 1, visited)  # down
 	flood_fill(x, y - 1, visited)  # up
+
+
+func assign_stairwell() -> void:
+	var random_row = randi_range(0, floorplan_grid_size - 1)
+	var random_cell_in_row = randi_range(0, floorplan_grid_size - 1)
+	if floorplan[random_row][random_cell_in_row] == CellState.EMPTY:
+		assign_stairwell()
+	else:
+		floorplan[random_row][random_cell_in_row] = CellState.STAIRS
 
 
 func floorplan_complete() -> void:
