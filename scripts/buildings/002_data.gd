@@ -1,5 +1,7 @@
 extends Node
 
+## Accessed and updated by many of the nodes in the building procgen creation process.
+
 @export_group("Floorplan properties")
 ## Number of cells on each side of the flooplan grid.
 @export_range(3, 10) var floorplan_grid_size: int = 3
@@ -10,6 +12,13 @@ extends Node
 @export var floorplan_cell_size_metres: float = 8.0
 @export var wall_height_metres: float = 2.0
 @export var max_number_of_storeys: int = 8
+
+## Receives, stores, updates and supplies the floorplan grid in array form.
+var floorplan: Array = []
+## Stores the floorplan's cells' surrounding walls on the x-axis of the grid.
+var walls_array_x: Array = []
+## Stores the floorplan's cells' surrounding walls on the y-axis of the grid.
+var walls_array_y: Array = []
 
 var walls_component_array = [
 	preload("res://Scenes/buildings/building002assets/002_wall_blank.tscn"),

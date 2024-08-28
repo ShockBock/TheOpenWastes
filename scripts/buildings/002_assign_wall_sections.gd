@@ -44,6 +44,7 @@ func apply_enum_tags() -> void:
 
 
 func get_grid_properties_from_data_node() -> void:
+	floorplan = data_node.floorplan
 	number_of_sections_per_wall = data_node.number_of_sections_per_wall
 	floorplan_grid_size = data_node.floorplan_grid_size
 
@@ -143,7 +144,9 @@ func assign_occupied_cell_walls(row: int, cell_in_row: int) -> void:
 ## Passes the two completed wall arrays (x and y) to the main sequence node
 ## for distribution to the nodes which instantiate the wall assets.
 func wall_arrays_complete() -> void:
-	main_sequence_node.pass_walls_arrays(walls_array_x, walls_array_y)
+	data_node.walls_array_x = walls_array_x
+	data_node.walls_array_y = walls_array_y
+	main_sequence_node.wall_arrays_finished()
 
 
 ## Call this for a diagram of the floorplan, showing OCCUPIED and EMPTY cells

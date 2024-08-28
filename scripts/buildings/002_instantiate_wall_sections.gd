@@ -40,7 +40,6 @@ var wall_section_local_positions_metres_array: Array[Vector3] = [
 ## as the result of the 'parent' cell's position.
 var cell_offsets_metres_array: Array = []
 
-
 func sequence(storey: int) -> void:
 	get_grid_properties_from_data_node()
 	calculate_cell_offset_array()
@@ -48,9 +47,12 @@ func sequence(storey: int) -> void:
 
 
 func get_grid_properties_from_data_node() -> void:
+	floorplan = data_node.floorplan
 	floorplan_grid_size = data_node.floorplan_grid_size
 	max_empty_cells = data_node.max_empty_cells
 	floorplan_cell_size_metres = data_node.floorplan_cell_size_metres
+	walls_array_x = data_node.walls_array_x
+	walls_array_y = data_node.walls_array_y
 
 
 ## Works out the (x, y) co-ordinates in metres by which to translate
@@ -100,21 +102,20 @@ func instantiate_walls(
 	cell_in_row: int,
 	wall_section_count: int
 	):
-	## Used to get the amount of wall sections in one quarter,
-	## i.e. how many sections per wall?
-	@warning_ignore("integer_division")
-	var wall_index_quarter: int = wall_section_local_positions_metres_array.size() / 4
 	## Used to store instantiated wall sections.
 	var wall_section_instance
 	
 	# For the wall sections on the left of the cell...
 	if walls_array_y[row][cell_in_row][wall_section_count % 2] == null:
 		pass
-	elif wall_section_count < wall_index_quarter:
-		var wall_section_selection = walls_array_y[row][cell_in_row][wall_section_count % 2]
-		wall_section_instance = data_node.walls_component_array[wall_section_selection].instantiate()
+	elif wall_section_count < data_node.number_of_sections_per_wall:
+		var wall_section_selection = \
+				walls_array_y[row][cell_in_row][wall_section_count % 2]
+		wall_section_instance = \
+				data_node.walls_component_array[wall_section_selection].instantiate()
 		# Add wall section's local translation relative to 'parent' cell.
-		wall_section_instance.position = wall_section_local_positions_metres_array[wall_section_count]
+		wall_section_instance.position = \
+				wall_section_local_positions_metres_array[wall_section_count]
 		# Add the cell's translation relative to overall floorplan.
 		wall_section_instance.position += cell_offsets_metres_array[row][cell_in_row]
 		# Add the section's vertical translation due to its storey.
@@ -129,8 +130,8 @@ func instantiate_walls(
 	if walls_array_x[row][cell_in_row][wall_section_count % 2] == null:
 		pass
 	elif (
-		wall_section_count >= wall_index_quarter
-		and wall_section_count < (wall_index_quarter * 2)
+		wall_section_count >= data_node.number_of_sections_per_wall
+		and wall_section_count < (data_node.number_of_sections_per_wall * 2)
 		):
 		var wall_section_selection = walls_array_x[row][cell_in_row][wall_section_count % 2]
 		wall_section_instance = data_node.walls_component_array[wall_section_selection].instantiate()
@@ -151,8 +152,8 @@ func instantiate_walls(
 	if walls_array_y[row][cell_in_row + 1][wall_section_count % 2] == null:
 		pass # current array entry is empty; proceed no further.
 	elif (
-		wall_section_count >= (wall_index_quarter * 2)
-		and wall_section_count < (wall_index_quarter * 3)
+		wall_section_count >= (data_node.number_of_sections_per_wall * 2)
+		and wall_section_count < (data_node.number_of_sections_per_wall * 3)
 		and cell_in_row == (floorplan_grid_size - 1)
 		):
 		var wall_section_selection = walls_array_y[row][cell_in_row + 1][wall_section_count % 2]
@@ -173,7 +174,7 @@ func instantiate_walls(
 	if walls_array_x[row + 1][cell_in_row][wall_section_count % 2] == null:
 		pass
 	elif (
-		wall_section_count >= (wall_index_quarter * 3)
+		wall_section_count >= (data_node.number_of_sections_per_wall * 3)
 		and row == (floorplan_grid_size - 1)
 		):
 		var wall_section_selection = walls_array_x[row + 1][cell_in_row][wall_section_count % 2]

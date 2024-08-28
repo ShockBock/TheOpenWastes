@@ -29,7 +29,7 @@ var floorplan_grid_size: int
 var max_empty_cells: int
 
 ## Stores floorplan layout as a grid.
-var grid: Array = []
+var floorplan: Array = []
 
 func _ready():
 	get_grid_properties_from_data_node()
@@ -44,42 +44,42 @@ func get_grid_properties_from_data_node() -> void:
 
 
 func initialise_the_grid_with_all_cells_occupied() -> void:
-	grid = []
+	floorplan = []
 	for row in range(floorplan_grid_size):
-		grid.append([])
+		floorplan.append([])
 		for column in range(floorplan_grid_size):
-			grid[row].append(CellState.OCCUPIED)
+			floorplan[row].append(CellState.OCCUPIED)
 
 
 func randomly_empty_cells() -> void:
 	var empty_cells: Array = []
 	var instance_empty_cells: int = max_empty_cells - randi_range(0, max_empty_cells)
 	while len(empty_cells) < instance_empty_cells:
-		var x: int = randi() % floorplan_grid_size
-		var y: int = randi() % floorplan_grid_size
-		if grid[x][y] == CellState.OCCUPIED:
-			grid[x][y] = CellState.EMPTY
-			empty_cells.append(Vector2(x, y))
+		var row: int = randi() % floorplan_grid_size
+		var cell_in_row: int = randi() % floorplan_grid_size
+		if floorplan[row][cell_in_row] == CellState.OCCUPIED:
+			floorplan[row][cell_in_row] = CellState.EMPTY
+			empty_cells.append(Vector2(row, cell_in_row))
 			if not are_all_occupied_cells_connected():
-				# If removing this cell disconnects the grid, undo it
-				grid[x][y] = CellState.OCCUPIED
+				# If removing this cell disconnects the floorplan, undo it
+				floorplan[row][cell_in_row] = CellState.OCCUPIED
 				empty_cells.pop_back()
 
 
 ## Check if all OCCUPIED cells are connected
 func are_all_occupied_cells_connected() -> bool:
 	var visited: Array = []
-	for i in range(floorplan_grid_size):
+	for row in range(floorplan_grid_size):
 		visited.append([])
-		for j in range(floorplan_grid_size):
-			visited[i].append(false)
+		for cell_in_row in range(floorplan_grid_size):
+			visited[row].append(false)
 	
 	# Find the first occupied cell to start the flood fill
 	var start = null
 	for row in range(floorplan_grid_size):
-		for column in range(floorplan_grid_size):
-			if grid[row][column] == CellState.OCCUPIED:
-				start = Vector2(row, column)
+		for cell_in_row in range(floorplan_grid_size):
+			if floorplan[row][cell_in_row] == CellState.OCCUPIED:
+				start = Vector2(row, cell_in_row)
 				break
 		if start != null:
 			break
@@ -92,8 +92,11 @@ func are_all_occupied_cells_connected() -> bool:
 	
 	# Check if all occupied cells were visited
 	for row in range(floorplan_grid_size):
-		for column in range(floorplan_grid_size):
-			if grid[row][column] == CellState.OCCUPIED and not visited[row][column]:
+		for cell_in_row in range(floorplan_grid_size):
+			if (
+				floorplan[row][cell_in_row] == CellState.OCCUPIED 
+				and not visited[row][cell_in_row]
+				):
 				return false
 	
 	return true
@@ -106,7 +109,7 @@ func flood_fill(x: int, y: int, visited: Array):
 		return
 	
 	# Check if the cell is already visited or if it is EMPTY
-	if visited[x][y] or grid[x][y] == CellState.EMPTY:
+	if visited[x][y] or floorplan[x][y] == CellState.EMPTY:
 		return
 	
 	# Mark the current cell as visited
@@ -120,4 +123,5 @@ func flood_fill(x: int, y: int, visited: Array):
 
 
 func floorplan_complete() -> void:
-	main_sequence_node.pass_floorplan(grid)
+	data_node.floorplan = floorplan
+	main_sequence_node.floorplan_complete()
