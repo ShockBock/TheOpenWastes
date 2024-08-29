@@ -107,7 +107,7 @@ func assign_empty_cell_walls(row: int, cell_in_row: int) -> void:
 			# Each wall is made up of multiple sections, i.e. 2.
 			# The random choice of each section is saved as an array entry.
 			walls_array_y[row][cell_in_row][section] = \
-					randi_range(0, data_node.walls_component_array.size() - 1)
+					randi_range(0, Building002Assets.walls_asset_array.size() - 1)
 	
 	if (
 		not floorplan[row - 1][cell_in_row] == CellState.EMPTY
@@ -115,7 +115,7 @@ func assign_empty_cell_walls(row: int, cell_in_row: int) -> void:
 		):
 		for section in number_of_sections_per_wall:
 			walls_array_x[row][cell_in_row][section] = \
-					randi_range(0, (data_node.walls_component_array.size() - 1))
+					randi_range(0, (Building002Assets.walls_asset_array.size() - 1))
 
 
 ## Determines whether the OCCUPIED cell should have a wall above and/or to the left.
@@ -131,7 +131,7 @@ func assign_occupied_cell_walls(row: int, cell_in_row: int) -> void:
 			# Each wall is made up of multiple sections, i.e. 2.
 			# The random choice of each section is saved as an array entry.
 			walls_array_y[row][cell_in_row][section] = \
-					randi_range(0, data_node.walls_component_array.size() - 1)
+					randi_range(0, Building002Assets.walls_asset_array.size() - 1)
 	
 	#  Each OCCUPIED cell has a wall above.
 	if (
@@ -140,19 +140,19 @@ func assign_occupied_cell_walls(row: int, cell_in_row: int) -> void:
 		):
 		for section in number_of_sections_per_wall:
 			walls_array_x[row][cell_in_row][section] = \
-					randi_range(0, (data_node.walls_component_array.size() - 1))
+					randi_range(0, (Building002Assets.walls_asset_array.size() - 1))
 	
 	# If this cell is in the last column (cell_in_row), assign a wall to the right.
 	if cell_in_row == floorplan_grid_size - 1:
 		for section in number_of_sections_per_wall:
 			walls_array_y[row][cell_in_row + 1][section] = \
-					randi_range(0, data_node.walls_component_array.size() - 1)
+					randi_range(0, Building002Assets.walls_asset_array.size() - 1)
 	
 	# If this cell is in the last row (row), assign a wall below.
 	if row == floorplan_grid_size - 1:
 		for section in number_of_sections_per_wall:
 			walls_array_x[row + 1][cell_in_row][section] = \
-					randi_range(0, (data_node.walls_component_array.size() - 1))
+					randi_range(0, (Building002Assets.walls_asset_array.size() - 1))
 
 
 ## Passes the two completed wall arrays (x and y) to the main sequence node
@@ -160,7 +160,7 @@ func assign_occupied_cell_walls(row: int, cell_in_row: int) -> void:
 func wall_arrays_complete() -> void:
 	data_node.walls_array_x = walls_array_x
 	data_node.walls_array_y = walls_array_y
-	main_sequence_node.wall_arrays_finished()
+	main_sequence_node.wall_arrays_complete()
 
 
 ## Call this for a diagram of the floorplan, showing OCCUPIED and EMPTY cells

@@ -3,18 +3,18 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://8qy3j4av54yp"
-path="res://.godot/imported/stairs_001.blend-14f83ec0b1bd175715e104825a03c1d7.scn"
+uid="uid://cltmvsbwe0uqq"
+path="res://.godot/imported/002_stairs_002.blend-1761b2b0c3e0d2c9ad6130a65dcd0004.scn"
 
 [deps]
 
-source_file="res://Models/Building001/stairs_001.blend"
-dest_files=["res://.godot/imported/stairs_001.blend-14f83ec0b1bd175715e104825a03c1d7.scn"]
+source_file="res://Models/building002/002_stairs_002.blend"
+dest_files=["res://.godot/imported/002_stairs_002.blend-1761b2b0c3e0d2c9ad6130a65dcd0004.scn"]
 
 [params]
 
-nodes/root_type="Node3D"
-nodes/root_name="Scene Root"
+nodes/root_type=""
+nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false

@@ -70,4 +70,3 @@ func load_keymapping() -> Dictionary:
 		keymapping[key] = input_event
 	return keymapping
 	
-

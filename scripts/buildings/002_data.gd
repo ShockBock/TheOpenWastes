@@ -13,12 +13,16 @@ extends Node
 @export var wall_height_metres: float = 2.0
 @export var max_number_of_storeys: int = 8
 
-## Receives, stores, updates and supplies the floorplan grid in array form.
+## Stores the floorplan grid in array form.
 var floorplan: Array = []
-## Stores the floorplan's cells' surrounding walls on the x-axis of the grid.
+## Stores the floorplan's cells' surrounding walls on the x-axis of the grid
+## in numerical form, for accessing walls_component_array.
 var walls_array_x: Array = []
-## Stores the floorplan's cells' surrounding walls on the y-axis of the grid.
+## Stores the floorplan's cells' surrounding walls on the y-axis of the grid
+## in numerical form, for accessing walls_component_array.
 var walls_array_y: Array = []
+## Stores the offset in metres of each cell relative to the floorplan's mid-point.
+var cell_offsets_metres_array: Array = []
 
 ## Stores distance in metres each wall section should be translated
 ## relative to 'parent' cell.
@@ -31,11 +35,4 @@ var wall_section_local_positions_metres_array: Array[Vector3] = [
 	Vector3(4, 0, 0),
 	Vector3(4, 0, -4),
 	Vector3(0, 0, -4),
-	]
-
-var walls_component_array = [
-	preload("res://Scenes/buildings/building002assets/002_wall_blank.tscn"),
-	preload("res://Scenes/buildings/building002assets/002_wall_windows_001.tscn"),
-	preload("res://Scenes/buildings/building002assets/002_wall_windows_002.tscn"),
-	preload("res://Scenes/buildings/building002assets/002_wall_windows_003.tscn"),
 	]

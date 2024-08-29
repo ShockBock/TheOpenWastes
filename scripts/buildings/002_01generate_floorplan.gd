@@ -30,18 +30,25 @@ var max_empty_cells: int
 
 ## Stores floorplan layout as a grid.
 var floorplan: Array = []
+var floorplan_cell_size_metres: int
+## Stores the offset in metres of each cell relative to the floorplan's mid-point.
+var cell_offsets_metres_array: Array = []
+
 
 func _ready():
 	get_grid_properties_from_data_node()
 	initialise_the_grid_with_all_cells_occupied()
 	randomly_empty_cells()
 	assign_stairwell()
+	calculate_cell_offset_array()
 	floorplan_complete.call_deferred()
 
 
 func get_grid_properties_from_data_node() -> void:
 	floorplan_grid_size = data_node.floorplan_grid_size
 	max_empty_cells = data_node.max_empty_cells
+	floorplan_cell_size_metres = data_node.floorplan_cell_size_metres
+	cell_offsets_metres_array = data_node.cell_offsets_metres_array
 
 
 func initialise_the_grid_with_all_cells_occupied() -> void:
@@ -130,6 +137,33 @@ func assign_stairwell() -> void:
 		assign_stairwell()
 	else:
 		floorplan[random_row][random_cell_in_row] = CellState.STAIRS
+
+
+## Works out the (x, y) co-ordinates in metres by which to translate
+## each cell relative to the centre of the grid.
+func calculate_cell_offset_array() -> void:
+	## Works out the midpoint of one axis of the floorplan.
+	## Subtracting the axis midpoint of the grid from each cell can be used to
+	## 'normalise' the grid, so that the middle cell takes on (0, 0) co-ordinates.
+	var floorplan_axis_midpoint = (floorplan.size() - 1) / 2.0
+	
+	# Works out the exact translation based on cell location for each cell
+	# and stores it in an array.
+	for row in range(floorplan_grid_size):
+		cell_offsets_metres_array.append([])
+		for cell_in_row in range(floorplan_grid_size):
+			var cell_offset_metres: Vector3
+			cell_offset_metres.x = (
+				((cell_in_row - floorplan_axis_midpoint) * floorplan_cell_size_metres)
+				)
+			cell_offset_metres.y = 0
+			cell_offset_metres.z = (
+				((floorplan_axis_midpoint - row) * floorplan_cell_size_metres)
+				)
+			cell_offsets_metres_array[row].append(cell_offset_metres)
+	
+	# Store array in data node for access by other nodes.
+	data_node.cell_offsets_metres_array = cell_offsets_metres_array
 
 
 func floorplan_complete() -> void:
