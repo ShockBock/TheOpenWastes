@@ -49,7 +49,6 @@ func get_cell_offset() -> void:
 						data_node.cell_offsets_metres_array[row][cell_in_row]
 
 
-
 func instantiate_stairs(storey) -> void:
 	var stairs_instance: Node3D
 	if storey == 0:

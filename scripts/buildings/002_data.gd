@@ -3,15 +3,21 @@ extends Node
 ## Accessed and updated by many of the nodes in the building procgen creation process.
 
 @export_group("Floorplan properties")
+@export var floorplan_cell_size_metres: float = 8.0
 ## Number of cells on each side of the flooplan grid.
 @export_range(3, 10) var floorplan_grid_size: int = 3
 ## A random number of cells up to max_empty_cells will be set to EMPTY.
 @export var max_empty_cells: int = 4
 ## How many sections (saved as individual scenes) are in each wall.
-@export var number_of_sections_per_wall: int = 2
-@export var floorplan_cell_size_metres: float = 8.0
-@export var wall_height_metres: float = 2.0
 @export var max_number_of_storeys: int = 8
+## Minimum number of external doors on outer face of lowest floor of building.
+@export var min_number_of_external_doors: int = 2
+## Maximum number of external doors on outer face of lowest floor of building.
+@export var max_number_of_external_doors: int = 2
+@export var number_of_sections_per_wall: int = 2
+## Determines the height of one storey, based on wall height (metres).
+@export var wall_height_metres: float = 3.0
+
 
 ## Stores the floorplan grid in array form.
 var floorplan: Array = []

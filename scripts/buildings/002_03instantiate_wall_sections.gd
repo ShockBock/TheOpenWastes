@@ -30,6 +30,10 @@ var walls_array_y: Array = []
 
 func sequence(storey: int) -> void:
 	get_grid_properties_from_data_node()
+	if storey == 1:
+		# Ground floor (index 0) has already been built; 
+		# remove external doors from walls arrays.
+		replace_door_assets()
 	instantiate_walls_sequence(storey)
 
 
@@ -43,6 +47,35 @@ func get_grid_properties_from_data_node() -> void:
 			data_node.wall_section_local_positions_metres_array
 	walls_array_x = data_node.walls_array_x
 	walls_array_y = data_node.walls_array_y
+
+
+## Makes sure external doors do not manifest above ground level
+## by replacing indeces containing them in the wall arrays with door-less wall assets.
+func replace_door_assets() -> void:
+	for row in walls_array_x.size():
+		for cell_in_row in walls_array_x[row].size():
+			for wall_section in walls_array_x[row][cell_in_row].size():
+				#print("wall_section in walls_array_x[row][cell_in_row].size() = ", walls_array_x[row][cell_in_row][wall_section])
+				if walls_array_x[row][cell_in_row][wall_section] == null:
+					pass
+				elif walls_array_x[row][cell_in_row][wall_section] == 0:
+					walls_array_x[row][cell_in_row][wall_section] = \
+							randi_range(1, Building002Assets.walls_asset_array.size() - 1)
+				else:
+					pass
+	
+	for row in walls_array_y.size():
+		for cell_in_row in walls_array_y[row].size():
+			for wall_section in walls_array_y[row][cell_in_row].size():
+				if walls_array_y[row][cell_in_row][wall_section] == null:
+					pass
+				elif walls_array_y[row][cell_in_row][wall_section] == 0:
+					walls_array_y[row][cell_in_row][wall_section] = \
+							randi_range(1, Building002Assets.walls_asset_array.size() - 1)
+				else:
+					pass
+	data_node.walls_array_x = walls_array_x
+	data_node.walls_array_y = walls_array_y
 
 
 func instantiate_walls_sequence(storey: int) -> void:
@@ -69,7 +102,7 @@ func instantiate_walls(
 	):
 	
 	## Used to store instantiated wall sections.
-	var wall_section_instance
+	var wall_section_instance: Node3D
 	
 	# For the wall sections on the left of the cell...
 	if walls_array_y[row][cell_in_row][wall_section_count % 2] == null:

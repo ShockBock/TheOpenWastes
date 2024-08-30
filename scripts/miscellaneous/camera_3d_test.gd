@@ -8,19 +8,25 @@ var distance: float = 1.0
 var rotation_rate: float = 0.2
 
 func _unhandled_input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("left"):
+	if Input.is_key_pressed(KEY_A):
 		position.x += distance
-	if Input.is_action_just_pressed("right"):
+	if Input.is_key_pressed(KEY_D):
 		position.x -= distance
-	if Input.is_action_just_pressed("forward"):
+	if Input.is_key_pressed(KEY_W):
 		position.z += distance
-	if Input.is_action_just_pressed("backward"):
+	if Input.is_key_pressed(KEY_S):
 		position.z -= distance
-	if Input.is_key_pressed(KEY_UP):
-		position.y += distance
-	if Input.is_key_pressed(KEY_DOWN):
-		position.y -= distance
 	if Input.is_key_pressed(KEY_Q):
 		rotation.x += rotation_rate
 	if Input.is_key_pressed(KEY_E):
 		rotation.x -= rotation_rate
+	
+	if Input.is_key_pressed(KEY_UP):
+		position.y += distance
+	if Input.is_key_pressed(KEY_DOWN):
+		position.y -= distance
+	if Input.is_key_pressed(KEY_LEFT):
+		rotation.y += rotation_rate
+	if Input.is_key_pressed(KEY_RIGHT):
+		rotation.y -= rotation_rate
+	

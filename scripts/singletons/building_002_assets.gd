@@ -3,6 +3,7 @@ extends Node
 ## Singleton containing all preloads for Building002.
 
 var walls_asset_array: Array = [
+	preload("res://Scenes/buildings/building002assets/002_wall_windows_door.tscn"),
 	preload("res://Scenes/buildings/building002assets/002_wall_blank.tscn"),
 	preload("res://Scenes/buildings/building002assets/002_wall_windows_001.tscn"),
 	preload("res://Scenes/buildings/building002assets/002_wall_windows_002.tscn"),

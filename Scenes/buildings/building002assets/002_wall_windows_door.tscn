@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://p4isbi7dvuw0"]
+
+[ext_resource type="PackedScene" uid="uid://4lg6b3skjwhx" path="res://Models/building002/002_wall_windows_door.blend" id="1_qkppi"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="002_wall_windows_door" parent="." instance=ExtResource("1_qkppi")]
