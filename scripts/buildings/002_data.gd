@@ -15,8 +15,14 @@ extends Node
 ## Maximum number of external doors on outer face of lowest floor of building.
 @export var max_number_of_external_doors: int = 2
 @export var number_of_sections_per_wall: int = 2
+## Width / length of the foundation block (metres).
+## Determines where to place foundation steps, relative to foundation block.
+@export var foundation_length_metres: float = 26.0
 ## Determines the height of one storey, based on wall height (metres).
 @export var wall_height_metres: float = 3.0
+## Length of one wall section (metres),
+## excluding the 'overlap' column (see model for details).
+@export var wall_length_metres: float = 4.0
 
 
 ## Stores the floorplan grid in array form.

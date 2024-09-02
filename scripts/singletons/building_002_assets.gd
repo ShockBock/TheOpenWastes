@@ -19,3 +19,7 @@ var stairs_asset_dictionary: Dictionary = {
 	"002_stairs_002": \
 			preload("res://Scenes/buildings/building002assets/002_stairs_002.tscn"),
 }
+
+
+var foundation_stairs: PackedScene = \
+		preload("res://Scenes/buildings/building002assets/002_foundation_stairs.tscn")

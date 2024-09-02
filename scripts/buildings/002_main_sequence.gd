@@ -8,6 +8,7 @@ extends Node3D
 @export var data_node: Node
 @export var assign_wall_sections_node: Node
 @export var instantiate_wall_sections_node: Node
+@export var instantiate_foundation_stairs_node: Node
 @export var instantiate_stairwell_node: Node
 
 ## Stores the number of storeys this instance of Building002 will have.
@@ -32,6 +33,8 @@ func floorplan_complete() -> void:
 
 
 func wall_arrays_complete() -> void:
+	instantiate_foundation_stairs_node.sequence()
+	
 	for storey in storeys:
 		instantiate_wall_sections_node.sequence(storey)
 	wall_instances_complete.call_deferred()

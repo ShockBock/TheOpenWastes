@@ -1,8 +1,13 @@
 extends Camera3D
 
-## ShitCo burner code, just to get a port-a-camera into the scene
-## that can be moved around a bit.
-## It's more to be pitied than scorned!
+## Debugging Camera3D.
+##
+## Basic code, just to get a port-a-camera into the scene. [br]
+## At some point, adding mouse look and linear interpolation to the key presses
+## would probably make it more pleasant to use.
+##
+## @experimental
+
 
 var distance: float = 1.0
 var rotation_rate: float = 0.2
