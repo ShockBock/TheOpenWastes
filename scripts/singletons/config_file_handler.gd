@@ -22,6 +22,8 @@ func _ready():
 		config.set_value("keymapping", "shoot", "mouse_1")
 		config.set_value("keymapping", "change_weapon", "mouse_2")
 		config.set_value("keymapping", "exit", "Escape")
+		config.set_value("mouse", "mouse_sensitivity", 0.03)
+		config.set_value("mouse", "invert_mouse", false)
 		
 		# For location of save file, see https://youtu.be/tfqJjDw0o7Y?t=104
 		config.save(SETTINGS_FILE_PATH)

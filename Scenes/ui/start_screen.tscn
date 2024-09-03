@@ -13,13 +13,6 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y63bm"]
-bg_color = Color(0, 0, 0, 0.392157)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_maw7o"]
 bg_color = Color(1, 1, 1, 0.392157)
 corner_radius_top_left = 20
@@ -27,7 +20,7 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xaeom"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y63bm"]
 bg_color = Color(0, 0, 0, 0.392157)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -41,7 +34,7 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xwnk2"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xaeom"]
 bg_color = Color(0, 0, 0, 0.392157)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -50,6 +43,13 @@ corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u0stk"]
 bg_color = Color(1, 1, 1, 0.392157)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xwnk2"]
+bg_color = Color(0, 0, 0, 0.392157)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -108,9 +108,9 @@ offset_right = 278.0
 offset_bottom = 597.0
 theme_override_fonts/font = ExtResource("2_sj3si")
 theme_override_font_sizes/font_size = 90
-theme_override_styles/normal = SubResource("StyleBoxFlat_y63bm")
 theme_override_styles/hover = SubResource("StyleBoxFlat_maw7o")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_maw7o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_y63bm")
 text = "Start"
 
 [node name="OptionsButton" type="Button" parent="OpenWastesPanel"]
@@ -121,9 +121,9 @@ offset_right = 720.0
 offset_bottom = 597.0
 theme_override_fonts/font = ExtResource("2_sj3si")
 theme_override_font_sizes/font_size = 90
-theme_override_styles/normal = SubResource("StyleBoxFlat_xaeom")
 theme_override_styles/hover = SubResource("StyleBoxFlat_2of15")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_2of15")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xaeom")
 text = "Options"
 
 [node name="ExitButton" type="Button" parent="OpenWastesPanel"]
@@ -134,9 +134,9 @@ offset_right = 1073.0
 offset_bottom = 597.0
 theme_override_fonts/font = ExtResource("2_sj3si")
 theme_override_font_sizes/font_size = 90
-theme_override_styles/normal = SubResource("StyleBoxFlat_xwnk2")
 theme_override_styles/hover = SubResource("StyleBoxFlat_u0stk")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_u0stk")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xwnk2")
 text = "Exit
 "
 
