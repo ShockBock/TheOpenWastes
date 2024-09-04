@@ -2,26 +2,27 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfs7rpkidxajl"
-path="res://.godot/imported/Concrete043B_1K-JPG_Metalness.jpg-1821eb8e31ef3f32a8a20c761c032879.ctex"
+uid="uid://di0fepfqacjui"
+path.s3tc="res://.godot/imported/Concrete043B_1K-JPG_Color.jpg-ee84000bd1e789116d2c862ecfd22306.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://images/Textures/Concrete/Concrete043B_1K-JPG_Metalness.jpg"
-dest_files=["res://.godot/imported/Concrete043B_1K-JPG_Metalness.jpg-1821eb8e31ef3f32a8a20c761c032879.ctex"]
+source_file="res://images/Textures/concrete043b/Concrete043B_1K-JPG_Color.jpg"
+dest_files=["res://.godot/imported/Concrete043B_1K-JPG_Color.jpg-ee84000bd1e789116d2c862ecfd22306.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -31,4 +32,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0
