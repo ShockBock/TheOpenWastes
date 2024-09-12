@@ -1,5 +1,10 @@
 extends Node3D
 
+## Places characters.
+##
+## Junk code with many coding sins like magic numbers etc.
+## Temporary and will be superceded with something far superior.
+
 var shotgun_monk:= preload("res://Scenes/npcs/shotgun_monk.tscn")
 var player_character:= preload("res://Scenes/player.tscn")
 

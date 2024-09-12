@@ -1,22 +1,28 @@
-#@tool
-
 extends Node3D
 
-# Check-box boolean to generate/update terrain in editor, enabled by @tool
-#@export var generate_mesh_button : bool:
-	#set(val):
-		#generate_terrain()
+## Terrain generation.
+##
+## Creates a mesh, subdivides it, applies noise to simulate differential amplitude,
+## applies the mesh to a MeshInstance3D and creates a correspnding CollisionShape3D.
+## [br]
+## Based on Procedural Terrain Generation: Displacement & Collisions 
+## by DitzyNinja's Godojo.
+##
+## @tutorial: https://www.youtube.com/watch?v=OUnJEaatl2Q
 
+signal landscape_complete
+
+@export_group("Plug-in nodes")
+@export var mesh_instance_3d: MeshInstance3D
+@export var collision_shape_3d: CollisionShape3D
+
+@export_group("Mesh characteristics")
 @export var size : int = 64
 @export var subdivide : int = 63
 @export var amplitude : int = 5
 
+@export_group("Noise")
 @export var noise : FastNoiseLite = FastNoiseLite.new()
-
-@onready var mesh_instance_3d = %MeshInstance3D
-@onready var collision_shape_3d = %CollisionShape3D
-
-signal landscape_complete
 
 func _on_main_sequence_generate_terrain_signal():
 	generate_terrain()
@@ -48,14 +54,9 @@ func generate_terrain():
 	mesh_instance_3d.mesh = surface_tool.commit()
 	collision_shape_3d.shape = array_mesh.create_trimesh_shape()
 	
-	# Give the $DitzyTerrain/CollisionShape3D time to instantiate the collision mesh before placing buildings
+	# Give the $DitzyTerrain/CollisionShape3D time 
+	# to instantiate the collision mesh before placing buildings
 	_emit_landscape_complete.call_deferred()
 
 func _emit_landscape_complete():
-	emit_signal("landscape_complete")
-	
-# Based on "Procedural Terrain Generation: Displacement & Collisions"
-# by DitzyNinja's Godojo, at https://www.youtube.com/watch?v=OUnJEaatl2Q
-
-
-
+	landscape_complete.emit()

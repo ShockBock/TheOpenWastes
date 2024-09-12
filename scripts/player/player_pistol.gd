@@ -13,4 +13,4 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot") and not pistol_shot_animation.is_playing():
 		pistol_shot_audio.play()
 		pistol_shot_animation.play("Recoil")
-		emit_signal("weapon_fired")
+		weapon_fired.emit()

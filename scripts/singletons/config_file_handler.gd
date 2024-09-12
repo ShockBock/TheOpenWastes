@@ -2,6 +2,7 @@ extends Node
 
 ## Maintains game settings between closing and opening the game,
 ## e.g. key-mapping, mouse sensitivity etc.
+##
 ## Based on Save and Load Settings in Godot 4 with ConfigFile | Let's Godot,
 ## by DashNothing, 2024.
 ## https://www.youtube.com/watch?v=tfqJjDw0o7Y
@@ -22,6 +23,8 @@ func _ready():
 		config.set_value("keymapping", "shoot", "mouse_1")
 		config.set_value("keymapping", "change_weapon", "mouse_2")
 		config.set_value("keymapping", "exit", "Escape")
+		config.set_value("mouse", "mouse_sensitivity", 0.03)
+		config.set_value("mouse", "invert_mouse", false)
 		
 		# For location of save file, see https://youtu.be/tfqJjDw0o7Y?t=104
 		config.save(SETTINGS_FILE_PATH)
@@ -70,4 +73,3 @@ func load_keymapping() -> Dictionary:
 		keymapping[key] = input_event
 	return keymapping
 	
-

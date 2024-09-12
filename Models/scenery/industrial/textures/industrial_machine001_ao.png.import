@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfs7rpkidxajl"
-path="res://.godot/imported/Concrete043B_1K-JPG_Metalness.jpg-1821eb8e31ef3f32a8a20c761c032879.ctex"
+uid="uid://crukgdihwy7y0"
+path="res://.godot/imported/industrial_machine001_ao.png-91ec3a68cf3ebc98027ae286e96a65cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/Textures/Concrete/Concrete043B_1K-JPG_Metalness.jpg"
-dest_files=["res://.godot/imported/Concrete043B_1K-JPG_Metalness.jpg-1821eb8e31ef3f32a8a20c761c032879.ctex"]
+source_file="res://Models/scenery/industrial/textures/industrial_machine001_ao.png"
+dest_files=["res://.godot/imported/industrial_machine001_ao.png-91ec3a68cf3ebc98027ae286e96a65cd.ctex"]
 
 [params]
 

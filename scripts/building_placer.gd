@@ -53,4 +53,4 @@ func instantiate_building(building_foundation_x, building_foundation_y, building
 	add_child(building_instance)
 
 func _emit_buildings_complete():
-	emit_signal("buildings_complete")
+	buildings_complete.emit()

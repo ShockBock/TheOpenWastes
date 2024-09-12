@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_pm0ck"]
 [ext_resource type="Script" path="res://scripts/player/player_weapon_controller.gd" id="3_e88se"]
-[ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://Fonts/KomikaDisplay-RoV.ttf" id="4_dj6t1"]
+[ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://fonts/KomikaDisplay-RoV.ttf" id="4_dj6t1"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_be4rj"]
 radius = 0.4

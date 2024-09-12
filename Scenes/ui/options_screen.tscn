@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/ui/options_screen.gd" id="1_gwtbq"]
 [ext_resource type="Texture2D" uid="uid://c34lbj8nerp3v" path="res://images/title_screen.jpg" id="2_yeks1"]
 [ext_resource type="PackedScene" uid="uid://cv4rmq3eb8hf1" path="res://Scenes/ui/input_button.tscn" id="3_wxb44"]
-[ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://Fonts/KomikaDisplay-RoV.ttf" id="4_eqmkq"]
+[ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://fonts/KomikaDisplay-RoV.ttf" id="4_eqmkq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yr5al"]
 bg_color = Color(0, 0, 0, 0.392157)

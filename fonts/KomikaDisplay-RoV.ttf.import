@@ -3,18 +3,19 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://cet56eraj0led"
-path="res://.godot/imported/KomikaDisplay-RoV.ttf-ca6b7338b0b94cadd886fde24977ecc4.fontdata"
+path="res://.godot/imported/KomikaDisplay-RoV.ttf-9ed256276f2dd66cf731e0d957f3cdf9.fontdata"
 
 [deps]
 
-source_file="res://Fonts/KomikaDisplay-RoV.ttf"
-dest_files=["res://.godot/imported/KomikaDisplay-RoV.ttf-ca6b7338b0b94cadd886fde24977ecc4.fontdata"]
+source_file="res://fonts/KomikaDisplay-RoV.ttf"
+dest_files=["res://.godot/imported/KomikaDisplay-RoV.ttf-9ed256276f2dd66cf731e0d957f3cdf9.fontdata"]
 
 [params]
 
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

@@ -48,7 +48,7 @@ func minigun_projectiles(delta) -> void:
 	if inter_shot_interval_current >= 0:
 		pass
 	else:
-		emit_signal("weapon_fired")
+		weapon_fired.emit()
 		inter_shot_interval_current = 1.0
 
 
