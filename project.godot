@@ -20,7 +20,7 @@ config/icon="res://images/icon.png"
 
 Global="*res://scripts/singletons/global.gd"
 ConfigFileHandler="*res://scripts/singletons/config_file_handler.gd"
-Building002Assets="*res://scripts/singletons/building_002_assets.gd"
+Building002Assets="*res://experimental/scripts/buildings/building_002_assets.gd"
 
 [display]
 
