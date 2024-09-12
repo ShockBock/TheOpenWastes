@@ -18,9 +18,15 @@ func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_key_pressed(KEY_D): # right
 		position += transform.basis.x * distance
 	if Input.is_key_pressed(KEY_W): # forward.
-		position -= transform.basis.z * distance
+		var direction = -transform.basis.z
+		direction.y = 0 # Ensure no vertical movement.
+		direction = direction.normalized() # Normalize to keep consistent speed.
+		position += direction * distance
 	if Input.is_key_pressed(KEY_S): # backward.
-		position += transform.basis.z * distance
+		var direction = +transform.basis.z
+		direction.y = 0 # Ensure no vertical movement.
+		direction = direction.normalized() # Normalize to keep consistent speed.
+		position += direction * distance
 	if Input.is_key_pressed(KEY_Q): # tilt camera up.
 		rotation.x += rotation_rate
 	if Input.is_key_pressed(KEY_E): # tilt camera down.

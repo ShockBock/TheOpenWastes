@@ -21,7 +21,7 @@ var walls_array_x: Array = []
 var walls_array_y: Array = []
 
 func sequence() -> void:
-	get_grid_properties_from_data_node()
+	get_data()
 	apply_enum_tags()
 	populate_walls_array_default()
 	assign_walls()
@@ -45,7 +45,7 @@ func apply_enum_tags() -> void:
 				floorplan[row][cell_in_row] = CellState.STAIRS
 
 
-func get_grid_properties_from_data_node() -> void:
+func get_data() -> void:
 	floorplan = data_node.floorplan
 	number_of_sections_per_wall = data_node.number_of_sections_per_wall
 	floorplan_grid_size = data_node.floorplan_grid_size

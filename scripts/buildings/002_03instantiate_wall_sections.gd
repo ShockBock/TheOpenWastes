@@ -29,7 +29,7 @@ var walls_array_x: Array = []
 var walls_array_y: Array = []
 
 func sequence(storey: int) -> void:
-	get_grid_properties_from_data_node()
+	get_data()
 	if storey == 1:
 		# Ground floor (index 0) has already been built; 
 		# remove external doors from walls arrays.
@@ -37,7 +37,7 @@ func sequence(storey: int) -> void:
 	instantiate_walls_sequence(storey)
 
 
-func get_grid_properties_from_data_node() -> void:
+func get_data() -> void:
 	cell_offsets_metres_array = data_node.cell_offsets_metres_array
 	floorplan = data_node.floorplan
 	floorplan_grid_size = data_node.floorplan_grid_size
@@ -55,7 +55,6 @@ func replace_door_assets() -> void:
 	for row in walls_array_x.size():
 		for cell_in_row in walls_array_x[row].size():
 			for wall_section in walls_array_x[row][cell_in_row].size():
-				#print("wall_section in walls_array_x[row][cell_in_row].size() = ", walls_array_x[row][cell_in_row][wall_section])
 				if walls_array_x[row][cell_in_row][wall_section] == null:
 					pass
 				elif walls_array_x[row][cell_in_row][wall_section] == 0:
@@ -85,7 +84,7 @@ func instantiate_walls_sequence(storey: int) -> void:
 		for cell_in_row in range(floorplan_grid_size):
 			# For each wall section of that cell...
 			for wall_section_count in \
-					(wall_section_local_positions_metres_array.size()):
+					wall_section_local_positions_metres_array.size():
 				instantiate_walls(
 					storey,
 					row,

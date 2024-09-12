@@ -2,6 +2,7 @@ extends Node
 
 ## Maintains game settings between closing and opening the game,
 ## e.g. key-mapping, mouse sensitivity etc.
+##
 ## Based on Save and Load Settings in Godot 4 with ConfigFile | Let's Godot,
 ## by DashNothing, 2024.
 ## https://www.youtube.com/watch?v=tfqJjDw0o7Y

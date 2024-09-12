@@ -26,12 +26,12 @@ var wall_height_metres: float
 
 
 func sequence(storey) -> void:
-	get_data_from_data_node()
+	get_data()
 	get_cell_offset()
 	instantiate_stairs(storey)
 
 
-func get_data_from_data_node() -> void:
+func get_data() -> void:
 	cell_offsets_metres_array = data_node.cell_offsets_metres_array
 	floorplan = data_node.floorplan
 	floorplan_grid_size = data_node.floorplan_grid_size

@@ -1,12 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://rbutn0us3u48"]
+[gd_scene load_steps=13 format=3 uid="uid://rbutn0us3u48"]
 
 [ext_resource type="Script" path="res://scripts/buildings/002_01generate_floorplan.gd" id="1_khren"]
 [ext_resource type="Script" path="res://scripts/buildings/002_main_sequence.gd" id="1_x8wjh"]
 [ext_resource type="Script" path="res://scripts/buildings/002_data.gd" id="2_q6ax7"]
 [ext_resource type="Script" path="res://scripts/buildings/002_02assign_wall_sections.gd" id="3_o0ria"]
 [ext_resource type="Script" path="res://scripts/buildings/002_03instantiate_wall_sections.gd" id="4_vko3e"]
-[ext_resource type="Script" path="res://scripts/buildings/002_05instantiate_internal_stairwell.gd" id="6_4tbcs"]
-[ext_resource type="Script" path="res://scripts/buildings/002_04instantiate_foundation_stairs.gd" id="6_awy70"]
+[ext_resource type="Script" path="res://scripts/buildings/002_06instantiate_internal_stairwell.gd" id="6_4tbcs"]
+[ext_resource type="Script" path="res://scripts/buildings/002_05instantiate_foundation_stairs.gd" id="6_awy70"]
+[ext_resource type="Script" path="res://scripts/buildings/002_04instantiate_wall_pillars.gd" id="6_cctn1"]
 [ext_resource type="PackedScene" uid="uid://c20ijpogmi8ry" path="res://Scenes/miscellaneous/camera_3d_test.tscn" id="7_ha07w"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4mpcr"]
@@ -22,13 +23,14 @@ sky = SubResource("Sky_4cvw1")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="002MainSequence" type="Node3D" node_paths=PackedStringArray("data_node", "assign_wall_sections_node", "instantiate_wall_sections_node", "instantiate_foundation_stairs_node", "instantiate_stairwell_node")]
+[node name="002MainSequence" type="Node3D" node_paths=PackedStringArray("data_node", "assign_wall_sections_node", "instantiate_wall_sections_node", "instantiate_wall_pillars_node", "instantiate_foundation_stairs_node", "instantiate_stairwell_node")]
 script = ExtResource("1_x8wjh")
 data_node = NodePath("002Data")
 assign_wall_sections_node = NodePath("002_02AssignWallSections")
 instantiate_wall_sections_node = NodePath("002_03InstantiateWallSections")
-instantiate_foundation_stairs_node = NodePath("002_04InstantiateFoundationStairs")
-instantiate_stairwell_node = NodePath("002_05InstantiateInternalStairwell")
+instantiate_wall_pillars_node = NodePath("002_04InstantiateWallPillars")
+instantiate_foundation_stairs_node = NodePath("002_05InstantiateFoundationStairs")
+instantiate_stairwell_node = NodePath("002_06InstantiateInternalStairwell")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_3oprx")
@@ -55,12 +57,17 @@ script = ExtResource("4_vko3e")
 main_sequence_node = NodePath("..")
 data_node = NodePath("../002Data")
 
-[node name="002_04InstantiateFoundationStairs" type="Node" parent="." node_paths=PackedStringArray("main_sequence_node", "data_node")]
+[node name="002_04InstantiateWallPillars" type="Node" parent="." node_paths=PackedStringArray("main_sequence_node", "data_node")]
+script = ExtResource("6_cctn1")
+main_sequence_node = NodePath("..")
+data_node = NodePath("../002Data")
+
+[node name="002_05InstantiateFoundationStairs" type="Node" parent="." node_paths=PackedStringArray("main_sequence_node", "data_node")]
 script = ExtResource("6_awy70")
 main_sequence_node = NodePath("..")
 data_node = NodePath("../002Data")
 
-[node name="002_05InstantiateInternalStairwell" type="Node" parent="." node_paths=PackedStringArray("main_sequence_node", "data_node")]
+[node name="002_06InstantiateInternalStairwell" type="Node" parent="." node_paths=PackedStringArray("main_sequence_node", "data_node")]
 script = ExtResource("6_4tbcs")
 main_sequence_node = NodePath("..")
 data_node = NodePath("../002Data")

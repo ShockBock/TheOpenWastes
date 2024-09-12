@@ -8,6 +8,7 @@ extends Node3D
 @export var data_node: Node
 @export var assign_wall_sections_node: Node
 @export var instantiate_wall_sections_node: Node
+@export var instantiate_wall_pillars_node: Node
 @export var instantiate_foundation_stairs_node: Node
 @export var instantiate_stairwell_node: Node
 
@@ -37,6 +38,8 @@ func wall_arrays_complete() -> void:
 	
 	for storey in storeys:
 		instantiate_wall_sections_node.sequence(storey)
+		instantiate_wall_pillars_node.sequence(storey)
+	
 	wall_instances_complete.call_deferred()
 
 
