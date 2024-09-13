@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cxjcsx0a57l5c"
-path="res://.godot/imported/industrial_machine001.blend-9d438a1b1f96ba6ea5c8b3de8a53b2a0.scn"
+path="res://.godot/imported/industrial_machine001.blend-85b6ddeb3057d0313fc5011ca83823f7.scn"
 
 [deps]
 
-source_file="res://Models/scenery/industrial/industrial_machine001.blend"
-dest_files=["res://.godot/imported/industrial_machine001.blend-9d438a1b1f96ba6ea5c8b3de8a53b2a0.scn"]
+source_file="res://Models/objects/industrial/industrial_machine001.blend"
+dest_files=["res://.godot/imported/industrial_machine001.blend-85b6ddeb3057d0313fc5011ca83823f7.scn"]
 
 [params]
 
