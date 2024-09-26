@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyt5sweeenx3a"
-path.s3tc="res://.godot/imported/dials_albedo.jpg-cf263e8acfb520a83bd7d1ee73caacd6.s3tc.ctex"
+uid="uid://y5ekbxaufdjw"
+path.s3tc="res://.godot/imported/industrial_machine002_ao.jpg-1286aec819c78ce9b945c6ced588d189.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Scenes/objects/industrial/industrial_machine001/textures/dials_albedo.jpg"
-dest_files=["res://.godot/imported/dials_albedo.jpg-cf263e8acfb520a83bd7d1ee73caacd6.s3tc.ctex"]
+source_file="res://Scenes/objects/industrial/industrial_machine002/textures/industrial_machine002_ao.jpg"
+dest_files=["res://.godot/imported/industrial_machine002_ao.jpg-1286aec819c78ce9b945c6ced588d189.s3tc.ctex"]
 
 [params]
 

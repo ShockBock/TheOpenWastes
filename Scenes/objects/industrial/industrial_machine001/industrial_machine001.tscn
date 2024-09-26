@@ -7,8 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://dgmgivx482hpo" path="res://images/Textures/noise/perlin_noise01.jpg" id="5_qo2v0"]
 [ext_resource type="Texture2D" uid="uid://bj0on1ws3mre7" path="res://images/Textures/metal062C/Metal062C_2K-JPG_NormalGL.jpg" id="6_je0tj"]
 [ext_resource type="Texture2D" uid="uid://cekhjv65nvuam" path="res://images/Textures/metal062C/Metal062C_2K-JPG_Roughness.jpg" id="7_35y7p"]
-[ext_resource type="Texture2D" uid="uid://dyt5sweeenx3a" path="res://Scenes/objects/industrial/industrial_machine001/textures/dials_albedo.jpg" id="8_a6qqa"]
-[ext_resource type="Texture2D" uid="uid://bbwuf0vp8pjup" path="res://Scenes/objects/industrial/industrial_machine001/textures/dials_normal.jpg" id="9_wjqeb"]
+[ext_resource type="Texture2D" uid="uid://dyt5sweeenx3a" path="res://Scenes/objects/industrial/textures/dials_albedo.jpg" id="8_a6qqa"]
+[ext_resource type="Texture2D" uid="uid://bbwuf0vp8pjup" path="res://Scenes/objects/industrial/textures/dials_normal.jpg" id="9_wjqeb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ee6sn"]
 resource_name = "MachineBody"
@@ -109,9 +109,9 @@ shadow_mesh = SubResource("ArrayMesh_0xk4h")
 render_priority = 0
 shader = ExtResource("1_45u7s")
 shader_parameter/albedo_intensity = 1.1
-shader_parameter/albedo_red = 0.2
+shader_parameter/albedo_red = 0.35
 shader_parameter/albedo_green = 0.3
-shader_parameter/albedo_blue = 0.5
+shader_parameter/albedo_blue = 0.3
 shader_parameter/roughness_value = 0.5
 shader_parameter/use_roughness_texture = true
 shader_parameter/ao_intensity = 2.0

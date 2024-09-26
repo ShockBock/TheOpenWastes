@@ -3,9 +3,9 @@ shader_type spatial;
 // === Albedo Settings ===
 uniform sampler2D albedo_texture;     // The base colour texture (albedo)
 uniform float albedo_intensity : hint_range(0.0, 4.0, 0.1) = 1.0; // Controls brightness of the albedo
-uniform float albedo_red      : hint_range(0.0, 2.0, 0.1) = 1.0;   // Adjusts red channel
-uniform float albedo_green    : hint_range(0.0, 2.0, 0.1) = 1.0; // Adjusts green channel
-uniform float albedo_blue     : hint_range(0.0, 2.0, 0.1) = 1.0;  // Adjusts blue channel
+uniform float albedo_red      : hint_range(0.0, 2.0, 0.05) = 1.0;   // Adjusts red channel
+uniform float albedo_green    : hint_range(0.0, 2.0, 0.05) = 1.0; // Adjusts green channel
+uniform float albedo_blue     : hint_range(0.0, 2.0, 0.05) = 1.0;  // Adjusts blue channel
 
 // === Roughness Settings ===
 uniform sampler2D roughness_texture;  // Texture controlling roughness
