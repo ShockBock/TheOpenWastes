@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdaul5i2rrfrw"
-path.s3tc="res://.godot/imported/table_dining_ao.jpg-9abec45d5d3955c3ed550ff03ba66a87.s3tc.ctex"
+uid="uid://d3igjrl3kxju1"
+path.s3tc="res://.godot/imported/Metal062C_2K-JPG_Metalness.jpg-b81927924bc13f7e36646ab7a5b8757c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Scenes/objects/residential/table_dining/textures/table_dining_ao.jpg"
-dest_files=["res://.godot/imported/table_dining_ao.jpg-9abec45d5d3955c3ed550ff03ba66a87.s3tc.ctex"]
+source_file="res://images/Textures/metal062C/Metal062C_2K-JPG_Metalness.jpg"
+dest_files=["res://.godot/imported/Metal062C_2K-JPG_Metalness.jpg-b81927924bc13f7e36646ab7a5b8757c.s3tc.ctex"]
 
 [params]
 

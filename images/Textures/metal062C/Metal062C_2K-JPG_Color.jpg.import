@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuqnx4nwjcglg"
-path.s3tc="res://.godot/imported/industrial_machine001_diffuse.png-e3b6f55e581073e28d9a142b13851f19.s3tc.ctex"
+uid="uid://bhp2cnm2jsuam"
+path.s3tc="res://.godot/imported/Metal062C_2K-JPG_Color.jpg-6bcba494a87fbaf18006f932daa0fdbe.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Models/objects/industrial/industrial_machine001/textures/industrial_machine001_diffuse.png"
-dest_files=["res://.godot/imported/industrial_machine001_diffuse.png-e3b6f55e581073e28d9a142b13851f19.s3tc.ctex"]
+source_file="res://images/Textures/metal062C/Metal062C_2K-JPG_Color.jpg"
+dest_files=["res://.godot/imported/Metal062C_2K-JPG_Color.jpg-6bcba494a87fbaf18006f932daa0fdbe.s3tc.ctex"]
 
 [params]
 

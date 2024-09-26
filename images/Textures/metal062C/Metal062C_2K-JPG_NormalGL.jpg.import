@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdaul5i2rrfrw"
-path.s3tc="res://.godot/imported/table_dining_ao.jpg-9abec45d5d3955c3ed550ff03ba66a87.s3tc.ctex"
+uid="uid://bj0on1ws3mre7"
+path.s3tc="res://.godot/imported/Metal062C_2K-JPG_NormalGL.jpg-c983d17f8b8ab2dec24bb823e812d0b8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Scenes/objects/residential/table_dining/textures/table_dining_ao.jpg"
-dest_files=["res://.godot/imported/table_dining_ao.jpg-9abec45d5d3955c3ed550ff03ba66a87.s3tc.ctex"]
+source_file="res://images/Textures/metal062C/Metal062C_2K-JPG_NormalGL.jpg"
+dest_files=["res://.godot/imported/Metal062C_2K-JPG_NormalGL.jpg-c983d17f8b8ab2dec24bb823e812d0b8.s3tc.ctex"]
 
 [params]
 
@@ -20,12 +20,12 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
+roughness/mode=1
+roughness/src_normal="res://Experimental/Industrial/industrial_machine001/textures/Metal062C_2K-JPG/Metal062C_2K-JPG_NormalGL.jpg"
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
