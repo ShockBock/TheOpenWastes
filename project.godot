@@ -26,6 +26,7 @@ Building002Assets="*res://experimental/scripts/buildings/building_002_assets.gd"
 
 window/size/mode=1
 window/stretch/mode="canvas_items"
+window/vsync/vsync_mode=0
 
 [filesystem]
 

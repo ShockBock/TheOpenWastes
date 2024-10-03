@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=4 uid="uid://bi8ld0g442h8l"]
+
+[ext_resource type="Shader" path="res://shaders_and_materials/pbr_and_ao_mixer.gdshader" id="1_b2n6x"]
+[ext_resource type="Texture2D" uid="uid://ci0cjwsrxuexm" path="res://images/Textures/Wood059_2K-JPG_Color.jpg" id="2_13nab"]
+[ext_resource type="Texture2D" uid="uid://dbpe1u704jxpf" path="res://images/Textures/wood59/Wood059_2K-JPG_Roughness.jpg" id="2_1242k"]
+[ext_resource type="Texture2D" uid="uid://djhdyryf72pb2" path="res://Scenes/objects/residential/bookcase/textures/bookshelf_ao.jpg" id="3_60ra2"]
+[ext_resource type="Texture2D" uid="uid://c1qhje8o4h7u8" path="res://images/Textures/wood59/Wood059_2K-JPG_NormalGL.jpg" id="3_fk4gi"]
+[ext_resource type="Texture2D" uid="uid://dgmgivx482hpo" path="res://images/Textures/noise/perlin_noise01.jpg" id="4_pg5k1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xfu0n"]
+render_priority = 0
+shader = ExtResource("1_b2n6x")
+shader_parameter/texture_scale = 5.0
+shader_parameter/albedo_intensity = 2.0
+shader_parameter/roughness_intensity = 0.6
+shader_parameter/noise_scale = 1.4
+shader_parameter/noise_intensity = 1.62
+shader_parameter/ao_intensity = 1.0
+shader_parameter/brightness_adjust = 2.1
+shader_parameter/albedo_texture = ExtResource("2_13nab")
+shader_parameter/roughness_texture = ExtResource("2_1242k")
+shader_parameter/normal_texture = ExtResource("3_fk4gi")
+shader_parameter/ao_texture = ExtResource("3_60ra2")
+shader_parameter/noise_texture = ExtResource("4_pg5k1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ftbuu"]
+resource_name = "Bookshelf"
+cull_mode = 2
+albedo_color = Color(0.906332, 0.906332, 0.906332, 1)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_o608k"]
+_surfaces = [{
+"aabb": AABB(-0.410004, -5.96046e-08, -0.15, 0.820004, 1.32, 0.318615),
+"format": 34896613377,
+"index_count": 264,
+"index_data": PackedByteArray("EQAyAA0AMwAyABEACwAKAAwACAA1AAwADgA0ADUADgAQAA0ABAAHAAYABAAFAAcAAAAFAAQAAAABAAUADQA2ADQADQAyADYAMwA2ADIAMwA3ADYAAQAHAAUAAQADAAcAAgABAAAAAgADAAEADgARABAADgAPABEACwAPAAkACwARAA8ANgA1ADQANgA3ADUAFAATABIAFAAVABMAFgAZABgAFgAXABkAEgAXABYAEgATABcAEgAYABQAEgAWABgAGgAfAB4AGgAbAB8AFwAVABkAFwATABUAHAAbABoAHAAdABsAHgAhACAAHgAfACEAKAAlACQAKAApACUAGgAgABwAGgAeACAAIgAnACYAIgAjACcAHwAdACEAHwAbAB0AJAAjACIAJAAlACMAJgApACgAJgAnACkAMAAtACwAMAAxAC0AIgAoACQAIgAmACgAKgAvAC4AKgArAC8AJwAlACkAJwAjACUALAArACoALAAtACsALgAxADAALgAvADEABgADAAIABgAHAAMAKgAwACwAKgAuADAAIAAdABwAIAAhAB0ALwAtADEALwArAC0ADwAIAAkADwAOAAgAAAAGAAIAAAAEAAYAGAAVABQAGAAZABUANwAMADUANwAzAAwAEQANABAAMwARAAsACwAMADMACAAMAAoADgA1AAgADgANADQACgAJAAgACgALAAkA"),
+"name": "Bookshelf",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 56,
+"vertex_data": PackedByteArray("PgYAADgTAADA+QAAOBMAAD4GphM4EwAAwPmmEzgTAAA+BgAAJgMAAMD5AAAmAwAAPgamEyYDAADA+aYTJgMAAMD5AAAK8QAAwPke/ArxAADA+QAAAAAAAMD5HvwAAAAA//8AAAAAAAAAAAAAAAAAAD4GAAAK8QAAPgYe/ArxAAA+BgAAAAAAAD4GHvwAAAAAPgbQxQnxAADA+dDFCfEAAD4G0MUAAAAAwPnQxQAAAAA+Bu/BCfEAAMD578EJ8QAAPgbvwQAAAADA+e/BAAAAAD4GoosJ8QAAwPmiiwnxAAA+BqKLAAAAAMD5oosAAAAAPgbBhwnxAADA+cGHCfEAAD4GwYcAAAAAwPnBhwAAAAA+BnRRCfEAAMD5dFEJ8QAAPgZ0UQAAAADA+XRRAAAAAD4Gk00J8QAAwPmTTQnxAAA+BpNNAAAAAMD5k00AAAAAPgZFFwnxAADA+UUXCfEAAD4GRRcAAAAAwPlFFwAAAAA+BmQTCfEAAMD5ZBMJ8QAAPgZkEwAAAADA+WQTAAAAAAAA//8AAAAA/v///wAAAAAAAAAA/v8AAP7/AAD+/wAAAAD///7/AAD+//////8AAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ioddi"]
+resource_name = "bookshelf_Cube_001"
+_surfaces = [{
+"aabb": AABB(-0.410004, -5.96046e-08, -0.15, 0.820004, 1.32, 0.318615),
+"attribute_data": PackedByteArray("10AwXjrvGpw6nYky10BjJzrvTGW+pYkyuTkwXjrvyig6nac5uTljJzrvmF++pac510DkY6LwGpyinoky10CymqLwTGVWpIkyuTnkY6Lwyiiinqc5uTmymqLwmF9WpKc5fIHOoexLfWK0Zls/fIEk/aq5TGW0ZrKaDztmoABhfWLIe1s/Dzu9+77OTGXIe7KadzxmoABhFWF8gVs/2gJmoABhspr2s1s/SrjOoexLSpnuF1s/Srgk/aq5GpzuF7KaQQRmoABhSpnaAls/QQS9+77OGpzaArKa0G2nOf69V8b+vY+r0G3aAv69JP1S06PA9vQk/RLTV8b+vaPA9vRXxhLTJP1S04+rOG+nOaq5mF9lv4+rOG/aAqq5yii51KPAjvMk/b7OmF9lv6PAjvNXxr7Oyii51I+rU3baAqIdkySYiJMkU3anOaIdYVu0j6c5fIHaArYykySYiKc5fIGnObYyYVu0j5Mk7HTaAp1KYVsAipMk7HSnOZ1KkyQckac55ILaArFfYVsAiqc55IKnObFfkyQckZMkvvfKKHLUTGWOspMkvveYX3LUGpxyq6c5VvZMZYbpTGWOsqc5VvYanIbpGpxyq5MkVvbKKHLUmF/2s5MkVvaYX3LUyijarKc5vvdMZYbpmF/2s6c5vvcanIbpyijarJMkHGjaAsbYV8YaxY+rHGinOcbYJP02zKPAqvpXxtrtV8YaxaPAqvok/drtJP02zI+rtGbaAtoCpzmBxo+rtGanOdoC2gKdzaPAEvxXxu4XpzmBxqPAEvwk/e4X2gKdzY+r2gIk/aIdspr2sxqcdzwk/aIdFWF8gRqcyHtmoJ1KspqTnVs/K0JmoJ1KFWHfl1s/yHsk/QU0spqTnRqcK0Ik/QU0FWHflxqc"),
+"format": 34896613399,
+"index_count": 264,
+"index_data": PackedByteArray("MwCWACcAmQCWADMAIQAeACQAGQCgACUAKwCdAKAAKwAxACgADAAVABIADAAPABUAAQAQAA0AAQAEABAAKQCkAJ4AKQCYAKQAmgCjAJcAmgCmAKMABQAXABEABQALABcABgADAAAABgAJAAMALAA1ADIALAAvADUAIgAuABwAIgA0AC4AogCfAJwAogClAJ8APQA6ADcAPQBAADoAQwBMAEkAQwBGAEwANgBFAEIANgA5AEUAOABKAD4AOABEAEoATgBdAFoATgBRAF0ARwBBAE0ARwA7AEEAVQBSAE8AVQBYAFIAWwBkAGEAWwBeAGQAeABvAGwAeAB7AG8AUABiAFYAUABcAGIAZgB1AHIAZgBpAHUAXwBZAGUAXwBTAFkAbQBqAGcAbQBwAGoAcwB8AHkAcwB2AHwAkACHAIQAkACTAIcAaAB6AG4AaAB0AHoAfgCNAIoAfgCBAI0AdwBxAH0AdwBrAHEAhQCCAH8AhQCIAIIAiwCUAJEAiwCOAJQAEwAKAAcAEwAWAAoAgACSAIYAgACMAJIAYABXAFQAYABjAFcAjwCJAJUAjwCDAIkALQAYABsALQAqABgAAgAUAAgAAgAOABQASAA/ADwASABLAD8ApwAmAKEApwCbACYAMwAnADAAmQAzACEAIQAkAJkAGQAlAB8AKwCgABkAKwAoAJ0AIAAdABoAIAAjAB0A"),
+"material": SubResource("StandardMaterial3D_ftbuu"),
+"name": "Bookshelf",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 168,
+"vertex_data": PackedByteArray("PgYAADgT/78+BgAAOBNU1T4GAAA4E///wPkAADgT/7/A+QAAOBNU1cD5AAA4E///PgamEzgT/78+BqYTOBNU1T4GphM4E///wPmmEzgT/7/A+aYTOBNU1cD5phM4E///PgYAACYD//8+BgAAJgNU1T4GAAAmA///wPkAACYD///A+QAAJgNU1cD5AAAmA///PgamEyYD//8+BqYTJgNU1T4GphMmA///wPmmEyYD///A+aYTJgNU1cD5phMmA///wPkAAArxAADA+QAACvFU1cD5AAAK8f//wPke/ArxAADA+R78CvFU1cD5HvwK8f//wPkAAAAA///A+QAAAABU1cD5AAAAAP//wPke/AAA///A+R78AABU1cD5HvwAAP////8AAAAA/////wAAAABU1f//AAAAAP//AAAAAAAA//8AAAAAAABU1QAAAAAAAP//PgYAAArxAAA+BgAACvFU1T4GAAAK8f//PgYe/ArxAAA+Bh78CvFU1T4GHvwK8f//PgYAAAAA//8+BgAAAABU1T4GAAAAAP//PgYe/AAA//8+Bh78AABU1T4GHvwAAP//PgbQxQnx/78+BtDFCfFU1T4G0MUJ8VTVwPnQxQnx/7/A+dDFCfFU1cD50MUJ8VTVPgbQxQAA//8+BtDFAABU1T4G0MUAAFTVwPnQxQAA///A+dDFAABU1cD50MUAAFTVPgbvwQnx/78+Bu/BCfFU1T4G78EJ8VTVwPnvwQnx/7/A+e/BCfFU1cD578EJ8VTVPgbvwQAA//8+Bu/BAABU1T4G78EAAFTVwPnvwQAA///A+e/BAABU1cD578EAAFTVPgaiiwnx/78+BqKLCfFU1T4GoosJ8VTVwPmiiwnx/7/A+aKLCfFU1cD5oosJ8VTVPgaiiwAA//8+BqKLAABU1T4GoosAAFTVwPmiiwAA///A+aKLAABU1cD5oosAAFTVPgbBhwnx/78+BsGHCfFU1T4GwYcJ8VTVwPnBhwnx/7/A+cGHCfFU1cD5wYcJ8VTVPgbBhwAA//8+BsGHAABU1T4GwYcAAFTVwPnBhwAA///A+cGHAABU1cD5wYcAAFTVPgZ0UQnx/78+BnRRCfFU1T4GdFEJ8VTVwPl0UQnx/7/A+XRRCfFU1cD5dFEJ8VTVPgZ0UQAA//8+BnRRAABU1T4GdFEAAFTVwPl0UQAA///A+XRRAABU1cD5dFEAAFTVPgaTTQnx/78+BpNNCfFU1T4Gk00J8VTVwPmTTQnx/7/A+ZNNCfFU1cD5k00J8VTVPgaTTQAA//8+BpNNAABU1T4Gk00AAFTVwPmTTQAA///A+ZNNAABU1cD5k00AAFTVPgZFFwnx/78+BkUXCfFU1T4GRRcJ8VTVwPlFFwnx/7/A+UUXCfFU1cD5RRcJ8VTVPgZFFwAA//8+BkUXAABU1T4GRRcAAFTVwPlFFwAA///A+UUXAABU1cD5RRcAAFTVPgZkEwnx/78+BmQTCfFU1T4GZBMJ8VTVwPlkEwnx/7/A+WQTCfFU1cD5ZBMJ8VTVPgZkEwAA//8+BmQTAABU1T4GZBMAAFTVwPlkEwAA///A+WQTAABU1cD5ZBMAAFTVAAD//wAA//8AAP//AABU1QAA//8AAP///v///wAA///+////AABU1f7///8AAP//AAAAAP7///8AAAAA/v9U1QAAAAD+/////v8AAP7////+/wAA/v9U1f7/AAD+////AAD///7///8AAP///v9U1QAA///+/////v/////////+//////9U1f7//////////3//f1RVVFX/P/9//3//f1RVVFX/v/9//3//f1TVqir/P/9//3//f1TVqir/v/9//z//v1RVVFX/P/9//z//v1RVVFX/v/9//z//v1TVqir/P/9//z//v1TVqir/v/9//3///1RVVVX/P/9//3///1RVVFX/P/9/////f1RVVFX/P/9//v//f1RVVFX/P/9/////f1RVVFX/v/9/////f1RVVFX/P/9//3///1VVVFX/v/9//3///1RVVFX/v/9/////f1RVVFX/v/9//v//f1RVVFX/v/9//3//f1TVqipUVaqq/3//f1TVqiqqqlRV/7//v1TVqipUVaqq/7//v1TVqiqqqlRV/3//f1RVVFVUVaqq/3//f1RVVFWqqlRV/7//v1RVVFVUVaqq/7//v1RVVFWqqlRV/////1TVqipUVaqq/////1TVqiqqqlRV/z//v1TVqipUVaqq/z//v1TVqiqqqlRV/////1RVVFVUVaqq/////1RVVFWqqlRV/z//v1RVVFVUVaqq/z//v1RVVFWqqlRV/////1TVqipUVaqq/////1TVqiqqqlRV/z//v1TVqipUVaqq/z//v1TVqiqqqlRV/////1RVVFVUVaqq/////1RVVFWqqlRV/z//v1RVVFVUVaqq/z//v1RVVFWqqlRV/////1TVqipUVaqq/////1TVqiqqqlRV/z//v1TVqipUVaqq/z//v1TVqiqqqlRV/////1RVVFVUVaqq/////1RVVFWqqlRV/z//v1RVVFVUVaqq/z//v1RVVFWqqlRV/v//f6qqqqr/P/9//v//f6qqqqr/v/9//3//f1VVVFX/P/9//3//f1RVVVX/v/9//3//f6qqqqr/P/9//3//f6qqqqr/v/9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_o608k")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_42hon"]
+data = PackedVector3Array(-0.41, 0, 0.17, -0.41, 1.32, -0.15, -0.41, 1.32, 0.17, -0.41, 0, 0.17, -0.41, 0, -0.15, -0.41, 1.32, -0.15, -0.41, 0, -0.15, 0.41, 1.32, -0.15, -0.41, 1.32, -0.15, -0.41, 0, -0.15, 0.41, 0, -0.15, 0.41, 1.32, -0.15, 0.41, 0, -0.15, 0.41, 1.32, 0.17, 0.41, 1.32, -0.15, 0.41, 0, -0.15, 0.41, 0, 0.17, 0.41, 1.32, 0.17, 0.41, 0, 0.17, -0.41, 1.32, 0.17, 0.41, 1.32, 0.17, 0.41, 0, 0.17, -0.41, 0, 0.17, -0.41, 1.32, 0.17, -0.41, 0, -0.15, 0.41, 0, 0.17, 0.41, 0, -0.15, -0.41, 0, -0.15, -0.41, 0, 0.17, 0.41, 0, 0.17, 0.41, 1.32, -0.15, -0.41, 1.32, 0.17, -0.41, 1.32, -0.15, 0.41, 1.32, -0.15, 0.41, 1.32, 0.17, -0.41, 1.32, 0.17)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="bookshelf" type="Node3D" parent="."]
+
+[node name="Bookshelf" type="MeshInstance3D" parent="bookshelf"]
+material_override = SubResource("ShaderMaterial_xfu0n")
+mesh = SubResource("ArrayMesh_ioddi")
+skeleton = NodePath("")
+
+[node name="Bookshelf" type="StaticBody3D" parent="bookshelf/Bookshelf"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bookshelf/Bookshelf/Bookshelf"]
+shape = SubResource("ConcavePolygonShape3D_42hon")
