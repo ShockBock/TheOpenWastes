@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dgmgivx482hpo" path="res://images/Textures/noise/perlin_noise01.jpg" id="4_ukso4"]
 [ext_resource type="Texture2D" uid="uid://u0m3frhe80u" path="res://images/Textures/leather022/Leather022_1K-JPG_NormalGL.jpg" id="5_llgsy"]
 [ext_resource type="Texture2D" uid="uid://7an66kqlvsyl" path="res://images/Textures/leather022/Leather022_1K-JPG_Roughness.jpg" id="6_84kv8"]
-[ext_resource type="Texture2D" uid="uid://ci0cjwsrxuexm" path="res://images/Textures/wood59/Wood059_2K-JPG_Color.jpg" id="7_j71mj"]
+[ext_resource type="Texture2D" uid="uid://ci0cjwsrxuexm" path="res://images/Textures/Wood059_2K-JPG_Color.jpg" id="7_j71mj"]
 [ext_resource type="Texture2D" uid="uid://c1qhje8o4h7u8" path="res://images/Textures/wood59/Wood059_2K-JPG_NormalGL.jpg" id="8_idcgb"]
 [ext_resource type="Texture2D" uid="uid://dbpe1u704jxpf" path="res://images/Textures/wood59/Wood059_2K-JPG_Roughness.jpg" id="9_2ikji"]
 

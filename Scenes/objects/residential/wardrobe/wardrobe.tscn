@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=4 uid="uid://dul8u1nyu5lpe"]
 
 [ext_resource type="Shader" path="res://shaders_and_materials/pbr_and_ao_mixer.gdshader" id="1_erplm"]
-[ext_resource type="Texture2D" uid="uid://ci0cjwsrxuexm" path="res://images/Textures/wood59/Wood059_2K-JPG_Color.jpg" id="2_o6voh"]
+[ext_resource type="Texture2D" uid="uid://ci0cjwsrxuexm" path="res://images/Textures/Wood059_2K-JPG_Color.jpg" id="2_o6voh"]
 [ext_resource type="Texture2D" uid="uid://bwh6eprrfyl7y" path="res://Scenes/objects/residential/wardrobe/textures/WardrobeAO.jpg" id="3_mdjd3"]
 [ext_resource type="Texture2D" uid="uid://dgmgivx482hpo" path="res://images/Textures/noise/perlin_noise01.jpg" id="4_qql3f"]
 [ext_resource type="Texture2D" uid="uid://c1qhje8o4h7u8" path="res://images/Textures/wood59/Wood059_2K-JPG_NormalGL.jpg" id="5_5f7db"]
