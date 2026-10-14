@@ -8,6 +8,10 @@ var weapon_selection: int = 0
 var pistol_scene = preload("res://Scenes/player_arms/player_arm_with_pistol.tscn")
 var minigun_scene = preload("res://Scenes/player_arms/player_arm_with_minigun.tscn")
 
+func _ready() -> void:
+	change_weapon()
+
+
 func _unhandled_input(_InputEvent) -> void:
 	if Input.is_action_just_pressed("change_weapon"):
 		weapon_selection += 1

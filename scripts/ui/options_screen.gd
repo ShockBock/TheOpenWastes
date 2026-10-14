@@ -31,7 +31,6 @@ var input_actions_dictionary: Dictionary = {
 
 func _ready():
 	import_mouse_settings()
-	import_keymapping_settings()
 	clear_action_list()
 	populate_action_list()
 
@@ -42,28 +41,6 @@ func import_mouse_settings() -> void:
 	
 	mouse_sensitivity_slider.value = mouse_settings.mouse_sensitivity
 	invert_mouse_button.button_pressed = mouse_settings.invert_mouse
-
-
-## Loads keymapping from the singleton config_file_handler.gd
-func import_keymapping_settings() -> void:
-	var keymapping: Dictionary = ConfigFileHandler.load_keymapping()
-	for action in keymapping.keys():
-		InputMap.action_erase_events(action)
-		var event = keymapping[action]
-		# This if/else section courtesy of ChatGPT,
-		# as the method in the DashNothing tutorial caused a mixed variable type error.
-		if typeof(event) == TYPE_INT:
-			# If the event is an integer, convert it to an InputEventKey
-			var input_event := InputEventKey.new()
-			input_event.keycode = event
-			InputMap.action_add_event(action, input_event)
-		elif event is InputEvent:
-			# If it's already an InputEvent, just add it
-			InputMap.action_add_event(action, event)
-		else:
-			# Handle other types if necessary
-			print("Unsupported event type for action: %s" % action)
-
 
 
 ## Clears out any pre-existing key-mapping nodes,

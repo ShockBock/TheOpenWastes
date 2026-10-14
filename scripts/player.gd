@@ -95,11 +95,11 @@ func _physics_process(delta: float) -> void:
 		else:
 			# Adds inertial die-off when player stops moving (on ground).
 			velocity.x = lerp(velocity.x, direction.x * speed, delta * 7.0)
-			velocity.z = lerp(velocity.z, direction.x * speed, delta * 7.0)
+			velocity.z = lerp(velocity.z, direction.z * speed, delta * 7.0)
 	else:
 		# Maintains direction once jumped until ground reached.
 		velocity.x = lerp(velocity.x, direction.x * speed, delta * 2.0)
-		velocity.z = lerp(velocity.z, direction.x * speed, delta * 2.0)
+		velocity.z = lerp(velocity.z, direction.z * speed, delta * 2.0)
 	
 	# Head bob
 	t_bob += delta * velocity.length() * float(is_on_floor())

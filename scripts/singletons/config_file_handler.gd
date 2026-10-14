@@ -30,6 +30,8 @@ func _ready():
 		config.save(SETTINGS_FILE_PATH)
 	else:
 		config.load(SETTINGS_FILE_PATH)
+	
+	apply_keymapping()
 
 
 func save_mouse_settings(key: String, value) -> void:
@@ -68,8 +70,15 @@ func load_keymapping() -> Dictionary:
 			input_event.button_index = int(event_str.split("_")[1])
 		else:
 			input_event = InputEventKey.new()
-			input_event = OS.find_keycode_from_string(event_str)
+			input_event.physical_keycode = OS.find_keycode_from_string(event_str)
 		
 		keymapping[key] = input_event
 	return keymapping
-	
+
+
+## Replaces the project's default input map with the saved key-mapping.
+func apply_keymapping() -> void:
+	var keymapping: Dictionary = load_keymapping()
+	for action in keymapping.keys():
+		InputMap.action_erase_events(action)
+		InputMap.action_add_event(action, keymapping[action])
