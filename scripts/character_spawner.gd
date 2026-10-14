@@ -32,8 +32,8 @@ func spawn_character_instance(character, character_x_offset, character_y_offset,
 	
 	# Set up a raycast whose collision with the terrain will determine where to position character's height on y-axis
 	var params = PhysicsRayQueryParameters3D.new()
-	params.from = Vector3(character_x_offset, 50, character_z_offset)
-	params.to = Vector3(character_x_offset, -50, character_z_offset)
+	params.from = Vector3(character_x_offset, 500, character_z_offset)
+	params.to = Vector3(character_x_offset, -500, character_z_offset)
 	params.exclude = []
 	
 	var terrain_intersection = space_state.intersect_ray(params)

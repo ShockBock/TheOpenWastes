@@ -35,8 +35,8 @@ func locate_building_ground_elevation(building_foundation_x, building_foundation
 	
 	# Set up a raycast whose collision with the terrain will determine where to position building's height on y-axis
 	var params = PhysicsRayQueryParameters3D.new()
-	params.from = Vector3(building_foundation_x, 50, building_foundation_z)
-	params.to = Vector3(building_foundation_x, -50, building_foundation_z)
+	params.from = Vector3(building_foundation_x, 500, building_foundation_z)
+	params.to = Vector3(building_foundation_x, -500, building_foundation_z)
 	params.exclude = []
 	
 	# Fire the ray!

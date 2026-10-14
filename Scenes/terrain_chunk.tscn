@@ -5,9 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://cuqmjg1d2ndoj" path="res://images/Textures/Ground051/Ground051_1K-JPG_Color.jpg" id="3_earth_albedo"]
 [ext_resource type="Texture2D" uid="uid://8csxd3i4nybc" path="res://images/Textures/Ground051/Ground051_1K-JPG_NormalGL.jpg" id="4_earth_normal"]
 [ext_resource type="Texture2D" uid="uid://cohssvbgi3x7g" path="res://images/Textures/Ground051/Ground051_1K-JPG_Roughness.jpg" id="5_earth_roughness"]
-[ext_resource type="Texture2D" uid="uid://cqdyb6yn46ogy" path="res://images/Textures/Rock050/Rock050_1K-JPG_Color.jpg" id="6_rock_albedo"]
-[ext_resource type="Texture2D" uid="uid://c4c8uy6xnbq5r" path="res://images/Textures/Rock050/Rock050_1K-JPG_NormalGL.jpg" id="7_rock_normal"]
-[ext_resource type="Texture2D" uid="uid://cc2kpb0uky2rq" path="res://images/Textures/Rock050/Rock050_1K-JPG_Roughness.jpg" id="8_rock_roughness"]
+[ext_resource type="Texture2D" uid="uid://xkmpqpkom4hy" path="res://images/Textures/Rock033/Rock033_1K-JPG_Color.jpg" id="6_rock_albedo"]
+[ext_resource type="Texture2D" uid="uid://dy4xe1jxnaflt" path="res://images/Textures/Rock033/Rock033_1K-JPG_NormalGL.jpg" id="7_rock_normal"]
+[ext_resource type="Texture2D" uid="uid://dvusb7mw6fga7" path="res://images/Textures/Rock033/Rock033_1K-JPG_Roughness.jpg" id="8_rock_roughness"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_terrain"]
 render_priority = 0
