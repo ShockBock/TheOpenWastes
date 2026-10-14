@@ -41,7 +41,6 @@ shadow_enabled = true
 script = ExtResource("2_hme1r")
 
 [node name="TerrainGenerator" parent="MAIN_SEQUENCE" instance=ExtResource("4_mlopx")]
-amplitude = 20
 
 [node name="BuildingSpawner" type="Node3D" parent="MAIN_SEQUENCE"]
 script = ExtResource("3_vj1hu")
