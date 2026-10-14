@@ -24,7 +24,6 @@ config/icon="res://images/icon.png"
 
 Global="*res://scripts/singletons/global.gd"
 ConfigFileHandler="*res://scripts/singletons/config_file_handler.gd"
-Building002Assets="*res://experimental/scripts/buildings/building_002_assets.gd"
 
 [display]
 
@@ -34,7 +33,6 @@ window/vsync/vsync_mode=0
 
 [filesystem]
 
-import/blender/enabled=false
 import/blender/enabled.android=true
 import/blender/enabled.web=true
 

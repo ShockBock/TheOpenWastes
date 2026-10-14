@@ -16,14 +16,13 @@ var shot_blocked: bool = false
 # Stops raycast from colliding with the ground
 var raycast_vertical_offset: float = 0.5
 
-func enter():
+func enter() -> void:
 	super()
 	firing_time_countdown = npc_data.firing_time_secs
+	shot_blocked = false
+	# Fires if the player is in line of sight, otherwise sets shot_blocked
+	# so that process_physics changes state.
 	raycast_check_if_target_blocked()
-	if shot_blocked:
-		return strafe_state
-	else:
-		fire_weapon()
 
 
 func process_physics(delta: float) -> State:

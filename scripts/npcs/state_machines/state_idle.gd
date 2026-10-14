@@ -20,7 +20,7 @@ func enter() -> void:
 	set_idle_target_position()
 
 
-func process_physics(delta: float):
+func process_physics(delta: float) -> State:
 	
 	if npc.global_position.distance_to(player.global_position) <= npc_data.minimum_idle_range:
 		return pursue_state
@@ -33,6 +33,8 @@ func process_physics(delta: float):
 	
 	if npc.global_position.distance_to(character_idle_target_position) >= 0.05:
 		move_to_idle_target_position(delta)
+	
+	return null
 
 
 func set_idle_target_position() -> void:
