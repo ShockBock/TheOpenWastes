@@ -1,21 +1,22 @@
 @icon("res://common/icons/state_machine_icon.png")
-
 class_name State
-## Referred to by state machine nodes
+extends Node
 
-extends Node3D
+## Base class for NPC states, managed by an NPCStateMachine.
+##
+## Adapted from Advanced state machine techniques in Godot 4
+## by The Shaggy Dev, 2023
+## www.youtube.com/watch?v=bNdFXooM1MQ
 
 @export var animation_name: String
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-
-var animations: AnimatedSprite3D
-var move_component
-var npc: Node3D
+## Set by the state machine
+var npc: NPC
 
 
 func enter() -> void:
-	animations.play(animation_name)
+	npc.animations.play(animation_name)
 
 
 func exit() -> void:
@@ -32,15 +33,3 @@ func process_frame(_delta: float) -> State:
 
 func process_physics(_delta: float) -> State:
 	return null
-
-
-func get_movement_input() -> float:
-	return move_component.get_movement_direction()
-
-
-func get_jump() -> bool:
-	return move_component.wants_jump()
-
-# Adapted from Advanced state machine techniques in Godot 4
-# by The Shaggy Dev, 2023
-# www.youtube.com/watch?v=bNdFXooM1MQ

@@ -1,8 +1,8 @@
 [gd_scene load_steps=52 format=3 uid="uid://lvjprgceb8wt"]
 
-[ext_resource type="Script" path="res://npcs/shotgun_monk/shotgun_monk.gd" id="1_uyo7i"]
+[ext_resource type="Script" path="res://npcs/npc.gd" id="1_uyo7i"]
 [ext_resource type="Texture2D" uid="uid://q2r5xerf6dde" path="res://npcs/shotgun_monk/sprites/marag1aim.png" id="2_4alky"]
-[ext_resource type="Script" path="res://npcs/shotgun_monk/shotgun_monk_data.gd" id="2_sdc6d"]
+[ext_resource type="Resource" path="res://npcs/shotgun_monk/shotgun_monk_stats.tres" id="2_sdc6d"]
 [ext_resource type="Texture2D" uid="uid://dp1cyjwluoiy7" path="res://npcs/shotgun_monk/sprites/marah0.png" id="3_rqd8c"]
 [ext_resource type="Texture2D" uid="uid://dl05tbhkrc04c" path="res://npcs/shotgun_monk/sprites/marai0.png" id="4_jpk0e"]
 [ext_resource type="Texture2D" uid="uid://by7niqiiheia6" path="res://npcs/shotgun_monk/sprites/maraj0.png" id="5_gvskk"]
@@ -49,6 +49,7 @@
 [ext_resource type="AudioStream" uid="uid://bdl2wfibryv4m" path="res://npcs/shotgun_monk/sfx/shotgun_monk_die.wav" id="46_ayg07"]
 [ext_resource type="AudioStream" uid="uid://02tp7qnpdxeb" path="res://npcs/shotgun_monk/sfx/shotgun_monk_fire.wav" id="47_5iy0j"]
 [ext_resource type="AudioStream" uid="uid://bjrxro0jllu3q" path="res://npcs/shotgun_monk/sfx/shotgun_monk_hit.wav" id="48_n06y5"]
+[ext_resource type="PackedScene" uid="uid://bxh7wsutsypbi" path="res://combat/projectile_tracer.tscn" id="49_tracer"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5m70n"]
 
@@ -202,16 +203,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="ShotgunMonk" type="CharacterBody3D" node_paths=PackedStringArray("animations", "state_machine", "shotgun_monk_data") groups=["enemy"]]
+[node name="ShotgunMonk" type="CharacterBody3D" node_paths=PackedStringArray("animations", "state_machine") groups=["enemy"]]
 script = ExtResource("1_uyo7i")
+stats = ExtResource("2_sdc6d")
 animations = NodePath("ShotgunMonkAnimations")
 state_machine = NodePath("State_machine")
-shotgun_monk_data = NodePath("ShotgunMonkData")
-
-[node name="ShotgunMonkData" type="Node" parent="."]
-script = ExtResource("2_sdc6d")
-move_speed = 3.032
-projectile_speed = 60.0
 
 [node name="ShotgunMonkCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -233,68 +229,59 @@ autoplay = "move_forward"
 [node name="ProjectileSpawnPoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.344533, 1.17606, -1.0064)
 
-[node name="ProjectileSpawner" type="Node" parent="ProjectileSpawnPoint" node_paths=PackedStringArray("shotgun_monk", "shotgun_monk_data", "projectile_spawn_point", "own_collision")]
+[node name="ProjectileSpawner" type="Node" parent="ProjectileSpawnPoint" node_paths=PackedStringArray("npc", "projectile_spawn_point")]
 script = ExtResource("44_e5g06")
-shotgun_monk = NodePath("../..")
-shotgun_monk_data = NodePath("../../ShotgunMonkData")
+projectile_scene = ExtResource("49_tracer")
+npc = NodePath("../..")
 projectile_spawn_point = NodePath("..")
-own_collision = NodePath("../../ShotgunMonkCollision")
 
-[node name="State_machine" type="Node3D" parent="." node_paths=PackedStringArray("starting_state", "hit_state")]
+[node name="State_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state", "hit_state")]
 unique_name_in_owner = true
 script = ExtResource("36_jpqad")
 starting_state = NodePath("ShotgunMonkPursue")
 hit_state = NodePath("ShotgunMonkHit")
 
-[node name="ShotgunMonkAim" type="Node3D" parent="State_machine" node_paths=PackedStringArray("pursue_state", "fire_state", "npc_data")]
+[node name="ShotgunMonkAim" type="Node" parent="State_machine" node_paths=PackedStringArray("pursue_state", "fire_state")]
 script = ExtResource("37_qwx3j")
 pursue_state = NodePath("../ShotgunMonkPursue")
 fire_state = NodePath("../ShotgunMonkFire")
-npc_data = NodePath("../../ShotgunMonkData")
 animation_name = "aim"
 
-[node name="ShotgunMonkDie" type="Node3D" parent="State_machine" node_paths=PackedStringArray("collision_shape", "death_sound", "npc_data")]
+[node name="ShotgunMonkDie" type="Node" parent="State_machine" node_paths=PackedStringArray("collision_shape", "death_sound")]
 script = ExtResource("38_jaf8i")
 collision_shape = NodePath("../../ShotgunMonkCollision")
 death_sound = NodePath("../../Audio/ShotgunMonkDie")
-npc_data = NodePath("../../ShotgunMonkData")
 animation_name = "death"
 
-[node name="ShotgunMonkHit" type="Node3D" parent="State_machine" node_paths=PackedStringArray("pursue_state", "die_state", "npc_data", "hit_sound")]
+[node name="ShotgunMonkHit" type="Node" parent="State_machine" node_paths=PackedStringArray("pursue_state", "die_state", "hit_sound")]
 script = ExtResource("39_g2st8")
 pursue_state = NodePath("../ShotgunMonkPursue")
 die_state = NodePath("../ShotgunMonkDie")
-npc_data = NodePath("../../ShotgunMonkData")
 hit_sound = NodePath("../../Audio/ShotgunMonkHit")
 animation_name = "hit"
 
-[node name="ShotgunMonkIdle" type="Node3D" parent="State_machine" node_paths=PackedStringArray("pursue_state", "npc_data", "animation")]
+[node name="ShotgunMonkIdle" type="Node" parent="State_machine" node_paths=PackedStringArray("pursue_state")]
 script = ExtResource("40_hm1un")
 pursue_state = NodePath("../ShotgunMonkPursue")
-npc_data = NodePath("../../ShotgunMonkData")
-animation = NodePath("../../ShotgunMonkAnimations")
 animation_name = "move_forward"
 
-[node name="ShotgunMonkFire" type="Node3D" parent="State_machine" node_paths=PackedStringArray("strafe_state", "pursue_state", "npc_data", "fire_sound")]
+[node name="ShotgunMonkFire" type="Node" parent="State_machine" node_paths=PackedStringArray("strafe_state", "pursue_state", "fire_sound")]
 script = ExtResource("41_cvoe3")
 strafe_state = NodePath("../ShotgunMonkStrafe")
 pursue_state = NodePath("../ShotgunMonkPursue")
-npc_data = NodePath("../../ShotgunMonkData")
 fire_sound = NodePath("../../Audio/ShotgunMonkFire")
 animation_name = "fire"
 
-[node name="ShotgunMonkPursue" type="Node3D" parent="State_machine" node_paths=PackedStringArray("aim_state", "idle_state", "npc_data")]
+[node name="ShotgunMonkPursue" type="Node" parent="State_machine" node_paths=PackedStringArray("aim_state", "idle_state")]
 script = ExtResource("42_y7ta1")
 aim_state = NodePath("../ShotgunMonkAim")
 idle_state = NodePath("../ShotgunMonkIdle")
-npc_data = NodePath("../../ShotgunMonkData")
 animation_name = "move_forward"
 
-[node name="ShotgunMonkStrafe" type="Node3D" parent="State_machine" node_paths=PackedStringArray("pursue_state", "aim_state", "npc_data")]
+[node name="ShotgunMonkStrafe" type="Node" parent="State_machine" node_paths=PackedStringArray("pursue_state", "aim_state")]
 script = ExtResource("43_lrpk6")
 pursue_state = NodePath("../ShotgunMonkPursue")
 aim_state = NodePath("../ShotgunMonkAim")
-npc_data = NodePath("../../ShotgunMonkData")
 animation_name = "move_forward"
 
 [node name="Audio" type="Node" parent="."]

@@ -63,6 +63,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3s7j5")
+game_scene = "uid://dhiqr6owmwmmw"
+options_scene = "uid://dtg43m68aq1sr"
 
 [node name="OpenWastesImage" type="TextureRect" parent="."]
 layout_mode = 0

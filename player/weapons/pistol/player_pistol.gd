@@ -1,13 +1,14 @@
 @icon("res://common/icons/pistol_icon.png")
-
 extends Node3D
+
+## Fires the pistol: plays the shot sound and recoil, and emits weapon_fired
+## for the projectile spawner and muzzle flash.
 
 signal weapon_fired
 
 @export_group("Pistol assets")
 @export var pistol_shot_audio: AudioStreamPlayer
 @export var pistol_shot_animation: AnimationPlayer
-@export var muzzle_flash: Node3D
 
 
 func _physics_process(_delta: float) -> void:

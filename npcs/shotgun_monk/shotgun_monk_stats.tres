@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="NPCStats" format=3]
+
+[ext_resource type="Script" path="res://npcs/npc_stats.gd" id="1_stats"]
+
+[resource]
+script = ExtResource("1_stats")
+move_speed = 3.032
+projectile_speed = 60.0

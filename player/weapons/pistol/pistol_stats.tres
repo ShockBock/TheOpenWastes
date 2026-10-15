@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="WeaponStats" format=3]
+
+[ext_resource type="Script" path="res://combat/weapon_stats.gd" id="1_stats"]
+
+[resource]
+script = ExtResource("1_stats")
+projectile_speed = 60.0

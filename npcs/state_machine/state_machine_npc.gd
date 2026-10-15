@@ -1,7 +1,9 @@
 @icon("res://common/icons/state_machine_icon.png")
-
+class_name NPCStateMachine
 extends Node
 
+## Runs an NPC's current State and switches between states.
+##
 ## Adapted from Advanced state machine techniques in Godot 4
 ## by The Shaggy Dev, 2023
 ## www.youtube.com/watch?v=bNdFXooM1MQ
@@ -12,18 +14,17 @@ extends Node
 var current_state: State
 
 
-# Initialize the state machine by giving each child state a reference to the
-# parent object it belongs to and enter the default starting_state.
-func init(npc: Node3D, animations: AnimatedSprite3D) -> void:
-	for child in get_children():
-		child.npc = npc
-		child.animations = animations
+## Gives each child state a reference to the NPC it controls, then enters the
+## starting state.
+func init(npc: NPC) -> void:
+	for child: Node in get_children():
+		if child is State:
+			child.npc = npc
 
-	# Initialize to the default state
 	change_state(starting_state)
 
 
-# Change to the new state by first calling any exit logic on the current state.
+## Changes to a new state, calling any exit logic on the current state first.
 func change_state(new_state: State) -> void:
 	if current_state:
 		current_state.exit()
@@ -32,22 +33,21 @@ func change_state(new_state: State) -> void:
 	current_state.enter()
 
 
-# Pass through functions for the Player to call,
-# handling state changes as needed.
+# Pass-through functions for the NPC to call, changing state as needed.
 func process_physics(delta: float) -> void:
-	var new_state = current_state.process_physics(delta)
+	var new_state: State = current_state.process_physics(delta)
 	if new_state:
 		change_state(new_state)
 
 
 func process_input(event: InputEvent) -> void:
-	var new_state = current_state.process_input(event)
+	var new_state: State = current_state.process_input(event)
 	if new_state:
 		change_state(new_state)
 
 
 func process_frame(delta: float) -> void:
-	var new_state = current_state.process_frame(delta)
+	var new_state: State = current_state.process_frame(delta)
 	if new_state:
 		change_state(new_state)
 

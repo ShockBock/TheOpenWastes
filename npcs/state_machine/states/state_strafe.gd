@@ -2,75 +2,43 @@ extends State
 
 @export var pursue_state: State
 @export var aim_state: State
-@export var npc_data: Node
 
-@onready var player: CharacterBody3D = get_tree().get_first_node_in_group("player")
-
-var random_move_time_secs_countdown: float
-var distance_to_player: float
-
-var random_x_distance_metres: float
-var random_z_distance_metres: float
-var random_move_vector: Vector3
-var direction: Vector3
-
-var character_to_player_vector: Vector3
-var strafing_target_a: Vector3
-var strafing_target_b: Vector3
-var strafing_target_final: Vector3
-@export var strafing_target_amplification_factor: float = 10
+var strafe_time_countdown: float
+var distance_to_target: float
+var strafe_direction: Vector3
 
 
-func enter():
+func enter() -> void:
 	super()
-	random_move_time_secs_countdown = npc_data.strafe_time_secs
-	distance_to_player = npc.global_position.distance_to(player.global_position)
-	calculate_strafing_target()
+	strafe_time_countdown = npc.stats.strafe_time_secs
+	distance_to_target = npc.global_position.distance_to(npc.target.global_position)
+	calculate_strafe_direction()
 
 
-func calculate_strafing_target():
-	# Works out direction for character to move
-	# perpendicular to a line between it and the player
+## Picks one of the two directions at right angles to the line between the
+## NPC and its target, at random.
+func calculate_strafe_direction() -> void:
+	var to_target: Vector3 = npc.global_position - npc.target.global_position
+	to_target.y = 0
+	to_target = to_target.normalized()
 
-	# Calculate direction vector
-	character_to_player_vector = npc.global_position - player.global_position
-
-	# Project this vector onto the x-z plane
-	character_to_player_vector.y = 0
-
-	# Normalise it
-	character_to_player_vector = character_to_player_vector.normalized()
-
-	# Calculate two strafing targets as both perpendicular to the above
-	# Appcly the dot product concept explains why (if!) this works
-	strafing_target_a.x = -character_to_player_vector.z
-	strafing_target_a.z = character_to_player_vector.x
-
-	strafing_target_b.x = character_to_player_vector.z
-	strafing_target_b.z = -character_to_player_vector.x
-
-	# Choose one of the two targets to which to move
-	if randi() % 2 == 0:
-		strafing_target_final = strafing_target_a
-
-	else:
-		strafing_target_final = strafing_target_b
+	var perpendicular: Vector3 = Vector3(-to_target.z, 0, to_target.x)
+	strafe_direction = perpendicular if randi() % 2 == 0 else -perpendicular
 
 
 func process_physics(delta: float) -> State:
-	if random_move_time_secs_countdown <= 0:
-		if distance_to_player > npc_data.firing_range:
+	if strafe_time_countdown <= 0:
+		if distance_to_target > npc.stats.firing_range:
 			return pursue_state
-		else:
-			return aim_state
+		return aim_state
 
-	var velocity: Vector3 = strafing_target_final * npc_data.move_speed
+	var velocity: Vector3 = strafe_direction * npc.stats.move_speed
 	velocity.y = 0 - (gravity * delta)
 
 	npc.velocity = velocity
 	npc.move_and_slide()
 
-	npc.look_at(player.global_position, Vector3.UP)
+	npc.look_at(npc.target.global_position, Vector3.UP)
 
-	random_move_time_secs_countdown -= delta
+	strafe_time_countdown -= delta
 	return null

@@ -1,3 +1,4 @@
+class_name TerrainManager
 extends Node3D
 
 ## Streams terrain chunks around the player.
@@ -37,8 +38,8 @@ signal landscape_complete
 @export var use_heightmap_collision: bool = false
 
 ## Dictionary of active chunks
-## Keys: Vector2i (chunk grid coords), Values: Node3D (terrain_chunk instance)
-var chunks: Dictionary[Vector2i, Node3D] = {}
+## Keys: Vector2i (chunk grid coords), Values: TerrainChunk
+var chunks: Dictionary[Vector2i, TerrainChunk] = {}
 
 ## Chunks from the initial area, which are never unloaded
 var permanent_chunks: Dictionary[Vector2i, bool] = {}
@@ -50,8 +51,11 @@ var needed_chunks: Dictionary[Vector2i, bool] = {}
 var spawn_queue: Array[Vector2i] = []
 
 ## Chunks generating on worker threads.
-## Keys: Vector2i (chunk grid coords), Values: {"task_id": int, "chunk": Node3D}
+## Keys: Vector2i (chunk grid coords), Values: {"task_id": int, "chunk": TerrainChunk}
 var generating: Dictionary[Vector2i, Dictionary] = {}
+
+## A chunk kept out of the tree whose noise answers height_at() queries
+var height_sampler: TerrainChunk
 
 ## The chunk scene's material, with its earth/rock height blend scaled to
 ## amplitude. Shared by every chunk.
@@ -65,11 +69,12 @@ func _on_main_sequence_generate_terrain_signal() -> void:
 func generate_initial_area() -> void:
 	if world_seed == 0:
 		world_seed = randi_range(1, 50000)
+	height_sampler = create_chunk()
 
 	var first: int = int(floor(-initial_area_half_extent / chunk_size))
 	var last: int = int(ceil(initial_area_half_extent / chunk_size)) - 1
 	var keys: Array[Vector2i] = []
-	var new_chunks: Array[Node3D] = []
+	var new_chunks: Array[TerrainChunk] = []
 	for x in range(first, last + 1):
 		for z in range(first, last + 1):
 			keys.append(Vector2i(x, z))
@@ -99,11 +104,19 @@ func _process(_delta: float) -> void:
 
 
 func _exit_tree() -> void:
+	if height_sampler != null:
+		height_sampler.free()
 	# Worker threads must finish before the chunks they are building are freed
 	for job: Dictionary in generating.values():
 		WorkerThreadPool.wait_for_task_completion(job["task_id"])
 		job["chunk"].free()
 	generating.clear()
+
+
+## Height of the terrain surface at a world position, straight from the noise,
+## so it works whether or not a chunk is loaded there.
+func height_at(world_x: float, world_z: float) -> float:
+	return height_sampler.height_at(world_x, world_z)
 
 
 func update_chunks() -> void:
@@ -146,7 +159,7 @@ func update_chunks() -> void:
 func start_generating_chunks() -> void:
 	while generating.size() < max_generating_chunks and spawn_queue.size() > 0:
 		var key: Vector2i = spawn_queue.pop_front()
-		var chunk: Node3D = create_chunk()
+		var chunk: TerrainChunk = create_chunk()
 		var task_id: int = WorkerThreadPool.add_task(chunk.build_chunk_data.bind(key.x, key.y))
 		generating[key] = {"task_id": task_id, "chunk": chunk}
 
@@ -171,8 +184,8 @@ func add_generated_chunks() -> void:
 
 ## Instantiates a chunk ready for build_chunk_data(). It is not added to the
 ## tree, so a worker thread can safely use it.
-func create_chunk() -> Node3D:
-	var chunk: Node3D = chunk_scene.instantiate()
+func create_chunk() -> TerrainChunk:
+	var chunk: TerrainChunk = chunk_scene.instantiate()
 	if terrain_material == null:
 		terrain_material = scaled_terrain_material(chunk)
 
@@ -186,7 +199,7 @@ func create_chunk() -> Node3D:
 	return chunk
 
 
-func add_chunk(key: Vector2i, chunk: Node3D) -> void:
+func add_chunk(key: Vector2i, chunk: TerrainChunk) -> void:
 	add_child(chunk)
 	chunk.apply_chunk_data()
 
@@ -200,7 +213,7 @@ func add_chunk(key: Vector2i, chunk: Node3D) -> void:
 ## the chunk scene sets for its own height_scale. Scale them to amplitude so
 ## the blend stays in proportion to the hills. Works on a copy, as the
 ## scene's material is shared by every instance of the scene.
-func scaled_terrain_material(chunk: Node3D) -> ShaderMaterial:
+func scaled_terrain_material(chunk: TerrainChunk) -> ShaderMaterial:
 	var material: ShaderMaterial = chunk.material_override.duplicate()
 	# Keep the blend range above zero, as the shader divides by it
 	var ratio: float = max(amplitude, 0.1) / chunk.height_scale

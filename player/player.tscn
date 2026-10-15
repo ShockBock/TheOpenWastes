@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://player/player.gd" id="1_pm0ck"]
 [ext_resource type="Script" path="res://player/weapons/weapon_controller.gd" id="3_e88se"]
 [ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://common/fonts/komikadisplay_rov.ttf" id="4_dj6t1"]
+[ext_resource type="PackedScene" uid="uid://bsyh2g0iqygo2" path="res://player/weapons/pistol/player_arm_with_pistol.tscn" id="6_pistol"]
+[ext_resource type="PackedScene" uid="uid://41k8spc36un5" path="res://player/weapons/minigun/player_arm_with_minigun.tscn" id="7_minigun"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_be4rj"]
 radius = 0.4
@@ -33,6 +35,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 
 [node name="PlayerWeaponController" type="Node3D" parent="Head/Camera3D"]
 script = ExtResource("3_e88se")
+weapon_scenes = Array[PackedScene]([ExtResource("6_pistol"), ExtResource("7_minigun")])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

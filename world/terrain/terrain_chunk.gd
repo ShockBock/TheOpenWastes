@@ -1,3 +1,4 @@
+class_name TerrainChunk
 extends MeshInstance3D
 
 ## One square of streamed terrain, generated from noise.

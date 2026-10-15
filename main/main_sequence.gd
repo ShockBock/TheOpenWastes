@@ -1,33 +1,21 @@
 extends Node3D
 
-## Orchestrates the generation of the game's main nodes.
-##
-## Responsible for generating: terrain, buildings and characters.
+## Runs the game's start-up sequence: terrain, then buildings, then
+## characters. Also handles leaving the game, on death or on request.
 
 signal generate_terrain_signal
 signal place_buildings_signal
 signal spawn_characters_signal
 
-@onready var DeathScreen := preload("res://ui/death_screen.tscn")
+@export_file("*.tscn") var death_screen: String
+@export_file("*.tscn") var main_menu: String
 
 
-func _ready():
-	main_sequence_begin()
-
-
-func main_sequence_begin() -> void:
-	generate_terrain()
-
-
-func generate_terrain() -> void:
+func _ready() -> void:
 	generate_terrain_signal.emit()
 
 
 func _on_terrain_landscape_complete() -> void:
-	place_buildings()
-
-
-func place_buildings() -> void:
 	place_buildings_signal.emit()
 
 
@@ -35,5 +23,15 @@ func _on_building_placer_buildings_complete() -> void:
 	spawn_characters_signal.emit()
 
 
-func end_game() -> void:
-	get_tree().change_scene_to_file("res://ui/death_screen.tscn")
+func _on_character_spawner_player_spawned(player: Player) -> void:
+	player.died.connect(_on_player_died)
+
+
+func _on_player_died() -> void:
+	get_tree().change_scene_to_file.call_deferred(death_screen)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("exit"):
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		get_tree().change_scene_to_file(main_menu)

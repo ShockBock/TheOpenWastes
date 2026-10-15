@@ -1,43 +1,25 @@
 @icon("res://common/icons/pistol_icon.png")
-
 extends Node3D
 
-var weapon_array: Array = ["pistol", "minigun"]
-var weapon_selection: int = 0
+## Holds the player's current weapon and cycles through weapon_scenes when
+## change_weapon is pressed.
 
-var pistol_scene = preload("res://player/weapons/pistol/player_arm_with_pistol.tscn")
-var minigun_scene = preload("res://player/weapons/minigun/player_arm_with_minigun.tscn")
+@export var weapon_scenes: Array[PackedScene] = []
+
+var weapon_selection: int = 0
 
 
 func _ready() -> void:
-	change_weapon()
+	equip_selected_weapon()
 
 
-func _unhandled_input(_InputEvent) -> void:
-	if Input.is_action_just_pressed("change_weapon"):
-		weapon_selection += 1
-		if weapon_selection >= weapon_array.size():
-			weapon_selection = 0
-		change_weapon()
-	else:
-		return
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("change_weapon"):
+		weapon_selection = (weapon_selection + 1) % weapon_scenes.size()
+		equip_selected_weapon()
 
 
-func change_weapon() -> void:
-	clear_weapon()
-	call(weapon_array[weapon_selection])
-
-
-func clear_weapon() -> void:
-	for child in get_children():
+func equip_selected_weapon() -> void:
+	for child: Node in get_children():
 		child.queue_free()
-
-
-func pistol() -> void:
-	var pistol_instance = pistol_scene.instantiate()
-	add_child(pistol_instance)
-
-
-func minigun() -> void:
-	var minigun_instance = minigun_scene.instantiate()
-	add_child(minigun_instance)
+	add_child(weapon_scenes[weapon_selection].instantiate())

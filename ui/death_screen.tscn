@@ -12,6 +12,7 @@ anchors_preset = 0
 offset_right = 312.0
 offset_bottom = 328.0
 script = ExtResource("1_ch5bn")
+main_menu_scene = "uid://dhsa2fr57peog"
 
 [node name="SkeletonImage" type="TextureRect" parent="."]
 layout_mode = 0

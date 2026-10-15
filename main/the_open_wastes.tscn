@@ -5,6 +5,10 @@
 [ext_resource type="Script" path="res://world/buildings/building_placer.gd" id="3_vj1hu"]
 [ext_resource type="PackedScene" uid="uid://dfciq53er7gmf" path="res://world/terrain/terrain.tscn" id="4_mlopx"]
 [ext_resource type="Script" path="res://main/character_spawner.gd" id="5_5dc5b"]
+[ext_resource type="PackedScene" uid="uid://clqkqfj5j16i1" path="res://world/buildings/building001/building001.tscn" id="6_building"]
+[ext_resource type="PackedScene" uid="uid://ojmhaxt8075x" path="res://player/player.tscn" id="7_player"]
+[ext_resource type="PackedScene" uid="uid://lvjprgceb8wt" path="res://npcs/shotgun_monk/shotgun_monk.tscn" id="8_monk"]
+[ext_resource type="Script" path="res://main/spawn_point.gd" id="9_spawn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_af2t8"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -39,17 +43,34 @@ shadow_enabled = true
 
 [node name="MAIN_SEQUENCE" type="Node3D" parent="."]
 script = ExtResource("2_hme1r")
+death_screen = "uid://c45ui65hom4ef"
+main_menu = "uid://dhsa2fr57peog"
 
 [node name="TerrainGenerator" parent="MAIN_SEQUENCE" instance=ExtResource("4_mlopx")]
 
-[node name="BuildingSpawner" type="Node3D" parent="MAIN_SEQUENCE"]
+[node name="BuildingSpawner" type="Node3D" parent="MAIN_SEQUENCE" node_paths=PackedStringArray("terrain")]
 script = ExtResource("3_vj1hu")
+terrain = NodePath("../TerrainGenerator")
+building_scene = ExtResource("6_building")
 
-[node name="CharacterSpawner" type="Node3D" parent="MAIN_SEQUENCE"]
+[node name="CharacterSpawner" type="Node3D" parent="MAIN_SEQUENCE" node_paths=PackedStringArray("terrain")]
 script = ExtResource("5_5dc5b")
+terrain = NodePath("../TerrainGenerator")
+
+[node name="PlayerSpawn" type="Marker3D" parent="MAIN_SEQUENCE/CharacterSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 8)
+script = ExtResource("9_spawn")
+scene = ExtResource("7_player")
+height_above_ground = 2.0
+
+[node name="ShotgunMonkSpawn" type="Marker3D" parent="MAIN_SEQUENCE/CharacterSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0, -8.5)
+script = ExtResource("9_spawn")
+scene = ExtResource("8_monk")
 
 [connection signal="generate_terrain_signal" from="MAIN_SEQUENCE" to="MAIN_SEQUENCE/TerrainGenerator" method="_on_main_sequence_generate_terrain_signal"]
 [connection signal="place_buildings_signal" from="MAIN_SEQUENCE" to="MAIN_SEQUENCE/BuildingSpawner" method="_on_main_sequence_place_buildings_signal"]
 [connection signal="spawn_characters_signal" from="MAIN_SEQUENCE" to="MAIN_SEQUENCE/CharacterSpawner" method="_on_main_sequence_spawn_characters_signal"]
 [connection signal="landscape_complete" from="MAIN_SEQUENCE/TerrainGenerator" to="MAIN_SEQUENCE" method="_on_terrain_landscape_complete"]
 [connection signal="buildings_complete" from="MAIN_SEQUENCE/BuildingSpawner" to="MAIN_SEQUENCE" method="_on_building_placer_buildings_complete"]
+[connection signal="player_spawned" from="MAIN_SEQUENCE/CharacterSpawner" to="MAIN_SEQUENCE" method="_on_character_spawner_player_spawned"]
