@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://combat/projectile.gd" id="1_6mqnv"]
 [ext_resource type="Shader" path="res://combat/bullet_tracer.gdshader" id="2_frtgf"]
-[ext_resource type="ArrayMesh" uid="uid://bj5m26oqd431s" path="res://combat/projectile_tracermesh_only.tres" id="3_bs82v"]
+[ext_resource type="ArrayMesh" uid="uid://bj5m26oqd431s" path="res://combat/projectile_tracer_mesh_only.tres" id="3_bs82v"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2l1lq"]
 render_priority = 0

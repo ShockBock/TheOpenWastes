@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://bsyh2g0iqygo2"]
 
 [ext_resource type="Script" path="res://player/weapons/pistol/player_pistol.gd" id="1_fp756"]
-[ext_resource type="Script" path="res://player/weapons/pistol/player_pistoldata.gd" id="2_a03b0"]
+[ext_resource type="Script" path="res://player/weapons/pistol/player_pistol_data.gd" id="2_a03b0"]
 [ext_resource type="PackedScene" uid="uid://bbmdggtk16lpm" path="res://player/weapons/pistol/player_arm_with_pistol.gltf" id="3_60m8b"]
 [ext_resource type="Script" path="res://player/weapons/player_projectile_spawner.gd" id="4_hwvs8"]
 [ext_resource type="Script" path="res://combat/muzzle_flash/muzzle_flash.gd" id="5_16l04"]

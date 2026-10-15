@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://npcs/shotgun_monk/shotgun_monk.gd" id="1_uyo7i"]
 [ext_resource type="Texture2D" uid="uid://q2r5xerf6dde" path="res://npcs/shotgun_monk/sprites/marag1aim.png" id="2_4alky"]
-[ext_resource type="Script" path="res://npcs/shotgun_monk/shotgun_monkdata.gd" id="2_sdc6d"]
+[ext_resource type="Script" path="res://npcs/shotgun_monk/shotgun_monk_data.gd" id="2_sdc6d"]
 [ext_resource type="Texture2D" uid="uid://dp1cyjwluoiy7" path="res://npcs/shotgun_monk/sprites/marah0.png" id="3_rqd8c"]
 [ext_resource type="Texture2D" uid="uid://dl05tbhkrc04c" path="res://npcs/shotgun_monk/sprites/marai0.png" id="4_jpk0e"]
 [ext_resource type="Texture2D" uid="uid://by7niqiiheia6" path="res://npcs/shotgun_monk/sprites/maraj0.png" id="5_gvskk"]
@@ -44,7 +44,7 @@
 [ext_resource type="Script" path="res://npcs/state_machine/states/state_fire.gd" id="41_cvoe3"]
 [ext_resource type="Script" path="res://npcs/state_machine/states/state_pursue.gd" id="42_y7ta1"]
 [ext_resource type="Script" path="res://npcs/state_machine/states/state_strafe.gd" id="43_lrpk6"]
-[ext_resource type="Script" path="res://npcs/shotgun_monk/shotgun_monkprojectile_spawner.gd" id="44_e5g06"]
+[ext_resource type="Script" path="res://npcs/shotgun_monk/shotgun_monk_projectile_spawner.gd" id="44_e5g06"]
 [ext_resource type="Script" path="res://common/audio_node.gd" id="45_eb0xb"]
 [ext_resource type="AudioStream" uid="uid://bdl2wfibryv4m" path="res://npcs/shotgun_monk/sfx/shotgun_monk_die.wav" id="46_ayg07"]
 [ext_resource type="AudioStream" uid="uid://02tp7qnpdxeb" path="res://npcs/shotgun_monk/sfx/shotgun_monk_fire.wav" id="47_5iy0j"]

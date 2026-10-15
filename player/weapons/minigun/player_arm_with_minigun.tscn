@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bhxijgayhvkhc" path="res://player/weapons/minigun/textures/fps_arm_with_minigun_minigun_color.jpg" id="1_n011y"]
 [ext_resource type="Script" path="res://player/weapons/minigun/player_minigun.gd" id="1_u4lgn"]
-[ext_resource type="Script" path="res://player/weapons/minigun/player_minigundata.gd" id="2_8wg6o"]
+[ext_resource type="Script" path="res://player/weapons/minigun/player_minigun_data.gd" id="2_8wg6o"]
 [ext_resource type="Texture2D" uid="uid://c6wpip0scppn6" path="res://player/weapons/minigun/textures/fps_arm_with_minigun_minigun_metallic.png" id="2_ioreh"]
 [ext_resource type="Texture2D" uid="uid://cnjaxe3wwgfu0" path="res://player/weapons/minigun/textures/fps_arm_with_minigun_minigun_normal.jpg" id="3_87ycl"]
 [ext_resource type="Texture2D" uid="uid://j43ri306fmnh" path="res://player/weapons/minigun/textures/fps_arm_with_minigun_player_arms_color.png" id="4_y8b4s"]
