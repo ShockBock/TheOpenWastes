@@ -25,12 +25,12 @@ func _ready():
 		config.set_value("keymapping", "exit", "Escape")
 		config.set_value("mouse", "mouse_sensitivity", 0.03)
 		config.set_value("mouse", "invert_mouse", false)
-		
+
 		# For location of save file, see https://youtu.be/tfqJjDw0o7Y?t=104
 		config.save(SETTINGS_FILE_PATH)
 	else:
 		config.load(SETTINGS_FILE_PATH)
-	
+
 	apply_keymapping()
 
 
@@ -53,7 +53,7 @@ func save_keymapping(action: StringName, event) -> void:
 		event_str = OS.get_keycode_string(event.physical_keycode)
 	elif event is InputEventMouseButton:
 		event_str = "mouse_" + str(event.button_index)
-	
+
 	config.set_value("keymapping", action, event_str)
 	config.save(SETTINGS_FILE_PATH)
 
@@ -63,7 +63,7 @@ func load_keymapping() -> Dictionary:
 	for key in config.get_section_keys("keymapping"):
 		var input_event
 		var event_str: String = config.get_value("keymapping", key)
-		
+
 		if event_str.contains("mouse_"):
 			input_event = InputEventMouseButton.new()
 			# Detailed explanation here: https://youtu.be/tfqJjDw0o7Y?t=651
@@ -71,7 +71,7 @@ func load_keymapping() -> Dictionary:
 		else:
 			input_event = InputEventKey.new()
 			input_event.physical_keycode = OS.find_keycode_from_string(event_str)
-		
+
 		keymapping[key] = input_event
 	return keymapping
 

@@ -18,16 +18,16 @@ var shooter_collision: CollisionShape3D
 func _ready() -> void:
 	look_at(global_position + normalised_direction_vector, Vector3.UP)
 
+
 ## Inherits key variables from node with spawned the projectile
 ## and assigns them to local variables
 func set_up_variables(
-		direction,
-		own_collision_mesh,
-		projectile_speed,
-		projectile_life_secs,
-		projectile_max_damage,
-		) -> void:
-	
+	direction,
+	own_collision_mesh,
+	projectile_speed,
+	projectile_life_secs,
+	projectile_max_damage,
+) -> void:
 	normalised_direction_vector -= direction
 	speed = projectile_speed
 	max_life_time_secs = projectile_life_secs
@@ -39,9 +39,9 @@ func set_up_variables(
 func _physics_process(delta):
 	var velocity = normalised_direction_vector * speed * delta
 	position += velocity
-	
+
 	collision_detection()
-	
+
 	lifetime_and_self_termination(delta)
 
 
@@ -64,8 +64,7 @@ func collision_detection() -> void:
 
 
 func damage_as_a_function_of_projectile_lifespan() -> float:
-	var percentage_projectile_force_remaining = \
-			remaining_life_time_secs / max_life_time_secs
+	var percentage_projectile_force_remaining = remaining_life_time_secs / max_life_time_secs
 	damage = max_damage * percentage_projectile_force_remaining
 	return damage
 

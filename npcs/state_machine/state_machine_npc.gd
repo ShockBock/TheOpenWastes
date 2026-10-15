@@ -11,6 +11,7 @@ extends Node
 
 var current_state: State
 
+
 # Initialize the state machine by giving each child state a reference to the
 # parent object it belongs to and enter the default starting_state.
 func init(npc: Node3D, animations: AnimatedSprite3D) -> void:
@@ -20,6 +21,7 @@ func init(npc: Node3D, animations: AnimatedSprite3D) -> void:
 
 	# Initialize to the default state
 	change_state(starting_state)
+
 
 # Change to the new state by first calling any exit logic on the current state.
 func change_state(new_state: State) -> void:
@@ -51,5 +53,4 @@ func process_frame(delta: float) -> void:
 
 
 func taken_hit() -> void:
-		change_state(hit_state)
-	
+	change_state(hit_state)

@@ -8,6 +8,7 @@ extends State
 
 var aiming_time_countdown: float
 
+
 func enter():
 	super()
 	aiming_time_countdown = npc_data.aiming_time_secs
@@ -18,10 +19,10 @@ func process_physics(delta: float) -> State:
 	if aiming_time_countdown > 0:
 		aiming_time_countdown -= delta
 		return null
-	
+
 	if distance_to_player > npc_data.firing_range:
 		return pursue_state
-	
+
 	else:
 		return fire_state
 

@@ -10,6 +10,7 @@ var last_damage_taken: float
 ## has already been turned off
 var is_dead: bool = false
 
+
 func _ready() -> void:
 	state_machine.init(self, animations)
 

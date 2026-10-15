@@ -14,6 +14,7 @@ var direction: Vector3
 @export var projectile_data: Node
 @export var projectile_spawn_point: Marker3D
 
+
 func _on_weapon_fired() -> void:
 	normalised_direction()
 	instantiate_projectile()
@@ -25,15 +26,18 @@ func normalised_direction() -> void:
 
 func instantiate_projectile() -> void:
 	projectile_instance = projectile.instantiate()
-	
+
 	# Pass necessary data to the projectile
-	projectile_instance.set_up_variables(
-		direction,
-		own_collision_mesh,
-		projectile_data.projectile_speed,
-		projectile_data.projectile_life_secs,
-		projectile_data.projectile_max_damage,
+	(
+		projectile_instance
+		. set_up_variables(
+			direction,
+			own_collision_mesh,
+			projectile_data.projectile_speed,
+			projectile_data.projectile_life_secs,
+			projectile_data.projectile_max_damage,
+		)
 	)
-	
+
 	add_child(projectile_instance)
 	projectile_instance.global_transform.origin = projectile_spawn_point.global_transform.origin

@@ -11,9 +11,9 @@ extends Node3D
 @export var sparks: GPUParticles3D
 
 @export_group("Muzzle flash characteristics")
-## Min size of displayed muzzle flash assets 
+## Min size of displayed muzzle flash assets
 @export var scaling_factor_rand_min: float = 0.0
-## Max size of displayed muzzle flash assets 
+## Max size of displayed muzzle flash assets
 @export var scaling_factor_rand_max: float = 1.0
 ## Sets rate at which muzzle flash assets shrink
 @export var muzzle_flash_decay_factor: float = 0.6
@@ -23,9 +23,11 @@ extends Node3D
 
 var current_flash_duration: float
 
+
 func _ready() -> void:
 	flash.visible = false
 	flare.visible = false
+
 
 ## Signal and function name must match,
 ## as the muzzle flash script is shared with other weapons.

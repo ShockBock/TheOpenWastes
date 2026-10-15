@@ -8,7 +8,8 @@ signal generate_terrain_signal
 signal place_buildings_signal
 signal spawn_characters_signal
 
-@onready var DeathScreen:= preload("res://ui/death_screen.tscn")
+@onready var DeathScreen := preload("res://ui/death_screen.tscn")
+
 
 func _ready():
 	main_sequence_begin()

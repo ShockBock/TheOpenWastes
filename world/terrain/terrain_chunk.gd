@@ -74,7 +74,8 @@ func build_chunk_data(chunk_x: int, chunk_z: int) -> void:
 	for z: int in range(border_side):
 		for x: int in range(border_side):
 			heights[z * border_side + x] = height_at(
-					origin_x + (x - 1) * step, origin_z + (z - 1) * step)
+				origin_x + (x - 1) * step, origin_z + (z - 1) * step
+			)
 
 	var surface_tool: SurfaceTool = SurfaceTool.new()
 	surface_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
@@ -82,10 +83,14 @@ func build_chunk_data(chunk_x: int, chunk_z: int) -> void:
 	for z: int in range(verts_per_side):
 		for x: int in range(verts_per_side):
 			var i: int = (z + 1) * border_side + (x + 1)
-			var normal: Vector3 = Vector3(
+			var normal: Vector3 = (
+				Vector3(
 					heights[i - 1] - heights[i + 1],
 					2.0 * step,
-					heights[i - border_side] - heights[i + border_side]).normalized()
+					heights[i - border_side] - heights[i + border_side]
+				)
+				. normalized()
+			)
 			surface_tool.set_normal(normal)
 			surface_tool.set_uv(Vector2(x, z) / subdivisions)
 			surface_tool.add_vertex(Vector3(x * step, heights[i], z * step))
@@ -127,7 +132,9 @@ func apply_chunk_data() -> void:
 
 ## HeightMapShape3D cells are 1 unit apart, so heights are divided by step
 ## here and the shape is scaled back up by step when applied.
-func build_heightmap(heights: PackedFloat32Array, border_side: int, step: float) -> PackedFloat32Array:
+func build_heightmap(
+	heights: PackedFloat32Array, border_side: int, step: float
+) -> PackedFloat32Array:
 	var size: int = subdivisions + 1
 	var map: PackedFloat32Array = PackedFloat32Array()
 	map.resize(size * size)

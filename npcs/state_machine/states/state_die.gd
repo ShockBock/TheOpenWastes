@@ -1,8 +1,9 @@
 extends State
 
-@export var collision_shape : CollisionShape3D
-@export var death_sound : AudioStreamPlayer3D
+@export var collision_shape: CollisionShape3D
+@export var death_sound: AudioStreamPlayer3D
 @export var npc_data: Node
+
 
 func enter():
 	super()

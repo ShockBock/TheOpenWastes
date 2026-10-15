@@ -3,7 +3,7 @@ extends Control
 ## Key mapping code and associated node hierarchy based on
 ## "Easy Input Settings Menu | Let's Godot",
 ## https://www.youtube.com/watch?v=ZDPM45cHHlI, and
-## "Save and Load Settings in Godot 4 with ConfigFile | Let's Godot", 
+## "Save and Load Settings in Godot 4 with ConfigFile | Let's Godot",
 ## https://www.youtube.com/watch?v=tfqJjDw0o7Y, by DashNothing
 
 @onready var input_button_scene = preload("res://ui/input_button.tscn")
@@ -29,6 +29,7 @@ var input_actions_dictionary: Dictionary = {
 	"exit": "Exit to menu",
 }
 
+
 func _ready():
 	import_mouse_settings()
 	clear_action_list()
@@ -38,7 +39,7 @@ func _ready():
 ## Loads mouse settings from the singleton config_file_handler.gd
 func import_mouse_settings() -> void:
 	var mouse_settings: Dictionary = ConfigFileHandler.load_mouse_settings()
-	
+
 	mouse_sensitivity_slider.value = mouse_settings.mouse_sensitivity
 	invert_mouse_button.button_pressed = mouse_settings.invert_mouse
 
@@ -53,23 +54,23 @@ func clear_action_list() -> void:
 			item.queue_free()
 
 
-## Creates new instances of input_button.tscn, based on the number of items in 
+## Creates new instances of input_button.tscn, based on the number of items in
 ## input_actions_dictionary. Then gets input map from project settings and
-## assigns appropriate key name to each action's label. 
+## assigns appropriate key name to each action's label.
 func populate_action_list() -> void:
 	for action in input_actions_dictionary:
 		var button = input_button_scene.instantiate()
-		
+
 		var action_label: Label = button.find_child("LabelAction")
 		action_label.text = input_actions_dictionary[action]
-		
+
 		var input_label: Label = button.find_child("LabelInput")
 		var events = InputMap.action_get_events(action)
 		if events.size() > 0:
 			input_label.text = events[0].as_text().trim_suffix(" (Physical)")
 		else:
 			input_label.text = ""
-		
+
 		action_list.add_child(button)
 		button.pressed.connect(on_input_button_pressed.bind(button, action))
 
@@ -79,11 +80,10 @@ func set_mouse_defaults() -> void:
 	ConfigFileHandler.save_mouse_settings("mouse_sensitivity", mouse_sensitivity_slider.value)
 	invert_mouse_button.button_pressed = false
 	ConfigFileHandler.save_mouse_settings("invert_mouse", false)
-	
 
 
 ## Called whenever any keymapping button is pressed,
-## allowing user to map new key to selected action. 
+## allowing user to map new key to selected action.
 func on_input_button_pressed(button, action):
 	if is_remapping == false:
 		is_remapping = true
@@ -94,24 +94,20 @@ func on_input_button_pressed(button, action):
 
 func _input(event):
 	if is_remapping == true:
-		if (
-			event is InputEventKey or
-			(event is InputEventMouseButton and event.pressed)
-			):
-			
+		if event is InputEventKey or (event is InputEventMouseButton and event.pressed):
 			# Turn double click into single click
 			if event is InputEventMouseButton and event.double_click:
 				event.double_click = false
-			
+
 			InputMap.action_erase_events(action_to_remap)
 			InputMap.action_add_event(action_to_remap, event)
 			ConfigFileHandler.save_keymapping(action_to_remap, event)
 			update_action_list(remapping_button, event)
-			
+
 			is_remapping = false
 			action_to_remap = null
 			remapping_button = null
-			
+
 			# Prevents input from being captured by nodes further up the hierarchy
 			accept_event()
 

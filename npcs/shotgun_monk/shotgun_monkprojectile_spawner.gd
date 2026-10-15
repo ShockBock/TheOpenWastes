@@ -18,6 +18,7 @@ var projectile_spread: Vector3
 
 @onready var player: CharacterBody3D = get_tree().get_first_node_in_group("player")
 
+
 func _on_shotgun_monk_fire_spawn_projectiles():
 	normalised_direction_to_target()
 	for projectile_count in shotgun_monk_data.projectiles:
@@ -33,9 +34,15 @@ func normalised_direction_to_target() -> void:
 
 
 func calculate_offset_due_to_shotgun_spread() -> void:
-		projectile_spread.x = randf_range(-shotgun_monk_data.projectile_spread, shotgun_monk_data.projectile_spread)
-		projectile_spread.y = randf_range(-shotgun_monk_data.projectile_spread, shotgun_monk_data.projectile_spread)
-		projectile_spread.z = randf_range(-shotgun_monk_data.projectile_spread, shotgun_monk_data.projectile_spread)
+	projectile_spread.x = randf_range(
+		-shotgun_monk_data.projectile_spread, shotgun_monk_data.projectile_spread
+	)
+	projectile_spread.y = randf_range(
+		-shotgun_monk_data.projectile_spread, shotgun_monk_data.projectile_spread
+	)
+	projectile_spread.z = randf_range(
+		-shotgun_monk_data.projectile_spread, shotgun_monk_data.projectile_spread
+	)
 
 
 func instantiate_projectile() -> void:
@@ -44,17 +51,13 @@ func instantiate_projectile() -> void:
 	direction = direction.normalized()
 	var projectile_life_secs = shotgun_monk_data.projectile_life_secs
 	var projectile_max_damage = shotgun_monk_data.projectile_max_damage
-	
+
 	var projectile_instance = projectile.instantiate()
-	
+
 	# Pass necessary data to the projectile
 	projectile_instance.set_up_variables(
-		direction,
-		own_collision,
-		projectile_speed,
-		projectile_life_secs,
-		projectile_max_damage
-		)
-	
+		direction, own_collision, projectile_speed, projectile_life_secs, projectile_max_damage
+	)
+
 	add_child(projectile_instance)
 	projectile_instance.global_transform.origin = projectile_spawn_point.global_transform.origin

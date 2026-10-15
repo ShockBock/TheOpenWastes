@@ -78,8 +78,8 @@ func generate_initial_area() -> void:
 	# Generate the whole area in parallel. Nothing can be placed until the
 	# ground exists, so wait for it to finish.
 	var group_id: int = WorkerThreadPool.add_group_task(
-			func(i: int) -> void: new_chunks[i].build_chunk_data(keys[i].x, keys[i].y),
-			keys.size())
+		func(i: int) -> void: new_chunks[i].build_chunk_data(keys[i].x, keys[i].y), keys.size()
+	)
 	WorkerThreadPool.wait_for_group_task_completion(group_id)
 
 	for i in range(keys.size()):
@@ -113,8 +113,9 @@ func update_chunks() -> void:
 			return
 
 	var player_chunk: Vector2i = Vector2i(
-			int(floor(player.global_position.x / chunk_size)),
-			int(floor(player.global_position.z / chunk_size)))
+		int(floor(player.global_position.x / chunk_size)),
+		int(floor(player.global_position.z / chunk_size))
+	)
 
 	needed_chunks.clear()
 	var queue_changed: bool = false
@@ -127,8 +128,10 @@ func update_chunks() -> void:
 				queue_changed = true
 
 	if queue_changed:
-		spawn_queue.sort_custom(func(a: Vector2i, b: Vector2i) -> bool:
-				return (a - player_chunk).length_squared() < (b - player_chunk).length_squared())
+		spawn_queue.sort_custom(
+			func(a: Vector2i, b: Vector2i) -> bool:
+				return (a - player_chunk).length_squared() < (b - player_chunk).length_squared()
+		)
 
 	# Drop queued chunks the player has moved away from
 	spawn_queue = spawn_queue.filter(func(key: Vector2i) -> bool: return needed_chunks.has(key))
@@ -202,6 +205,5 @@ func scaled_terrain_material(chunk: Node3D) -> ShaderMaterial:
 	# Keep the blend range above zero, as the shader divides by it
 	var ratio: float = max(amplitude, 0.1) / chunk.height_scale
 	for parameter in ["min_height", "max_height"]:
-		material.set_shader_parameter(parameter,
-				material.get_shader_parameter(parameter) * ratio)
+		material.set_shader_parameter(parameter, material.get_shader_parameter(parameter) * ratio)
 	return material

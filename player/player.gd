@@ -40,10 +40,10 @@ var mouse_sensitivity: float
 func _ready() -> void:
 	# Use mouse as movement for camera, rather than pointer
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
+
 	health_counter.text = str(health)
 	mouse_freed = false
-	
+
 	mouse_sensitivity = mouse_settings.mouse_sensitivity
 	mouse_inverted = mouse_settings.invert_mouse
 
@@ -58,7 +58,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			y_sensitivity = mouse_sensitivity
 		camera.rotate_x(-event.relative.y * y_sensitivity)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
-	
+
 	if Input.is_action_just_pressed("free_mouse"):
 		if mouse_freed == false:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -66,6 +66,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			mouse_freed = false
+
 
 func _physics_process(delta: float) -> void:
 	# Add gravity.
@@ -77,17 +78,19 @@ func _physics_process(delta: float) -> void:
 			velocity.y = jump_velocity
 		else:
 			velocity.y = -0.5
-	
+
 	# Handle Sprint.
 	if Input.is_action_pressed("sprint"):
 		speed = sprint_speed
 	else:
 		speed = walk_speed
-	
+
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
-	var direction: Vector3 = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	
+	var direction: Vector3 = (
+		(head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	)
+
 	if is_on_floor():
 		if direction:
 			velocity.x = direction.x * speed
@@ -100,18 +103,18 @@ func _physics_process(delta: float) -> void:
 		# Maintains direction once jumped until ground reached.
 		velocity.x = lerp(velocity.x, direction.x * speed, delta * 2.0)
 		velocity.z = lerp(velocity.z, direction.z * speed, delta * 2.0)
-	
+
 	# Head bob
 	t_bob += delta * velocity.length() * float(is_on_floor())
 	camera.transform.origin = _headbob(t_bob)
-	
+
 	# FOV
 	var velocity_clamped = clamp(velocity.length(), 0.5, sprint_speed * 2)
 	var target_fov = base_fov + fov_change * velocity_clamped
 	camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
 
 	move_and_slide()
-	
+
 	if Input.is_action_just_pressed("exit"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		get_tree().change_scene_to_file("res://ui/start_screen.tscn")
