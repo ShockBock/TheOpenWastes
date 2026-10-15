@@ -1,0 +1,53 @@
+name: Checks
+
+on:
+  push:
+  pull_request:
+
+env:
+  GODOT_VERSION: 4.7.2
+
+jobs:
+  lint:
+    name: GDScript style
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "gdtoolkit==4.*"
+      - name: gdlint
+        run: gdlint $(git ls-files '*.gd')
+      - name: gdformat
+        run: gdformat --check $(git ls-files '*.gd')
+
+  godot:
+    name: Import, compile and smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Godot
+        id: cache-godot
+        uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT_VERSION }}
+
+      - name: Download Godot
+        if: steps.cache-godot.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p ~/godot
+          curl -sSL -o godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          unzip -q godot.zip -d ~/godot
+          mv ~/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64 ~/godot/godot
+
+      - name: Import assets
+        run: ~/godot/godot --headless --path . --import
+
+      - name: Load every script and scene
+        run: ~/godot/godot --headless --path . -s res://tools/ci/check_project.gd
+
+      - name: Smoke test the main scene
+        run: ~/godot/godot --headless --path . -s res://tools/ci/smoke_test.gd
