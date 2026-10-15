@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c41js0kkbuf7y"]
 
-[ext_resource type="PackedScene" uid="uid://scifns60i28g" path="res://Models/Building001/wall_interior.blend" id="1_3xtrp"]
+[ext_resource type="PackedScene" uid="uid://del8h6ol1oeva" path="res://Models/Building001/wall_interior.gltf" id="1_3xtrp"]
 
 [node name="Node3D" type="Node3D"]
 

@@ -33,8 +33,7 @@ window/vsync/vsync_mode=0
 
 [filesystem]
 
-import/blender/enabled.android=true
-import/blender/enabled.web=true
+import/blender/enabled=false
 
 [input]
 
