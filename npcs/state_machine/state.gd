@@ -10,7 +10,6 @@ extends Node
 
 @export var animation_name: String
 
-var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 ## Set by the state machine
 var npc: NPC
 

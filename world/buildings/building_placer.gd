@@ -29,4 +29,5 @@ func place_building(grid_x: int, grid_z: int) -> void:
 	)
 	var building: Node3D = building_scene.instantiate()
 	building.position = Vector3(x, terrain.height_at(x, z) + y_offset_metres, z)
+	building.terrain = terrain
 	add_child(building)

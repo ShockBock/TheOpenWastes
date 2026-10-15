@@ -56,15 +56,8 @@ func set_idle_target_position() -> void:
 
 
 func move_to_idle_target_position(delta: float) -> void:
-	# Calculate the direction vector from the current position to the target position
-	direction_to_idle_target = character_idle_target_position - npc.global_position
-	# Normalize the direction to get a unit vector
-	direction_to_idle_target = direction_to_idle_target.normalized()
-
-	direction_to_idle_target.y = 0 - (gravity * delta)
-
-	npc.velocity = direction_to_idle_target * npc.stats.move_speed
-	npc.move_and_slide()
+	direction_to_idle_target = (character_idle_target_position - npc.global_position).normalized()
+	npc.move_horizontally(direction_to_idle_target, npc.stats.move_speed, delta)
 
 
 #region Experimental

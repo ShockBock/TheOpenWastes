@@ -17,25 +17,18 @@ func process_physics(delta: float) -> State:
 	if distance_to_target < npc.stats.firing_range:
 		if current_pursue_time_secs <= 0:
 			return aim_state
-		move_outside_navmesh(delta)
+		move_towards_target(delta)
 		return null
 
 	if distance_to_target > npc.stats.minimum_idle_range:
 		return idle_state
 
-	move_outside_navmesh(delta)
+	move_towards_target(delta)
 	return null
 
 
-func move_outside_navmesh(delta: float) -> void:
+func move_towards_target(delta: float) -> void:
 	current_pursue_time_secs -= delta
-
-	var direction: Vector3 = (npc.target.global_position - npc.global_position).normalized()
-
-	var velocity: Vector3 = direction * npc.stats.move_speed
-	velocity.y = 0 - (gravity * delta)
-
-	npc.velocity = velocity
-	npc.move_and_slide()
-
-	npc.look_at(npc.global_position + direction, Vector3.UP)
+	npc.move_towards(
+		npc.target.global_position, npc.target.current_building, npc.stats.move_speed, delta
+	)

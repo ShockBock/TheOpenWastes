@@ -35,6 +35,8 @@ var speed: float = 0.0
 var t_bob: float = 0.0
 var mouse_inverted: bool
 var mouse_sensitivity: float
+## The building the player is inside, set by the building; null when outdoors
+var current_building: Node3D
 
 
 func _ready() -> void:

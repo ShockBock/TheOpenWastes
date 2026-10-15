@@ -32,11 +32,7 @@ func process_physics(delta: float) -> State:
 			return pursue_state
 		return aim_state
 
-	var velocity: Vector3 = strafe_direction * npc.stats.move_speed
-	velocity.y = 0 - (gravity * delta)
-
-	npc.velocity = velocity
-	npc.move_and_slide()
+	npc.move_horizontally(strafe_direction, npc.stats.move_speed, delta)
 
 	npc.look_at(npc.target.global_position, Vector3.UP)
 
