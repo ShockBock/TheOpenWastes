@@ -41,5 +41,5 @@ materials/extract_format=0
 materials/extract_path=""
 _subresources={}
 gltf/naming_version=1
-gltf/embedded_image_handling=1
+gltf/embedded_image_handling=3
 gltf/texture_map_mode=0
