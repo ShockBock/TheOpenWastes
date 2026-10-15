@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=3 uid="uid://ojmhaxt8075x"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_pm0ck"]
+[ext_resource type="Script" path="res://player/weapons/weapon_controller.gd" id="3_e88se"]
+[ext_resource type="FontFile" uid="uid://cet56eraj0led" path="res://common/fonts/komikadisplay_rov.ttf" id="4_dj6t1"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_be4rj"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_atp8x"]
+radius = 0.4
+height = 1.8
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head", "camera", "health_counter") groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+floor_max_angle = 0.872665
+script = ExtResource("1_pm0ck")
+head = NodePath("Head")
+camera = NodePath("Head/Camera3D")
+health_counter = NodePath("CanvasLayer/HUD/HealthCounter")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_be4rj")
+
+[node name="Player_CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_atp8x")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="PlayerWeaponController" type="Node3D" parent="Head/Camera3D"]
+script = ExtResource("3_e88se")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HealthCounter" type="Label" parent="CanvasLayer/HUD"]
+modulate = Color(1, 1, 1, 0.403922)
+layout_mode = 0
+offset_top = 565.0
+offset_right = 110.0
+offset_bottom = 648.0
+theme_override_fonts/font = ExtResource("4_dj6t1")
+theme_override_font_sizes/font_size = 70
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CrossHair" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -6.0
+offset_right = 11.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.27451)

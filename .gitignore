@@ -1,5 +1,10 @@
 # Godot 4+ specific ignores
 .godot/
-*.blend1
-/addons/
+/android/
+
+# Temporary files the editor leaves behind when a save is interrupted
+*.tscn-*
+*.tres-*
+
+# Local experiments
 /experimental/

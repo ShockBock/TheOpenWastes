@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ds67oyoj7551u"]
+
+[ext_resource type="PackedScene" uid="uid://bjsy7vser1856" path="res://world/buildings/building001/pieces/models/floor_top_wall_blocker002.gltf" id="1_fvoq1"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="floor_top_wall_blocker002" parent="." instance=ExtResource("1_fvoq1")]

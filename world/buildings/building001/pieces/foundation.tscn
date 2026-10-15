@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bc66nkq7ksxjm"]
+
+[ext_resource type="PackedScene" uid="uid://d1xaprke61qlj" path="res://world/buildings/building001/pieces/models/foundation.gltf" id="1_sa4es"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="foundation" parent="." instance=ExtResource("1_sa4es")]

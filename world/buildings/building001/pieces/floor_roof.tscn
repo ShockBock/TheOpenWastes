@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://i12g71b3ks76"]
+
+[ext_resource type="PackedScene" uid="uid://b208d2yqrour2" path="res://world/buildings/building001/pieces/models/floor_roof.gltf" id="1_1yfu5"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="floor_roof" parent="." instance=ExtResource("1_1yfu5")]

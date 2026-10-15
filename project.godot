@@ -16,14 +16,14 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="TheOpenWastes"
 config/tags=PackedStringArray("open_wastes")
-run/main_scene="res://Scenes/ui/start_screen.tscn"
+run/main_scene="res://ui/start_screen.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://images/icon.png"
+config/icon="res://icon.png"
 
 [autoload]
 
-Global="*res://scripts/singletons/global.gd"
-ConfigFileHandler="*res://scripts/singletons/config_file_handler.gd"
+Global="*res://autoload/global.gd"
+ConfigFileHandler="*res://autoload/config_file_handler.gd"
 
 [display]
 

@@ -1,0 +1,32 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/terrain/terrain_chunk.gd" id="1_chunk"]
+[ext_resource type="Shader" uid="uid://cjws6ssilxr3a" path="res://world/terrain/terrain.gdshader" id="2_shader"]
+[ext_resource type="Texture2D" uid="uid://cuqmjg1d2ndoj" path="res://world/terrain/textures/ground051/ground051_1k_jpg_color.jpg" id="3_earth_albedo"]
+[ext_resource type="Texture2D" uid="uid://8csxd3i4nybc" path="res://world/terrain/textures/ground051/ground051_1k_jpg_normalgl.jpg" id="4_earth_normal"]
+[ext_resource type="Texture2D" uid="uid://cohssvbgi3x7g" path="res://world/terrain/textures/ground051/ground051_1k_jpg_roughness.jpg" id="5_earth_roughness"]
+[ext_resource type="Texture2D" uid="uid://xkmpqpkom4hy" path="res://world/terrain/textures/rock033/rock033_1k_jpg_color.jpg" id="6_rock_albedo"]
+[ext_resource type="Texture2D" uid="uid://dy4xe1jxnaflt" path="res://world/terrain/textures/rock033/rock033_1k_jpg_normalgl.jpg" id="7_rock_normal"]
+[ext_resource type="Texture2D" uid="uid://dvusb7mw6fga7" path="res://world/terrain/textures/rock033/rock033_1k_jpg_roughness.jpg" id="8_rock_roughness"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_terrain"]
+render_priority = 0
+shader = ExtResource("2_shader")
+shader_parameter/earth_albedo_image = ExtResource("3_earth_albedo")
+shader_parameter/earth_normal_image = ExtResource("4_earth_normal")
+shader_parameter/earth_roughness_image = ExtResource("5_earth_roughness")
+shader_parameter/rock_albedo_image = ExtResource("6_rock_albedo")
+shader_parameter/rock_normal_image = ExtResource("7_rock_normal")
+shader_parameter/rock_roughness_image = ExtResource("8_rock_roughness")
+shader_parameter/gradient_intensity = 0.137
+shader_parameter/transition_point = 0.49
+shader_parameter/min_height = -10.0
+shader_parameter/max_height = 10.0
+shader_parameter/earth_texture_scale = 20.0
+shader_parameter/rock_texture_scale = 6.7
+shader_parameter/texture_world_size = 64.0
+
+[node name="TerrainChunk" type="MeshInstance3D"]
+material_override = SubResource("ShaderMaterial_terrain")
+script = ExtResource("1_chunk")
+noise_scale = 5.0
