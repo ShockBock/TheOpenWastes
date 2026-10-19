@@ -44,6 +44,9 @@ const BROKEN_WALLS: Array[String] = [
 @export var pieces: Dictionary[String, PackedScene] = {}
 ## Navigation mesh pieces by name
 @export var navmesh_pieces: Dictionary[String, PackedScene] = {}
+## Debugging aid: shows a red sphere at entrance_position, the point where
+## NPCs switch from walking in a straight line to the navigation mesh
+@export var show_entrance_marker: bool = false
 
 ## Set by the building placer; used to find where the outer steps meet the
 ## ground. Without it, the entrance is the bottom of the steps.
@@ -76,6 +79,8 @@ func _ready() -> void:
 	build_top_floor()
 	build_roof()
 	find_entrance()
+	if show_entrance_marker:
+		add_entrance_marker()
 	build_interior_area()
 	bake_navigation_mesh()
 
@@ -241,6 +246,21 @@ func find_entrance() -> void:
 		if point.y <= ground:
 			entrance_position = Vector3(point.x, ground, point.z)
 			return
+
+
+func add_entrance_marker() -> void:
+	var sphere: SphereMesh = SphereMesh.new()
+	sphere.radius = 0.3
+	sphere.height = 0.6
+	var material: StandardMaterial3D = StandardMaterial3D.new()
+	material.albedo_color = Color.RED
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	sphere.material = material
+	var marker: MeshInstance3D = MeshInstance3D.new()
+	marker.name = "EntranceMarker"
+	marker.mesh = sphere
+	add_child(marker)
+	marker.global_position = entrance_position + Vector3.UP * 0.3
 
 
 func average_of_vertices_at_height(height: float) -> Vector3:

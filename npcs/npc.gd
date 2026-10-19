@@ -10,9 +10,12 @@ extends CharacterBody3D
 
 signal died
 
-## How close an NPC must be to a building's entrance to switch to its
-## navigation mesh
+## How close (horizontally) an NPC must come to a building's entrance to
+## switch to its navigation mesh
 const ENTRANCE_REACHED_DISTANCE: float = 1.5
+## How far (horizontally) an NPC committed to entering a building may stray
+## from its entrance before it gives up and heads back to the entrance
+const ENTRANCE_ABANDON_DISTANCE: float = 6.0
 ## How far a destination must move before the NPC asks for a new path
 const REPATH_DISTANCE: float = 0.5
 ## How often, in seconds, the NPC asks for a new path regardless
@@ -33,6 +36,8 @@ var target: Node3D
 var current_building: Node3D
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+## The building whose entrance the NPC has reached and is now climbing into
+var _entering_building: Node3D
 var _path: PackedVector3Array = []
 var _path_index: int = 0
 var _path_destination: Vector3 = Vector3.INF
@@ -79,11 +84,25 @@ func move_towards(
 		next_point = next_path_point(current_building.entrance_position)
 	elif current_building != destination_building:
 		var entrance: Vector3 = destination_building.entrance_position
-		if global_position.distance_to(entrance) > ENTRANCE_REACHED_DISTANCE:
+		# Reaching the entrance commits the NPC to the building's navigation
+		# mesh until it is inside. Without this, climbing the outer steps takes
+		# it back out of range of the entrance and it turns round.
+		if (
+			_entering_building != destination_building
+			and horizontal_distance_to(entrance) <= ENTRANCE_REACHED_DISTANCE
+		):
+			_entering_building = destination_building
+		elif (
+			_entering_building == destination_building
+			and horizontal_distance_to(entrance) > ENTRANCE_ABANDON_DISTANCE
+		):
+			_entering_building = null
+
+		if _entering_building == destination_building:
+			next_point = next_path_point(destination)
+		else:
 			# Straight across open ground to the entrance
 			next_point = entrance
-		else:
-			next_point = next_path_point(destination)
 	elif current_building != null:
 		next_point = next_path_point(destination)
 
